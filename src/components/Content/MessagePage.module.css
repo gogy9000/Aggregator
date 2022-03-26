@@ -1,0 +1,116 @@
+.content{
+    display: grid;
+    grid-template-areas:
+            'MB'
+            'EW'
+    ;
+}
+.messageBox{
+grid-area: MB;
+    min-height: content-box;
+    text-align: start;
+}
+.entryWindow{
+grid-area: EW;
+    display: grid;
+    grid-template-areas: 'T B';
+    grid-template-columns: 25fr 2fr;
+    border-style: solid;
+    border-width:1px ;
+    border-color: #adafaf;
+    border-radius:3px ;
+    margin: 1px;
+
+}
+.textarea{
+grid-area: T;
+    margin: 2px;
+}
+textarea{
+    padding: 1px;
+    width: 100%;
+    height: 100%;
+    border: none;
+
+}
+.button {
+    grid-area: B;
+    background-color: #8ca8a8;
+    border: none;
+    font-size: 25px;
+    font-family: Lobster, monospace;
+}
+.onButton{
+    grid-area: B;
+
+    border: none;
+    font-size: 25px;
+    font-family: Lobster, monospace;
+}
+
+.MessageBlock{
+
+    padding: 1px;
+    margin: 3px;
+    display: grid;
+    grid-template-areas:
+    'AVA BM'
+;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+    border-color: rgba(173,175,175,0.93);
+    grid-template-columns: 1fr 10fr;
+
+}
+.Avatar{
+    text-align: center;
+    justify-content: center;
+
+    grid-area: AVA;
+    text-align: center;
+    border-style: solid;
+    border-radius: 50%;
+    border-width: 1px;
+    border-color: #adafaf;
+    width: 70px;
+    height: 70px;
+    margin: 3px;
+
+
+}
+.BodyMess{
+    grid-area: BM;
+    display: grid;
+    grid-template-areas:
+            'N'
+            'M';
+
+    text-align: center;
+}
+.NickName{
+    grid-area: N;
+    font-family: antialiased,monospace ;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: left;
+    color: #646262;
+}
+.onNickName{
+    grid-area: N;
+    font-family: antialiased,monospace ;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: left;
+
+
+
+}
+.MessageBody{
+    grid-area: M;
+    border-style: none;
+    text-align: left;
+    padding: 3px 7px 1px 3px;
+
+
+}

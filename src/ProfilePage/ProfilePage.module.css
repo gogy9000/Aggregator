@@ -1,0 +1,113 @@
+.ProfilePage{
+    display: grid;
+    grid-template-areas: 'ProfileSidebar ProfileContent';
+    grid-template-columns: 1fr 3fr;
+}
+.Avatar{
+
+    border-style: solid;
+    border-width: 1px;
+    border-color: #adafaf;
+    border-radius: 3px;
+    padding: 3px;
+    margin: 1px;
+}
+.Avatar img{
+    height: 100%;
+    width: 100%;
+}
+.ProfileSidebar{
+    grid-area:ProfileSidebar ;
+    text-align: center;
+}
+
+.ProfileContent{
+    grid-area: ProfileContent;
+    text-align: center;
+}
+
+.FriendsBar{
+    display: grid;
+    grid-template-areas:
+    'FriendsBarTitle'
+    'FriendsBarContent';
+    border-style: solid;
+    border-width: 1px;
+    border-color: #adafaf;
+    border-radius: 3px;
+    padding: 3px;
+}
+.FriendsBarTitle{
+    grid-area: FriendsBarTitle ;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #adafaf;
+    border-radius: 3px;
+    padding: 3px;
+    margin: 1px;
+}
+.FriendsBarContent{
+    grid-area: FriendsBarContent ;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #adafaf;
+    border-radius: 3px;
+    padding: 3px;
+    margin: 1px;
+}
+
+.avaBlock{
+ padding: 1px;
+    margin: 1px;
+}
+.nickName{
+    color: #3c86a8;
+}
+.img{
+    width:70px;
+    height: 70px;
+    border-radius: 30%;
+
+}
+.PhotoBar{
+    display: grid;
+    grid-template-areas:
+    'albumTitle'
+    'albumContent';
+    border-style: solid;
+    border-width: 1px;
+    border-color: #adafaf;
+    border-radius: 3px;
+    padding: 3px;
+}
+.albumTitle{
+    grid-area: albumTitle ;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #adafaf;
+    border-radius: 3px;
+    padding: 3px;
+    margin: 1px;
+}
+.albumContent{
+    grid-area: albumContent;
+    display: grid;
+    grid-template-columns: 1fr 1fr ;
+    grid-template-rows: 1fr 1fr ;
+
+}
+.image {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #adafaf;
+    border-radius: 3px;
+
+}
+.image img{
+    width:100%;
+    height: 100%;
+    border-radius: 3px
+}

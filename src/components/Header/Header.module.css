@@ -1,0 +1,41 @@
+.Header{
+   display: grid;
+    grid-template-areas:
+    "I L E"
+;
+    grid-template-columns: 1fr 1fr 15fr;
+
+}
+.imgLogoWrapper{
+    padding: 10px 0px 5px 0px ;
+
+}
+.imgLogo {
+    grid-area: I;
+    text-align: left;
+
+
+
+}
+
+
+.LogoTip{
+    grid-area: L;
+    padding: 10px 10px 10px 10px;
+    font-family: Lobster;
+    font-size: 40px;
+    padding: 10px 0px 5px 0px ;
+
+
+
+}
+.LogoEmpty{
+    grid-area: E;
+
+}
+img{
+    width: 70px;
+
+}
+
+

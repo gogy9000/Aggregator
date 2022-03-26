@@ -1,0 +1,23 @@
+.elemBlock{
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 3px;
+    border-color: #adafaf;
+    margin: 1px;
+    padding: 1px;
+
+
+}
+.backGroundColor{
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 3px;
+    border-color: #adafaf;
+    margin: 1px;
+    padding: 1px;
+    background-color: #adafaf;
+}
+
+
+  
+  
