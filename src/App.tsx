@@ -1,4 +1,4 @@
-//@ts-ignore
+
 import {Route, Routes} from 'react-router-dom';
 import './App.css';
 import Footer from './components/Footer/Footer';
@@ -11,7 +11,7 @@ import ProfilePageContainer from "./ProfilePage/ProfilePageContainer";
 
 const App = () => {
 
-    // @ts-ignore
+
     // @ts-ignore
     return (
 
@@ -27,13 +27,14 @@ const App = () => {
             <div className='Content-wrapper'>
                 <div className='Content'>
 
+                  <Routes>
+                      <Route  path='/' element={<ProfilePageContainer/>}/>
+                        <Route path='/profile' element={<ProfilePageContainer/>}/>
 
-                        {/*<Route exact path='/profile' component={<ProfilePageContainer/>}/>*/}
-
-                        {/*<Route exact path='/content1' element={<MessagePageContainer/>*/}
-                        {/*}/>*/}
+                        <Route  path='/content1' element={<MessagePageContainer/>}/>
 
 
+                </Routes>
                 </div>
             </div>
             <div className='Footer-wrapper'>

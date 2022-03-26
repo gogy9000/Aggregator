@@ -8,7 +8,7 @@ let initialState = {
 
 
 export const messagePageReducer = (state = initialState, action) => {
-debugger
+
 
     switch (action.type) {
 

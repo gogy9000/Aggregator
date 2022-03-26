@@ -4,7 +4,7 @@ import s from './ProfilePage.module.css'
 import {PhotoBar} from "./PhotoBar";
 
 
-export const ProfileSidebar = (props) => {
+export const ProfileSidebar = (props:any) => {
     return (
         <div>
             <AvatarBlock/>
