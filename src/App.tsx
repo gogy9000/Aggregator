@@ -5,7 +5,7 @@ import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import NavBar from './components/NavBar/NavBar';
 import {MessagePageContainer} from "./components/Content/messagePageContainer";
-import ProfilePageContainer from "./ProfilePage/ProfilePageContainer";
+import ProfilePage from "./ProfilePage/ProfilePage";
 // import {ProfilePageContainer} from "./ProfilePage/ProfilePageContainer";
 
 
@@ -28,8 +28,8 @@ const App = () => {
                 <div className='Content'>
 
                   <Routes>
-                      <Route  path='/' element={<ProfilePageContainer/>}/>
-                        <Route path='/profile' element={<ProfilePageContainer/>}/>
+                      <Route  path='/' element={<ProfilePage/>}/>
+                        <Route path='/profile' element={<ProfilePage/>}/>
 
                         <Route  path='/content1' element={<MessagePageContainer/>}/>
 

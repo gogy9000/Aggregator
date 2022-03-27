@@ -4,7 +4,7 @@ import {NavItem} from "../components/NavBar/NavItem/NavItem";
 export const PhotoBar = (props) => {
     return (
         <div className={s.PhotoBar}>
-            <NavItem elementName={'friends'} to={'/friends'}/>
+            <NavItem elementName={'Photo'} to={'/Photo'}/>
             <div className={s.albumContent}>
                 <div className={s.image}>
                     <img className={s.img}

@@ -2,13 +2,12 @@ import {ProfileSidebar} from "./ProfileSidebar";
 import s from './ProfilePage.module.css'
 import {ProfileContent} from "./ProfileContent";
 import React from "react";
-import {useDispatch, useSelector} from "react-redux";
 
 
-const ProfilePageContainer = (props: any) => {
 
-    const users =useSelector((state:any)=>state.profilePage)
-    const dispatch= useDispatch()
+const ProfilePage = () => {
+
+
     return (
         <div className={s.ProfilePage}>
             <div className={s.ProfileSidebar}>
@@ -24,5 +23,5 @@ const ProfilePageContainer = (props: any) => {
 }
 
 
-export default ProfilePageContainer
+export default ProfilePage
 
