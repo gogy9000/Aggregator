@@ -1,4 +1,4 @@
-import {NavItem} from "../components/NavBar/NavItem/NavItem";
+import {NavItem} from "../NavBar/NavItem/NavItem";
 import {FriendsBar} from "./FriendsBar";
 import {PhotoBar} from "./PhotoBar";
 import {useDispatch, useSelector} from "react-redux";

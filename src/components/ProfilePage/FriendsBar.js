@@ -1,7 +1,7 @@
 import s from "./ProfilePage.module.css";
-import {NavItem} from "../components/NavBar/NavItem/NavItem";
+import {NavItem} from "../NavBar/NavItem/NavItem";
 import {NavLink} from "react-router-dom";
-import {avaPhoto} from "../photo/photo";
+import {avaPhoto} from "../../photo/photo";
 
 export const FriendsBar = (props) => {
     console.log(props)

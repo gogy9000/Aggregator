@@ -1,5 +1,5 @@
 import s from "./ProfilePage.module.css";
-import {NavItem} from "../components/NavBar/NavItem/NavItem";
+import {NavItem} from "../NavBar/NavItem/NavItem";
 
 export const PhotoBar = (props) => {
     return (

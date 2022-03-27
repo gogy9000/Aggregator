@@ -1,11 +1,11 @@
-
 import {Route, Routes} from 'react-router-dom';
 import './App.css';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import NavBar from './components/NavBar/NavBar';
-import {MessagePageContainer} from "./components/Content/messagePageContainer";
-import ProfilePage from "./ProfilePage/ProfilePage";
+import {MessagePageContainer} from "./components/MessagePage/messagePageContainer";
+import ProfilePage from "./components/ProfilePage/ProfilePage";
+import {FriendsPage} from "./components/FriendsPage/FriendsPage";
 // import {ProfilePageContainer} from "./ProfilePage/ProfilePageContainer";
 
 
@@ -27,14 +27,13 @@ const App = () => {
             <div className='Content-wrapper'>
                 <div className='Content'>
 
-                  <Routes>
-                      <Route  path='/' element={<ProfilePage/>}/>
+                    <Routes>
+                        <Route path='/' element={<ProfilePage/>}/>
                         <Route path='/profile' element={<ProfilePage/>}/>
+                        <Route path='/messenger' element={<MessagePageContainer/>}/>
+                        <Route path='/friends' element={<FriendsPage/>}/>
 
-                        <Route  path='/content1' element={<MessagePageContainer/>}/>
-
-
-                </Routes>
+                    </Routes>
                 </div>
             </div>
             <div className='Footer-wrapper'>

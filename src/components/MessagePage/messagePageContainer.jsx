@@ -1,5 +1,5 @@
 import {addTextAC, onChangeAC} from "../../Redux/MessagePage/messagePageReducer";
-import React, {useState} from "react";
+import React from "react";
 import MessagePage from "./messagePage";
 import {useDispatch, useSelector} from "react-redux";
 

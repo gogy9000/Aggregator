@@ -1,0 +1,31 @@
+.friendsPage{
+display: grid;
+    grid-template-areas:
+'onlineOfflineFriendsBlock'
+'searchFriends'
+'friendList';
+}
+.onlineOfflineFriendsBlock{
+grid-area: onlineOfflineFriendsBlock;
+    text-align: center;
+    border-style: solid;
+    border-radius: 3px;
+    border-width: 1px;
+    border-color: #adafaf;
+}
+.searchFriends{
+grid-area:searchFriends ;
+    text-align: center;
+    border-style: solid;
+    border-radius: 3px;
+    border-width: 1px;
+    border-color: #adafaf;
+}
+.friendList{
+grid-area:friendList ;
+    text-align: center;
+    border-style: solid;
+    border-radius: 3px;
+    border-width: 1px;
+    border-color: #adafaf;
+}
