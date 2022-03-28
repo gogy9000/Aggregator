@@ -2,19 +2,22 @@ import {avaPhoto} from "../../photo/photo";
 
 let initialState: any = {
     users: [
-        {id: 0, name: 'sasha', photo: avaPhoto, isFollow: false, status: 'fuck!'},
-        {id: 0, name: 'sasha', photo: 'src', isFollow: false, status: 'fuck!'},
-        {id: 0, name: 'sasha', photo: 'src', isFollow: false, status: 'fuck!'},
-        {id: 0, name: 'sasha', photo: 'src', isFollow: false, status: 'fuck!'},
-        {id: 0, name: 'sasha', photo: 'src', isFollow: false, status: 'fuck!'},
-        {id: 0, name: 'sasha', photo: 'src', isFollow: false, status: 'fuck!'},
-        {id: 0, name: 'sasha', photo: 'src', isFollow: false, status: 'fuck!'},
-        {id: 0, name: 'sasha', photo: 'src', isFollow: false, status: 'fuck!'},
-        {id: 0, name: 'sasha', photo: 'src', isFollow: false, status: 'fuck!'},
+        {id: 0, Follow: true, name: 'simpson', photo: avaPhoto,  status: 'fuck!'},
+        {id: 1, Follow: false, name: 'simpson', photo: avaPhoto,  status: 'fuck!'},
+        {id: 2, Follow: false, name: 'simpson', photo: avaPhoto,  status: 'fuck!'},
+        {id: 3, Follow: false, name: 'simpson', photo: avaPhoto,  status: 'fuck!'},
+        {id: 4, Follow: false, name: 'simpson', photo: avaPhoto,  status: 'fuck!'},
+        {id: 5, Follow: false, name: 'simpson', photo: avaPhoto,  status: 'fuck!'},
+        {id: 6, Follow: false, name: 'simpson', photo: avaPhoto,  status: 'fuck!'},
+        {id: 7, Follow: false, name: 'simpson', photo: avaPhoto,  status: 'fuck!'},
+        {id: 8, Follow: false, name: 'simpson', photo: avaPhoto,  status: 'fuck!'},
+
+
     ]
 }
 
 const ProfilePageReducer = (state: any = initialState, action: any) => {
+    debugger
     switch (action.type) {
 
         case 'GET-USERS':
@@ -23,16 +26,16 @@ const ProfilePageReducer = (state: any = initialState, action: any) => {
         case 'GET-USER':
             return {...state.filter((user: any) => user.name === action.name)}
 
-        case 'FOLlOW':
+        case 'FOLLOW':
             return {
                 ...state,
-                users: state.users.map((user: any) => user.id === action.id ? {...user, isFollow: true} : user)
+                users: state.users.map((user: any) => user.id === action.id ? {...user, Follow: true} : user)
             }
 
         case 'UNFOLLOW':
             return {
                 ...state,
-                users: state.users.map((user: any) => user.id === action.id ? {...user, isFollow: false} : user)
+                users: state.users.map((user: any) => user.id === action.id ? {...user, Follow: false} : user)
             }
         default:
             return state

@@ -4,6 +4,7 @@ display: grid;
 'onlineOfflineFriendsBlock'
 'searchFriends'
 'friendList';
+    padding: 1px;
 }
 .onlineOfflineFriendsBlock{
 grid-area: onlineOfflineFriendsBlock;
@@ -12,6 +13,7 @@ grid-area: onlineOfflineFriendsBlock;
     border-radius: 3px;
     border-width: 1px;
     border-color: #adafaf;
+    margin: 1px;
 }
 .searchFriends{
 grid-area:searchFriends ;
@@ -20,6 +22,7 @@ grid-area:searchFriends ;
     border-radius: 3px;
     border-width: 1px;
     border-color: #adafaf;
+    margin: 1px;
 }
 .friendList{
 grid-area:friendList ;
@@ -28,4 +31,5 @@ grid-area:friendList ;
     border-radius: 3px;
     border-width: 1px;
     border-color: #adafaf;
+    margin: 1px;
 }

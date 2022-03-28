@@ -1,0 +1,53 @@
+.FriendDescriptionBlock {
+    border-style: solid;
+    border-radius: 3px;
+    border-width: 1px;
+    border-color: #adafaf;
+    display: grid;
+    grid-template-areas:
+            "FriendPhoto FriendName"
+            "FriendPhoto ButtonFollowUnFollow "
+            ;
+    grid-template-columns: 2fr 10fr;
+    margin: 1px;
+    grid-template-rows: minmax(50px, 100px ) ;
+}
+.FriendPhotoImg {
+    height: 80%;
+
+
+
+    grid-area: FriendPhoto;
+    border-style: solid;
+    border-radius: 50%;
+    border-width: 3px;
+    border-color: #adafaf;
+    padding: 3px;
+    margin: 3px;
+
+}
+.FriendPhoto{
+    border-style: solid;
+    border-radius: 3px;
+    border-width: 1px;
+    border-color: #adafaf;
+}
+
+.FriendName{
+grid-area: FriendName ;
+    border-style: solid;
+    border-radius: 3px;
+    border-width: 1px;
+    border-color: #adafaf;
+    margin: 2px;
+    padding: 2% 2% 2% 1%;
+    font-size: larger;
+    font-weight: bold;
+    text-align: left;
+}
+.ButtonFollowUnFollow{
+    grid-area: ButtonFollowUnFollow;
+    text-align: left;
+    padding: 3px;
+
+}
