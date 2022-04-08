@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import s from './FriendsPage.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {FriendList} from "./FriendList";
@@ -10,8 +10,6 @@ export const FriendsPage = () => {
     const state = useSelector((state: any) => state.profilePage)
     const dispatch = useDispatch()
 
-
-        // getUsersApi(dispatch)
 
 
     return (

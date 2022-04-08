@@ -32,8 +32,8 @@ const App = () => {
                         <Route path='/' element={<ProfilePage/>}/>
                         <Route path='/profile' element={<ProfilePage/>}/>
                         <Route path='/messenger' element={<MessagePageContainer/>}/>
-                        <Route path='/friends' element={<FriendsPage/>}/>
-                        <Route path='/friend' element={<FriendsPageClassComponents/>}/>
+                        <Route path='/friend' element={<FriendsPage/>}/>
+                        <Route path='/friends' element={<FriendsPageClassComponents/>}/>
 
 
                     </Routes>

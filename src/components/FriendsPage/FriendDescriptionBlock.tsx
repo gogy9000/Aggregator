@@ -17,7 +17,7 @@ export const FriendDescriptionBlock = (props: any) => {
                     {props.user.name}
                 </div>
                 <div className={s.ButtonFollowUnFollow}>
-                    {props.user.Follow
+                    {props.user.followed
                         ? <div onClick={props.unfollow}>
                             <NavItem elementName={'unfollow'} to={''}/>
                         </div>
