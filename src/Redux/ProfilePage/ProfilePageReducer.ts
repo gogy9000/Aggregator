@@ -1,11 +1,11 @@
 import React from "react";
 
-type PhotosObjectType={
+export type PhotosObjectType={
     small: string|null
     large: string|null
 }
 
-type UserObjectType={
+ export type UserObjectType={
     followed: boolean
     id: number
     uniqueUrlName: string|null
@@ -13,8 +13,9 @@ type UserObjectType={
     photos: PhotosObjectType
     status: string|null
 }
-type stateProfilePageType={
+export type stateProfilePageType={
     users: Array<UserObjectType>
+    currentPage: number
 }
 
 let initialState: stateProfilePageType = {
@@ -27,17 +28,14 @@ let initialState: stateProfilePageType = {
             photos: {small: null, large: null},
             status: null,
         }
-    ]
+    ],
+    currentPage: 1
 }
-type actionCreatorType={
+export type actionCreatorType={
     action:getUsersACType|getUserACType|followACType|unfollowACType
 }
 
-type ProfilePageReducerType={
-    state:Array<UserObjectType>|undefined
-    action:actionCreatorType|undefined
 
-}
 
 const ProfilePageReducer = (state: any= initialState, action:any) => {
 
@@ -45,7 +43,7 @@ const ProfilePageReducer = (state: any= initialState, action:any) => {
 
         case 'GET-USERS':
             console.log(action.usersApi)
-            return {...state,users:action.usersApi}
+            return {...state,users:action.usersApi,currentPage:action.page}
 
         case 'GET-USER':
 
@@ -71,9 +69,9 @@ const ProfilePageReducer = (state: any= initialState, action:any) => {
 
 
 
-export type getUsersACType={type:typeof GET_USERS,usersApi:Array<UserObjectType> }
+export type getUsersACType={type:typeof GET_USERS,usersApi:Array<UserObjectType>,page:number }
 const GET_USERS = 'GET-USERS'
-export const getUsersAC = (usersApi:Array<UserObjectType>):getUsersACType=> ({type: GET_USERS, usersApi})
+export const getUsersAC = (usersApi:Array<UserObjectType>,page:number):getUsersACType=> ({type: GET_USERS, usersApi,page})
 
 type getUserACType={type:typeof GET_USER }
 const GET_USER = 'GET-USER'

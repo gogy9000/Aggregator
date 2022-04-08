@@ -5,20 +5,16 @@ import React from "react";
 
 type  getUsersApiType={
     dispatch: (getUsersAC:getUsersACType)=>void
-    count?:number
+
     page?: number
 }
 
-export const getUsersApi:React.FC<getUsersApiType>=(dispatch:any,count=5,page=3) => {
-
+export const getUsersApi:React.FC<getUsersApiType>=(dispatch:any,page=1) => {
 
     // @ts-ignore
-    return axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${count}&page=${page}`).then(
+    return axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}`).then(
         (response: any) => {
-            dispatch(getUsersAC(response.data.items));
-
-
+            dispatch(getUsersAC(response.data.items,page));
         }
     );
-
 }
