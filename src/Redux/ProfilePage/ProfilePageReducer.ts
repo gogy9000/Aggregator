@@ -1,32 +1,33 @@
-import {avaPhoto} from "../../photo/photo";
+
+
 
 let initialState: any = {
     users: [
-        {id: 0, Follow: true, name: 'simpson', photo: avaPhoto,  status: 'fuck!'},
-        {id: 1, Follow: false, name: 'simpson', photo: avaPhoto,  status: 'fuck!'},
-        {id: 2, Follow: false, name: 'simpson', photo: avaPhoto,  status: 'fuck!'},
-        {id: 3, Follow: false, name: 'simpson', photo: avaPhoto,  status: 'fuck!'},
-        {id: 4, Follow: false, name: 'simpson', photo: avaPhoto,  status: 'fuck!'},
-        {id: 5, Follow: false, name: 'simpson', photo: avaPhoto,  status: 'fuck!'},
-        {id: 6, Follow: false, name: 'simpson', photo: avaPhoto,  status: 'fuck!'},
-        {id: 7, Follow: false, name: 'simpson', photo: avaPhoto,  status: 'fuck!'},
-        {id: 8, Follow: false, name: 'simpson', photo: avaPhoto,  status: 'fuck!'},
-
-
+        {
+            followed: false,
+            id: 23318,
+            uniqueUrlName: null,
+            name: "StanisLOVE",
+            photos: {small: null, large: null},
+            status: null,
+        }
     ]
 }
 
 const ProfilePageReducer = (state: any = initialState, action: any) => {
-    debugger
+
     switch (action.type) {
 
         case 'GET-USERS':
-            return {...state}
+            console.log(action.usersApi)
+            return {...state,users:action.usersApi}
 
         case 'GET-USER':
             return {...state.filter((user: any) => user.name === action.name)}
 
         case 'FOLLOW':
+
+
             return {
                 ...state,
                 users: state.users.map((user: any) => user.id === action.id ? {...user, Follow: true} : user)
@@ -43,7 +44,7 @@ const ProfilePageReducer = (state: any = initialState, action: any) => {
 }
 
 const GET_USERS = 'GET-USERS'
-export const getUsersAC = () => ({type: GET_USERS})
+export const getUsersAC = (usersApi: any) => ({type: GET_USERS, usersApi})
 
 const GET_USER = 'GET-USER'
 export const getUserAC = () => ({type: GET_USER})

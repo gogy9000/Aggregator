@@ -4,7 +4,7 @@ import {NavLink} from "react-router-dom";
 import {avaPhoto} from "../../photo/photo";
 
 export const FriendsBar = (props) => {
-    console.log(props)
+
 
    const  friends =props.state.users.map(user=><div key={user.id} className={s.avaBlock}>
         <img className={s.img}

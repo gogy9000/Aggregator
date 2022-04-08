@@ -6,6 +6,7 @@ import NavBar from './components/NavBar/NavBar';
 import {MessagePageContainer} from "./components/MessagePage/messagePageContainer";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
 import {FriendsPage} from "./components/FriendsPage/FriendsPage";
+import FriendsPageClassComponents from "./ClassComponents/FriendsPageClassComponents";
 // import {ProfilePageContainer} from "./ProfilePage/ProfilePageContainer";
 
 
@@ -32,6 +33,8 @@ const App = () => {
                         <Route path='/profile' element={<ProfilePage/>}/>
                         <Route path='/messenger' element={<MessagePageContainer/>}/>
                         <Route path='/friends' element={<FriendsPage/>}/>
+                        <Route path='/friend' element={<FriendsPageClassComponents/>}/>
+
 
                     </Routes>
                 </div>
