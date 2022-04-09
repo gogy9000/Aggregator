@@ -8,12 +8,13 @@ display: grid;
 }
 .onlineOfflineFriendsBlock{
 grid-area: onlineOfflineFriendsBlock;
-    text-align: center;
+    text-align: left;
     border-style: solid;
     border-radius: 3px;
     border-width: 1px;
     border-color: #adafaf;
     margin: 1px;
+    padding: 3px;
 }
 .searchFriends{
 grid-area:searchFriends ;

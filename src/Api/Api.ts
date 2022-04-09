@@ -9,7 +9,7 @@ type  getUsersApiType={
     page?: number
 }
 
-export const getUsersApi:React.FC<getUsersApiType>=(dispatch:any,page=1) => {
+export const getUsersApi=(dispatch:(getUsersAC:getUsersACType)=>void,page: number =1) => {
 
     // @ts-ignore
     return axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}`).then(

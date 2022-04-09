@@ -1,19 +1,17 @@
 .mouseEnter{
-    background-color: #adafaf;
-    padding: 1px;
     margin: 1px;
+    background-color: #adafaf;
     border-style: solid;
     border-color: rgba(81, 81, 84, 0.4);
     border-radius:5px ;
     border-width: 1px;
-    text-decoration: none;
+
 }
 .mouseLeave{
-    padding: 1px;
     margin: 1px;
     border-style: solid;
     border-color: rgba(81, 81, 84, 0.4);
     border-radius:5px ;
     border-width: 1px;
-    text-decoration: none;
+
 }
