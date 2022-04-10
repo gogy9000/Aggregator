@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {getUsersApi} from "../Api/Api";
 import s from "../components/FriendsPage/FriendsPage.module.css";
 import {FriendList} from "../components/FriendsPage/FriendList";
-import {Paginator} from "../Paginator";
+import Paginator from "../components/Paginator/Paginator";
 
 
 class FriendsPageClassComponents extends React.Component<any, any> {

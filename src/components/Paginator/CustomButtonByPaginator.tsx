@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import s from "./Paaginator.module.css";
+import s from "./Paginator.module.css";
 
 type CustomButtonByPaginatorType = {
     callBack: (action: string) => void

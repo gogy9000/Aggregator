@@ -1,7 +1,9 @@
-import {getUsersACType, stateProfilePageType} from "./Redux/ProfilePage/ProfilePageReducer";
+import {getUsersACType, stateProfilePageType} from "../../Redux/ProfilePage/ProfilePageReducer";
 import React from "react";
-import {getUsersApi} from "./Api/Api";
+import {getUsersApi} from "../../Api/Api";
 import {CustomButtonByPaginator} from "./CustomButtonByPaginator";
+
+
 
 
 type PaginatorType = {
@@ -10,7 +12,7 @@ type PaginatorType = {
 }
 //это паджинатор...
 
-export const Paginator: React.FC<PaginatorType> = (props) => {
+ const Paginator: React.FC<PaginatorType> = (props) => {
     // это для удобства
     let currentPage = props.state.currentPage
 
@@ -19,7 +21,8 @@ export const Paginator: React.FC<PaginatorType> = (props) => {
 // усли в clickPage не совпадает не один из action, getUsersApi по дефолту будет отпралять запрос на
 // первую страницу
 
-    const clickPage = (action: string) => {
+
+     const clickPage = (action: string) => {
         action === 'next' ? getUsersApi(props.dispatch, props.state.currentPage + 1) :
             action === 'forward' ? getUsersApi(props.dispatch, props.state.currentPage + 3) :
                 action === 'backForward' ? getUsersApi(props.dispatch, props.state.currentPage - 3) :
@@ -69,4 +72,4 @@ export const Paginator: React.FC<PaginatorType> = (props) => {
     )
 
 }
-
+export default Paginator
