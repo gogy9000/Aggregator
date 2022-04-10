@@ -7,7 +7,7 @@ export type PhotosObjectType={
 
  export type UserObjectType={
     followed: boolean
-    id: number
+    id: number|null
     uniqueUrlName: string|null
     name: string|null
     photos: PhotosObjectType
@@ -31,10 +31,6 @@ let initialState: stateProfilePageType = {
     ],
     currentPage: 1
 }
-export type actionCreatorType={
-    action:getUsersACType|getUserACType|followACType|unfollowACType
-}
-
 
 
 const ProfilePageReducer = (state: any= initialState, action:any) => {
@@ -42,7 +38,7 @@ const ProfilePageReducer = (state: any= initialState, action:any) => {
     switch (action.type) {
 
         case 'GET-USERS':
-            console.log(action.usersApi)
+            // console.log(action.usersApi)
             return {...state,users:action.usersApi,currentPage:action.page}
 
         case 'GET-USER':
@@ -51,16 +47,15 @@ const ProfilePageReducer = (state: any= initialState, action:any) => {
 
         case 'FOLLOW':
 
-
             return {
                 ...state,
-                users: [...state.users.map((user: any) => user.id === action.id ? {...user, followed: true} : user)]
+                users: [...state.users.map((user: UserObjectType) => user.id === action.id ? {...user, followed: true} : user)]
             }
 
         case 'UNFOLLOW':
             return {
                 ...state,
-                users: state.users.map((user: any) => user.id === action.id ? {...user, followed: false} : user)
+                users: state.users.map((user: UserObjectType) => user.id === action.id ? {...user, followed: false} : user)
             }
         default:
             return state

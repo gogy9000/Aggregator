@@ -3,12 +3,6 @@ import {getUsersAC, getUsersACType} from "../Redux/ProfilePage/ProfilePageReduce
 import React from "react";
 
 
-type  getUsersApiType={
-    dispatch: (getUsersAC:getUsersACType)=>void
-
-    page?: number
-}
-
 export const getUsersApi=(dispatch:(getUsersAC:getUsersACType)=>void,page: number =1) => {
 
     // @ts-ignore
