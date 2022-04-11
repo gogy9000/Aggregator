@@ -5,8 +5,8 @@ import Header from './components/Header/Header';
 import NavBar from './components/NavBar/NavBar';
 import {MessagePageContainer} from "./components/MessagePage/messagePageContainer";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
-import {FriendsPage} from "./components/FriendsPage/FriendsPage";
-import FriendsPageClassComponents from "./ClassComponents/FriendsPageClassComponents";
+import {FriendsPageFunctionalComponent} from "./components/FriendsPage/FriendsPageFunctionalComponent";
+import FriendsPageClassComponents from "./components/FriendsPage/FriendsPageClassComponents";
 // import {ProfilePageContainer} from "./ProfilePage/ProfilePageContainer";
 
 
@@ -32,7 +32,7 @@ const App = () => {
                         <Route path='/' element={<ProfilePage/>}/>
                         <Route path='/profile' element={<ProfilePage/>}/>
                         <Route path='/messenger' element={<MessagePageContainer/>}/>
-                        <Route path='/friend' element={<FriendsPage/>}/>
+                        <Route path='/friend' element={<FriendsPageFunctionalComponent/>}/>
                         <Route path='/friends' element={<FriendsPageClassComponents/>}/>
 
 
