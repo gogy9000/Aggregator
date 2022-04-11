@@ -1,18 +1,17 @@
 import {getUsersACType, stateProfilePageType} from "../../Redux/ProfilePage/ProfilePageReducer";
 import React from "react";
-import {getUsersApi} from "../../Api/Api";
+import {getAllUsersApi} from "../../Api/Api";
 import {CustomButtonByPaginator} from "./CustomButtonByPaginator";
 
 
-
-
-type PaginatorType = {
+type PaginatorApiContainerType = {
     state: stateProfilePageType
     dispatch: (getUsersAC: getUsersACType) => void
+    clickPageCallBack?: (setPageNumber: number) => void
 }
 //это паджинатор...
 
- const Paginator: React.FC<PaginatorType> = (props) => {
+const PaginatorApiContainer: React.FC<PaginatorApiContainerType> = (props) => {
     // это для удобства
     let currentPage = props.state.currentPage
 
@@ -22,13 +21,13 @@ type PaginatorType = {
 // первую страницу
 
 
-     const clickPage = (action: string) => {
-        action === 'next' ? getUsersApi(props.dispatch, props.state.currentPage + 1) :
-            action === 'forward' ? getUsersApi(props.dispatch, props.state.currentPage + 3) :
-                action === 'backForward' ? getUsersApi(props.dispatch, props.state.currentPage - 3) :
-                    action === 'back' ? getUsersApi(props.dispatch, props.state.currentPage - 1) :
-                        action === 'nextUp3Page' ? getUsersApi(props.dispatch, props.state.currentPage + 2) :
-                            getUsersApi(props.dispatch, props.state.currentPage)
+    const clickPage = (action: string) => {
+        action === 'next' ? getAllUsersApi(props.dispatch, props.state.currentPage + 1) :
+            action === 'forward' ? getAllUsersApi(props.dispatch, props.state.currentPage + 3) :
+                action === 'backForward' ? getAllUsersApi(props.dispatch, props.state.currentPage - 3) :
+                    action === 'back' ? getAllUsersApi(props.dispatch, props.state.currentPage - 1) :
+                        action === 'nextUp3Page' ? getAllUsersApi(props.dispatch, props.state.currentPage + 2) :
+                            getAllUsersApi(props.dispatch, props.state.currentPage)
     }
 
     //в return два блока кнопок, первый блок рисуется только при стартовом значении паджинатора.
@@ -37,19 +36,37 @@ type PaginatorType = {
     // и название кнопки. визуальные эфекты прописаны в самой кнопке
 
     return (
+
+        <Paginator clickPageCallBack={clickPage}
+                   currentPage={currentPage}/>
+
+    )
+
+}
+export default PaginatorApiContainer
+
+type PaginatorPropsType = {
+
+    currentPage: number
+    clickPageCallBack: (action: string) => void
+}
+
+const Paginator: React.FC<PaginatorPropsType> = ({clickPageCallBack, currentPage}) => {
+
+    return (
         <div>
             {/*этот блок кнопок отображается только когда currentPage меньше или*/}
             {/* равно единицы(стартовая позиция паджинатора)*/}
 
             {currentPage <= 1 &&
                 <div>
-                    <CustomButtonByPaginator callBack={clickPage} action={'nothingToDo'}
+                    <CustomButtonByPaginator callBack={clickPageCallBack} action={'nothingToDo'}
                                              buttonName={currentPage}/>
-                    <CustomButtonByPaginator callBack={clickPage} action={'next'}
+                    <CustomButtonByPaginator callBack={clickPageCallBack} action={'next'}
                                              buttonName={currentPage + 1}/>
-                    <CustomButtonByPaginator callBack={clickPage} action={'nextUp3Page'}
+                    <CustomButtonByPaginator callBack={clickPageCallBack} action={'nextUp3Page'}
                                              buttonName={currentPage + 2}/>
-                    <CustomButtonByPaginator callBack={clickPage} action={'forward'}
+                    <CustomButtonByPaginator callBack={clickPageCallBack} action={'forward'}
                                              buttonName={'>'}/>
                 </div>
             }
@@ -58,18 +75,17 @@ type PaginatorType = {
 
             {currentPage > 1 &&
                 <div>
-                    <CustomButtonByPaginator callBack={clickPage} action={'backForward'} buttonName={'<'}/>
-                    <CustomButtonByPaginator callBack={clickPage} action={'back'}
+                    <CustomButtonByPaginator callBack={clickPageCallBack} action={'backForward'} buttonName={'<'}/>
+                    <CustomButtonByPaginator callBack={clickPageCallBack} action={'back'}
                                              buttonName={currentPage - 1}/>
-                    <CustomButtonByPaginator callBack={clickPage} action={'nothingToDo'}
+                    <CustomButtonByPaginator callBack={clickPageCallBack} action={'nothingToDo'}
                                              buttonName={currentPage}/>
-                    <CustomButtonByPaginator callBack={clickPage} action={'next'}
+                    <CustomButtonByPaginator callBack={clickPageCallBack} action={'next'}
                                              buttonName={currentPage + 1}/>
-                    <CustomButtonByPaginator callBack={clickPage} action={'forward'} buttonName={'>'}/>
+                    <CustomButtonByPaginator callBack={clickPageCallBack} action={'forward'} buttonName={'>'}/>
                 </div>
             }
         </div>
     )
 
 }
-export default Paginator
