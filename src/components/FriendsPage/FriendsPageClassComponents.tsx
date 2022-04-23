@@ -6,12 +6,10 @@ import {FriendsPage} from "./FriendsPage";
 
 class FriendsPageClassComponents extends React.Component<any, any> {
 
-
     componentDidMount() {
 
         getAllUsersApi(this.props.dispatch,)
     }
-
 
     render() {
 

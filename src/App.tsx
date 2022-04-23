@@ -4,10 +4,10 @@ import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import NavBar from './components/NavBar/NavBar';
 import {MessagePageContainer} from "./components/MessagePage/messagePageContainer";
-import ProfilePage from "./components/ProfilePage/ProfilePage";
+import ProfilePageApiContainer from "./components/ProfilePage/ProfilePageApiContainer";
 import {FriendsPageFunctionalComponent} from "./components/FriendsPage/FriendsPageFunctionalComponent";
 import FriendsPageClassComponents from "./components/FriendsPage/FriendsPageClassComponents";
-// import {ProfilePageContainer} from "./ProfilePage/ProfilePageContainer";
+// import {ProfilePageApiContainer} from "./ProfilePageApiContainer/ProfilePageApiContainer";
 
 
 const App = () => {
@@ -29,10 +29,10 @@ const App = () => {
                 <div className='Content'>
 
                     <Routes>
-                        <Route path='/' element={<ProfilePage/>}/>
-                        <Route path='/profile' element={<ProfilePage/>}/>
+                        <Route path='/' element={<ProfilePageApiContainer/>}/>
+                        <Route path='/profile' element={<ProfilePageApiContainer/>}/>
                         <Route path='/messenger' element={<MessagePageContainer/>}/>
-                        <Route path='/friend' element={<FriendsPageFunctionalComponent/>}/>
+                        {/*<Route path='/friends' element={<FriendsPageFunctionalComponent/>}/>*/}
                         <Route path='/friends' element={<FriendsPageClassComponents/>}/>
 
 

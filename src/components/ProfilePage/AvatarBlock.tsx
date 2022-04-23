@@ -1,14 +1,24 @@
 import s from "./ProfilePage.module.css";
-import {avaPhoto} from "../../photo/photo";
+import {avaPhoto, defaultPhoto} from "../../photo/photo";
+import {stateProfilePageType} from "../../Redux/ProfilePage/ProfilePageReducer";
+import React from "react";
 
-export const AvatarBlock = (props: any) => {
+type AvatarBlockPropsType={
+    state:stateProfilePageType
+}
+
+export const AvatarBlock:React.FC<AvatarBlockPropsType> = ({state}) => {
+
+
     return (
         <div>
             <div className={s.Avatar}>
-                <img
-                    src={avaPhoto} alt="patrick"/>
 
+                {state.profile? <img  // @ts-ignore
+                     src={state.profile.photos.large} alt={defaultPhoto}/>:
+                    <img src={defaultPhoto} alt={defaultPhoto}/> }
             </div>
         </div>
     )
 }
+

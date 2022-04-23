@@ -1,22 +1,30 @@
 import React from "react";
 import {FriendDescriptionBlock} from "./FriendDescriptionBlock";
-import {followAC, getUsersAC, unfollowAC} from "../../Redux/ProfilePage/ProfilePageReducer";
-import {log} from "util";
+import {
+    ActionCreatorType,
+    followAC,
+    stateProfilePageType,
+    unfollowAC
+} from "../../Redux/ProfilePage/ProfilePageReducer";
+
+type FriendListType ={
+    state:stateProfilePageType
+    dispatch:(ac:ActionCreatorType)=>void
+}
+
+export const FriendList:React.FC<FriendListType> = ({state,dispatch}) => {
 
 
-export const FriendList = (props: any) => {
-
-
-    const FriendDescriptionBlockMap = props.state.users.map(
+    const FriendDescriptionBlockMap = state.users.map(
 
         (user: any) => {
             const follow = () => {
 
-                props.dispatch(followAC(user.id))
+                dispatch(followAC(user.id))
             }
 
             const unFollow = () => {
-                props.dispatch(unfollowAC(user.id))
+                dispatch(unfollowAC(user.id))
             }
 
 

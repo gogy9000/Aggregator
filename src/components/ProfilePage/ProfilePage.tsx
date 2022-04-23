@@ -1,13 +1,9 @@
+import s from "./ProfilePage.module.css";
 import {ProfileSidebar} from "./ProfileSidebar";
-import s from './ProfilePage.module.css'
 import {ProfileContent} from "./ProfileContent";
 import React from "react";
 
-
-
-const ProfilePage = () => {
-
-
+export const ProfilePage = () => {
     return (
         <div className={s.ProfilePage}>
             <div className={s.ProfileSidebar}>
@@ -20,8 +16,5 @@ const ProfilePage = () => {
 
         </div>
     )
+
 }
-
-
-export default ProfilePage
-

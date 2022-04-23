@@ -15,7 +15,7 @@ import {Provider} from "react-redux";
 ;
 
 
-let renderEntireTree = (store:any) => {
+// let renderEntireTree = (store:any) => {
 
     ReactDOM.render(
         <React.StrictMode>
@@ -29,13 +29,9 @@ let renderEntireTree = (store:any) => {
         document.getElementById('root')
     )
     ;
-}
+// }
 
-renderEntireTree(store)
-// store.subscribe(() => {
-//
-//     renderEntireTree(store)
-// })
+// renderEntireTree(store)
 
 
 // If you want to start measuring performance in your app, pass a function

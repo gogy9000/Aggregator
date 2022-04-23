@@ -10,7 +10,7 @@ export const NavItem = (props) => {
              onMouseLeave={() => setOnOff(onOf ? onOf = false : onOf = true)}
              className={onOf ? s.elemBlock  : s.backGroundColor}
              >
-
+            {props.children}
             <NavLink to={props.to}>{props.elementName}</NavLink>
         </div>
     )

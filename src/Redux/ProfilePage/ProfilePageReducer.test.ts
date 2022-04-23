@@ -1,11 +1,12 @@
 import ProfilePageReducer, {
     followAC,
-    getUsersAC,
+    getUsersAC, profileType,
     stateProfilePageType,
     unfollowAC,
     UserObjectType
 } from "./ProfilePageReducer";
 import React from "react";
+import {v1} from "uuid";
 
 let state:stateProfilePageType
 let  users:Array<UserObjectType>
@@ -16,21 +17,22 @@ beforeEach(()=>{
         users: [
             {
                 followed: true,
-                id: 2,
+                id: v1(),
                 uniqueUrlName: null,
                 name: "Stan",
                 photos: {small: null, large: null},
                 status: 'null'
             }
         ],
+        profile:{} as profileType,
         currentPage: 1
     },
       users=[
         {
             followed: false,
-            id: 3,
+            id: v1(),
             uniqueUrlName: null,
-            name: "StanisLOVE",
+            name: "StainsLOVE",
             photos: {small: null, large: null},
             status: null,
         }

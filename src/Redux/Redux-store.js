@@ -7,3 +7,4 @@ let rootReducer = combineReducers({messagePage: messagePageReducer, profilePage:
 })
 
 export let store = createStore(rootReducer)
+window.store=store

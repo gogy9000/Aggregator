@@ -7,18 +7,25 @@ import {AvatarBlock} from "./AvatarBlock";
 
 export const ProfileSidebar = () => {
 
-    const state =useSelector((state:any)=>state.profilePage)
-    const dispatch= useDispatch()
+    const state = useSelector((state: any) => state.profilePage)
+    const dispatch = useDispatch()
 
 
     return (
-        <div>
-            <AvatarBlock state={state}/>
-            <NavItem elementName={'settings'} to={'/settings'}/> {/*it's settings*/}
-            <FriendsBar state={state} dispatch={dispatch}/>
-            <PhotoBar/>
 
-        </div>
+        state? <div>
+
+                <NavItem to={'/profile'}>
+                    <div>{state.profile=== null ? 'state.profile.fullName' : state.profile.fullName}</div>
+                </NavItem>
+                <AvatarBlock state={state}/>
+                <NavItem elementName={'settings'} to={'/settings'}/> {/*it's settings*/}
+                <FriendsBar state={state} dispatch={dispatch}/>
+                <PhotoBar/>
+
+
+            </div>:<div>asd</div>
+
     )
 }
 
