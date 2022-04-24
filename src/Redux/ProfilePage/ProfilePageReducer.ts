@@ -1,6 +1,6 @@
 export type PhotosObjectType = {
-    small: string | null
-    large: string | null
+    small: string | null|undefined
+    large: string | null|undefined
 }
 
 export type UserObjectType = {
@@ -36,6 +36,7 @@ const ProfilePageReducer = (state: any = initialState, action: any) => {
             }
 
         case 'GET-USERS':
+            console.log(state.users)
             return {...state, users: action.usersApi, currentPage: action.page}
 
         case 'GET-USER':

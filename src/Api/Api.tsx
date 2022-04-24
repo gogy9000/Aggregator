@@ -1,13 +1,13 @@
 import * as axios from 'axios'
 import {getProfileAC, getProfileACType, getUsersAC, getUsersACType} from "../Redux/ProfilePage/ProfilePageReducer";
 import React from "react";
-import {useDispatch} from "react-redux";
+
 
 type getUsersApiType={
     dispatch?:(getUsersAC:getUsersACType)=>void
     page?: number
     count?:number
-    friend?:boolean
+    friend?:string
     term?:string
 
 }
@@ -15,9 +15,14 @@ type getUsersApiType={
 
 
 export const getAllUsersApi =(
-    dispatch:(getUsersAC:getUsersACType)=>void, page:number=1):getUsersApiType => {
-    // @ts-ignore(getUsersAC:getUsersACType)=>void
-    return axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=9&page=${page}`).then(
+    dispatch:(getUsersAC:getUsersACType)=>void,
+    page:number=1,term:string='',
+    friend:string=''):getUsersApiType => {
+    // @ts-ignore
+    return axios.get(
+        `https://social-network.samuraijs.com/api/1.0/users?count=9&page=${page}&term=${term}&friend=${friend}`
+    )
+        .then(
         (response: any) => {
             dispatch(getUsersAC(response.data.items,page));
         }

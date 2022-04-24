@@ -6,15 +6,36 @@ import {FriendsPage} from "./FriendsPage";
 
 class FriendsPageClassComponents extends React.Component<any, any> {
 
+    constructor(props: any) {
+        super(props);
+
+
+    }
+
+    getUsersCallBack = (userName: string, isFollow:string) => {
+        getAllUsersApi(this.props.dispatch, 1, userName,isFollow)
+    }
+
+    // getFollowUsers=(isFollow:string)=>{
+    //     getAllUsersApi(this.props.dispatch, 1, '',isFollow)
+    // }
+
+
     componentDidMount() {
 
         getAllUsersApi(this.props.dispatch,)
+
+
     }
 
     render() {
 
         return (
-            <FriendsPage state={this.props.state} dispatch={this.props.dispatch}/>
+            <FriendsPage state={this.props.state}
+                         dispatch={this.props.dispatch}
+                         getUsersCallBack={this.getUsersCallBack}
+                         // getFollowUsers={this.getFollowUsers}
+            />
         )
     }
 

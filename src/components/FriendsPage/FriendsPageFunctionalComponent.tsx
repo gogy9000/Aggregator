@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 import {useDispatch, useSelector} from "react-redux";
 import {FriendsPage} from "./FriendsPage";
@@ -12,12 +12,14 @@ export const FriendsPageFunctionalComponent = () => {
     const state = useSelector((state: any) => state.profilePage)
     const dispatch = useDispatch()
 
-    if(state.users.length===0) {
-        getAllUsersApi(dispatch)
-    }
+    // useEffect(()=>{getAllUsersApi(dispatch)})
+debugger
+
+
 
     return(
-        <FriendsPage state={state} dispatch={dispatch}/>
+        // @ts-ignore
+        <FriendsPage state={state} dispatch={dispatch}  />
     )
 
 
