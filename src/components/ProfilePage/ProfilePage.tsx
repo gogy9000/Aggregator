@@ -3,11 +3,15 @@ import {ProfileSidebar} from "./ProfileSidebar";
 import {ProfileContent} from "./ProfileContent";
 import React from "react";
 
-export const ProfilePage = () => {
+type ProfilePage ={
+    callBack:()=>void
+}
+
+export const ProfilePage:React.FC<ProfilePage> = ({callBack}) => {
     return (
         <div className={s.ProfilePage}>
             <div className={s.ProfileSidebar}>
-                <ProfileSidebar/>
+                <ProfileSidebar callBack={callBack}/>
             </div>
             < div
                 className={s.ProfileContent}>

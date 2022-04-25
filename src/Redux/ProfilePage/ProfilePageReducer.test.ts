@@ -13,6 +13,8 @@ let  users:Array<UserObjectType>
 let page:number
 
 beforeEach(()=>{
+
+
     state={
         users: [
             {
@@ -20,6 +22,7 @@ beforeEach(()=>{
                 id: v1(),
                 uniqueUrlName: null,
                 name: "Stan",
+                // @ts-ignore
                 photos: {small: null, large: null},
                 status: 'null'
             }
@@ -33,6 +36,7 @@ beforeEach(()=>{
             id: v1(),
             uniqueUrlName: null,
             name: "StainsLOVE",
+            // @ts-ignore
             photos: {small: null, large: null},
             status: null,
         }

@@ -9,6 +9,7 @@ type getUsersApiType={
     count?:number
     friend?:string
     term?:string
+    userId?:number
 
 }
 
@@ -51,10 +52,11 @@ export const getUnFollowUsersApi=(dispatch:(getUsersAC:getUsersACType)=>void,pag
     );
 }
 
-export const getProfileApi=( dispatch:(getProfileAC:getProfileACType)=>void, userId:number=2) => {
 
+export const getProfileApi=( dispatch:(getProfileAC:getProfileACType)=>void, userId:number=16495):getUsersApiType => {
+    // console.log(userId)
     // @ts-ignore
-    return axios.get(`https://social-network.samuraijs.com/api/1.0/profile/16495`).then(
+    return axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`).then(
         (response: any) => {
 
             dispatch(getProfileAC(response.data))

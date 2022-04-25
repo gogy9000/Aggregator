@@ -10,13 +10,16 @@ type AvatarBlockPropsType={
 export const AvatarBlock:React.FC<AvatarBlockPropsType> = ({state}) => {
 
 
+
+
     return (
         <div>
             <div className={s.Avatar}>
+                {/*// @ts-ignore*/}
+                {state.profile.photos.large && <img src={state.profile.photos.large} alt={defaultPhoto}/>}
+                {/*// @ts-ignore*/}
+                { state.profile.photos.large===null && <img src={defaultPhoto} alt={defaultPhoto}/>}
 
-                {state.profile? <img  // @ts-ignore
-                     src={state.profile.photos.large} alt={defaultPhoto}/>:
-                    <img src={defaultPhoto} alt={defaultPhoto}/> }
             </div>
         </div>
     )

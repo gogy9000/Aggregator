@@ -1,6 +1,8 @@
+import {defaultPhoto} from "../../photo/photo";
+
 export type PhotosObjectType = {
     small: string | null|undefined
-    large: string | null|undefined
+    large: string | undefined
 }
 
 export type UserObjectType = {
@@ -32,7 +34,7 @@ const ProfilePageReducer = (state: any = initialState, action: any) => {
             console.log(action.profile)
             return {
                 ...state,
-                profile: action.profile
+                profile: {...action.profile}
             }
 
         case 'GET-USERS':

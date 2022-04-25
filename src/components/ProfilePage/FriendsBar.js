@@ -7,11 +7,12 @@ export const FriendsBar = (props) => {
 
 
    const  friends =props.state.users.map(user=><div key={user.id} className={s.avaBlock}>
+
         <img className={s.img}
              src={avaPhoto}
              alt="gamer"/>
-        <NavLink to={'/profile/id'}>
-            <div className={s.nickName}>{user.name}</div>
+        <NavLink to={`/profile/${user.id}`}>
+            <div onClick={props.callBack} className={s.nickName}>{user.name}</div>
         </NavLink>
     </div>)
 

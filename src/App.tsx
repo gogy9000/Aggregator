@@ -7,6 +7,7 @@ import {MessagePageContainer} from "./components/MessagePage/messagePageContaine
 import ProfilePageApiContainer from "./components/ProfilePage/ProfilePageApiContainer";
 import {FriendsPageFunctionalComponent} from "./components/FriendsPage/FriendsPageFunctionalComponent";
 import FriendsPageClassComponents from "./components/FriendsPage/FriendsPageClassComponents";
+import {ProfilePageContainerFC} from "./components/ProfilePage/ProfilePageContainerFC";
 // import {ProfilePageApiContainer} from "./ProfilePageApiContainer/ProfilePageApiContainer";
 
 
@@ -29,8 +30,14 @@ const App = () => {
                 <div className='Content'>
 
                     <Routes>
-                        <Route path='/' element={<ProfilePageApiContainer/>}/>
-                        <Route path='/profile' element={<ProfilePageApiContainer/>}/>
+                        {/*<Route path='/profile:userId?' element= {ProfilePageContainerFC}/>*/}
+
+                        <Route path="/" element={<ProfilePageContainerFC />}/>
+                        <Route path="/profile" element={<ProfilePageContainerFC />}>
+                            <Route path=":userId" element={<ProfilePageContainerFC />} />
+                        </Route>
+
+
                         <Route path='/messenger' element={<MessagePageContainer/>}/>
                         {/*<Route path='/friends' element={<FriendsPageFunctionalComponent/>}/>*/}
                         <Route path='/friends' element={<FriendsPageClassComponents/>}/>

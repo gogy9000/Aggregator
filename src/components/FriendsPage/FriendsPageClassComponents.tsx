@@ -1,7 +1,9 @@
 import React from "react";
 import {connect} from "react-redux";
-import {getAllUsersApi} from "../../Api/Api";
+import {getAllUsersApi, getProfileApi} from "../../Api/Api";
 import {FriendsPage} from "./FriendsPage";
+
+
 
 
 class FriendsPageClassComponents extends React.Component<any, any> {
@@ -14,6 +16,7 @@ class FriendsPageClassComponents extends React.Component<any, any> {
 
     getUsersCallBack = (userName: string, isFollow:string) => {
         getAllUsersApi(this.props.dispatch, 1, userName,isFollow)
+
     }
 
     // getFollowUsers=(isFollow:string)=>{
@@ -23,9 +26,10 @@ class FriendsPageClassComponents extends React.Component<any, any> {
 
     componentDidMount() {
 
+
         getAllUsersApi(this.props.dispatch,)
-
-
+        // getProfileApi(this.props.dispatch,this.props.match.params)
+        console.log(this.props)
     }
 
     render() {
@@ -44,6 +48,8 @@ class FriendsPageClassComponents extends React.Component<any, any> {
 const mapStateToProps = (state: any) => (
 
     {state: state.profilePage})
+
+
 
 export default connect(mapStateToProps)(FriendsPageClassComponents)
 
