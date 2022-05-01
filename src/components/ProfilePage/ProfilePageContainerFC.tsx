@@ -15,7 +15,7 @@ export const ProfilePageContainerFC = () => {
     let userID = params.userId? Number(params.userId):2;
 
     useEffect(()=>{getProfileApi(dispatch,userID)},[userID])
-    useEffect(()=> {getAllUsersApi(dispatch)},[state.profile.users])
+    useEffect(()=> {getAllUsersApi(dispatch)},[state.profile])
 
     return (
         state.profile &&

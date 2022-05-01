@@ -1,7 +1,7 @@
 import {Route, Routes} from 'react-router-dom';
 import './App.css';
 import Footer from './components/Footer/Footer';
-import Header from './components/Header/Header';
+import HeaderContainer from './components/Header/HeaderContainer';
 import NavBar from './components/NavBar/NavBar';
 import {MessagePageContainer} from "./components/MessagePage/messagePageContainer";
 import ProfilePageApiContainer from "./components/ProfilePage/ProfilePageApiContainer";
@@ -21,7 +21,7 @@ const App = () => {
         <div className='generalSettings'>
 
             <div className='Header-wrapper'>
-                <div className='Header'><Header/></div>
+                <div className='Header'><HeaderContainer/></div>
             </div>
             <div className='NavBar-wrapper'>
                 <div className='NavBar'><NavBar/></div>
@@ -33,7 +33,7 @@ const App = () => {
                         {/*<Route path='/profile:userId?' element= {ProfilePageContainerFC}/>*/}
 
                         <Route path="/" element={<ProfilePageContainerFC />}/>
-                        <Route path="/profile" element={<ProfilePageContainerFC />}>
+                        <Route path="/profile/*" element={<ProfilePageContainerFC />}>
                             <Route path=":userId" element={<ProfilePageContainerFC />} />
                         </Route>
 
