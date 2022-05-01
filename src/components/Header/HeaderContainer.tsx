@@ -4,6 +4,7 @@ import s from "./Header.module.css"
 import {useDispatch, useSelector} from "react-redux";
 import * as axios from 'axios'
 import {getAuth} from "../../Redux/Auth";
+import {NavItem} from "../NavBar/NavItem/NavItem";
 
 
 
@@ -25,7 +26,8 @@ const HeaderContainer = () => {
 
 
     return (
-        <Header login={state.login} />
+
+        <Header login={state.login} isAuth={state.isAuth} />
     )
 }
 
@@ -34,9 +36,10 @@ export default HeaderContainer
 
 type HeaderPropsType={
     login:string
+    isAuth:boolean
 }
 
-export const Header:React.FC<HeaderPropsType> = ({login}) => {
+export const Header:React.FC<HeaderPropsType> = ({login,isAuth}) => {
   return(
       <div className={s.Header}>
           <div className={s.imgLogoWrapper}>
@@ -44,7 +47,11 @@ export const Header:React.FC<HeaderPropsType> = ({login}) => {
           </div>
           <div className={s.LogoTip}>Aggregator</div>
           <div className={s.LogoEmpty}>
-              <div>{login}</div>
+              <div>
+                  {isAuth
+                      ?login
+                      :<NavItem to={'/login'} elementName={'Sign in'} />}
+              </div>
           </div>
       </div>
   )

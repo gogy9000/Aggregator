@@ -7,12 +7,13 @@ import {getAllUsersApi, getProfileApi} from "../../Api/Api";
 export const ProfilePageContainerFC = () => {
 
     let state=useSelector((state: any) => state.profilePage)
+    let auth= useSelector((state:any)=>state.auth)
 
     let dispatch= useDispatch()
 
     let params= useParams()
 
-    let userID = params.userId? Number(params.userId):2;
+    let userID = params.userId? Number(params.userId):auth.id;
 
     useEffect(()=>{getProfileApi(dispatch,userID)},[userID])
     useEffect(()=> {getAllUsersApi(dispatch)},[state.profile])
