@@ -1,4 +1,4 @@
-import {InferActionsTypes} from "./Redux-store";
+import {InferActionsTypes} from "../Redux-store";
 
 export type   authStateType={
      id:string|null

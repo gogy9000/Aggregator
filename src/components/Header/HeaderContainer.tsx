@@ -3,7 +3,7 @@ import logo from "./logo.svg"
 import s from "./Header.module.css"
 import {useDispatch, useSelector} from "react-redux";
 import * as axios from 'axios'
-import {actions} from "../../Redux/Auth";
+import {actions} from "../../Redux/Auth/Auth";
 import {NavItem} from "../NavBar/NavItem/NavItem";
 
 

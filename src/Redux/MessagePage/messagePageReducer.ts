@@ -10,7 +10,7 @@ type messagePageType={
 }
 
 
-type stateMessagePageType={
+export type stateMessagePageType={
     messagePage: Array<messagePageType>
     newPost:string
 }
@@ -50,13 +50,13 @@ export const messagePageReducer = (state = initialState, action:ActionsType) => 
     }
 
 }
-type addTextACType={type: typeof ADD_TEXT}
-const ADD_TEXT = 'ADD-TEXT'
-export const addTextAC = ():addTextACType => ({type: ADD_TEXT})
-
-type onChangeACType={type: typeof ON_CHANGE, newText:string}
-const ON_CHANGE = 'ON-CHANGE'
-export const onChangeAC = (text:string):onChangeACType => ({type: ON_CHANGE, newText: text})
+// type addTextACType={type: typeof ADD_TEXT}
+// const ADD_TEXT = 'ADD-TEXT'
+// export const addTextAC = ():addTextACType => ({type: ADD_TEXT})
+//
+// type onChangeACType={type: typeof ON_CHANGE, newText:string}
+// const ON_CHANGE = 'ON-CHANGE'
+// export const onChangeAC = (text:string):onChangeACType => ({type: ON_CHANGE, newText: text})
 
 type ActionsType= InferActionsTypes<typeof actions>
 

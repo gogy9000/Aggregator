@@ -1,7 +1,7 @@
 import {combineReducers, createStore} from "redux";
 import {messagePageReducer} from "./MessagePage/messagePageReducer";
 import {ProfilePageReducer} from "./ProfilePage/ProfilePageReducer";
-import {authReducer} from "./Auth";
+import {authReducer} from "./Auth/Auth";
 
 
 const rootReducer = combineReducers({
