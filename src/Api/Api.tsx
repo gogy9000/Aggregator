@@ -1,10 +1,10 @@
 import * as axios from 'axios'
-import {getProfileAC, getProfileACType, getUsersAC, getUsersACType} from "../Redux/ProfilePage/ProfilePageReducer";
+import {actions, ActionsType} from "../Redux/ProfilePage/ProfilePageReducer";
 import React from "react";
 
 
 type getUsersApiType={
-    dispatch?:(getUsersAC:getUsersACType)=>void
+    dispatch?:(getUsersAC:ActionsType)=>void
     page?: number
     count?:number
     friend?:string
@@ -16,7 +16,7 @@ type getUsersApiType={
 
 
 export const getAllUsersApi =(
-    dispatch:(getUsersAC:getUsersACType)=>void,
+    dispatch:(getUsersAC:ActionsType)=>void,
     page:number=1,term:string='',
     friend:string=''):getUsersApiType => {
     // @ts-ignore
@@ -25,41 +25,41 @@ export const getAllUsersApi =(
     )
         .then(
         (response: any) => {
-            dispatch(getUsersAC(response.data.items,page));
+            dispatch(actions.getUsersAC(response.data.items,page));
         }
     );
 }
 
-export const getFollowUsersApi=(dispatch:(getUsersAC:getUsersACType)=>void,page: number =1,count:number,friend:boolean,term:string) => {
+export const getFollowUsersApi=(dispatch:(getUsersAC:ActionsType)=>void,page: number =1,count:number,friend:boolean,term:string) => {
 
     // @ts-ignore
     return axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=9&page=${page}`).then(
         (response: any) => {
 
-            dispatch(getUsersAC(response.data.items,page));
+            dispatch(actions.getUsersAC(response.data.items,page));
             console.log(response)
         }
     );
 }
 
-export const getUnFollowUsersApi=(dispatch:(getUsersAC:getUsersACType)=>void,page: number =1,count:number,friend:boolean,term:string) => {
+export const getUnFollowUsersApi=(dispatch:(getUsersAC:ActionsType)=>void,page: number =1,count:number,friend:boolean,term:string) => {
 
     // @ts-ignore
     return axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=9&page=${page}`).then(
         (response: any) => {
-            dispatch(getUsersAC(response.data.items,page));
+            dispatch(actions.getUsersAC(response.data.items,page));
         }
     );
 }
 
 
-export const getProfileApi=( dispatch:(getProfileAC:getProfileACType)=>void, userId:number=16495):getUsersApiType => {
+export const getProfileApi=( dispatch:(getProfileAC:ActionsType)=>void, userId:number=16495):getUsersApiType => {
     // console.log(userId)
     // @ts-ignore
     return axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`).then(
         (response: any) => {
 
-            dispatch(getProfileAC(response.data))
+            dispatch(actions.getProfileAC(response.data))
         }
     );
 }

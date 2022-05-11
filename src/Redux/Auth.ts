@@ -1,5 +1,6 @@
+import {InferActionsTypes} from "./Redux-store";
 
- export type   authStateType={
+export type   authStateType={
      id:string|null
      login:string|null
      email:string|null
@@ -13,10 +14,10 @@ let initialState:authStateType={
     isAuth:false
 }
 
-export const authReducer = (state=initialState,action:actionsType) => {
+export const authReducer = (state=initialState,action:ActionsType) => {
   switch (action.type) {
+
       case 'GET-AUTH-DATA':
-          console.dir(action)
           return{
               ...state,
               id: action.id,
@@ -24,9 +25,16 @@ export const authReducer = (state=initialState,action:actionsType) => {
               email: action.email,
               isAuth: true
           }
+
       default: return state
   }
 }
-type actionsType= ReturnType<typeof getAuth>
-const GET_AUTH='GET-AUTH-DATA'
-export const getAuth = ( id:string,login:string, email:string)=> ({type:GET_AUTH,id,login,email} as const)
+
+
+
+type ActionsType= InferActionsTypes<typeof actions>
+
+ export const actions={
+     getAuth:( id:string,login:string, email:string)=> ({type:'GET-AUTH-DATA',id,login,email} as const)
+ }
+

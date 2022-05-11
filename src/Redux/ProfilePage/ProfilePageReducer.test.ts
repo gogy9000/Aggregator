@@ -1,11 +1,8 @@
-import ProfilePageReducer, {
-    followAC,
-    getUsersAC, profileType,
+import  {ProfilePageReducer,
+    actions, ApiProfileType,
     stateProfilePageType,
-    unfollowAC,
     UserObjectType
 } from "./ProfilePageReducer";
-import React from "react";
 import {v1} from "uuid";
 
 let state:stateProfilePageType
@@ -19,7 +16,7 @@ beforeEach(()=>{
         users: [
             {
                 followed: true,
-                id: v1(),
+                id: '2',
                 uniqueUrlName: null,
                 name: "Stan",
                 // @ts-ignore
@@ -27,7 +24,7 @@ beforeEach(()=>{
                 status: 'null'
             }
         ],
-        profile:{} as profileType,
+        profile:{} as ApiProfileType,
         currentPage: 1
     },
       users=[
@@ -46,24 +43,24 @@ beforeEach(()=>{
 
 
 it('state should be update',()=>{
-    let action= getUsersAC(users,page)
+    let action= actions.getUsersAC(users,page)
     let newState=ProfilePageReducer(state,action)
     expect(newState.users.length).toBe(1)
 })
 
 it('page should be update',()=>{
     let page=3
-    let action= getUsersAC(users,page)
+    let action= actions.getUsersAC(users,page)
     let newState=ProfilePageReducer(state,action)
     expect(newState.currentPage).toBe(3)
 })
 test('followed should be true',()=>{
-    let action= followAC(2)
+    let action= actions.followAC('2')
     let newState=ProfilePageReducer(state,action)
     expect(newState.users[0].followed).toBeTruthy()
 })
-test('followed should be true',()=>{
-    let action= unfollowAC(2)
+test('followed should be false',()=>{
+    let action= actions.unfollowAC('2')
     let newState=ProfilePageReducer(state,action)
     expect(newState.users[0].followed).toBeFalsy()
 })

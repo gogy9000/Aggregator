@@ -3,7 +3,7 @@ import logo from "./logo.svg"
 import s from "./Header.module.css"
 import {useDispatch, useSelector} from "react-redux";
 import * as axios from 'axios'
-import {getAuth} from "../../Redux/Auth";
+import {actions} from "../../Redux/Auth";
 import {NavItem} from "../NavBar/NavItem/NavItem";
 
 
@@ -20,7 +20,7 @@ const HeaderContainer = () => {
      ).then((response:any)=>{
          if (response.data.resultCode!==0){return}
       let {id, login, email}=response.data.data
-         dispatch(getAuth(id, login, email))
+         dispatch(actions.getAuth(id, login, email))
     })
  },[])
 

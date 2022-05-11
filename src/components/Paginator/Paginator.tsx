@@ -1,4 +1,4 @@
-import {getUsersACType, stateProfilePageType} from "../../Redux/ProfilePage/ProfilePageReducer";
+import {ActionsType,  stateProfilePageType} from "../../Redux/ProfilePage/ProfilePageReducer";
 import React from "react";
 import {getAllUsersApi} from "../../Api/Api";
 import {CustomButtonByPaginator} from "./CustomButtonByPaginator";
@@ -6,7 +6,7 @@ import {CustomButtonByPaginator} from "./CustomButtonByPaginator";
 
 type PaginatorApiContainerType = {
     state: stateProfilePageType
-    dispatch: (getUsersAC: getUsersACType) => void
+    dispatch: (getUsersAC: ActionsType) => void
     clickPageCallBack?: (setPageNumber: number) => void
 }
 //это паджинатор...

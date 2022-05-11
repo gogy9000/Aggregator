@@ -1,4 +1,6 @@
 import {v1} from "uuid";
+import {InferActionsTypes} from "../Redux-store";
+
 
 type messagePageType={
     id: string
@@ -20,10 +22,9 @@ let initialState:stateMessagePageType = {
     newPost: '',
 }
 
-type actionType={
-  action:  addTextACType|onChangeACType
-}
-export const messagePageReducer = (state = initialState, action:any) => {
+
+
+export const messagePageReducer = (state = initialState, action:ActionsType) => {
 
 
     switch (action.type) {
@@ -57,4 +58,9 @@ type onChangeACType={type: typeof ON_CHANGE, newText:string}
 const ON_CHANGE = 'ON-CHANGE'
 export const onChangeAC = (text:string):onChangeACType => ({type: ON_CHANGE, newText: text})
 
+type ActionsType= InferActionsTypes<typeof actions>
 
+export const actions = {
+    addTextAC:() => ({type: 'ADD-TEXT'} as const),
+    onChangeAC:(text:string) => ({type: 'ON-CHANGE', newText: text} as const)
+}

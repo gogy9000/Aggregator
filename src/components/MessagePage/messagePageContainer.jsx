@@ -1,4 +1,4 @@
-import {addTextAC, onChangeAC} from "../../Redux/MessagePage/messagePageReducer";
+import {actions} from "../../Redux/MessagePage/messagePageReducer";
 import React from "react";
 import MessagePage from "./messagePage";
 import {useDispatch, useSelector} from "react-redux";
@@ -12,12 +12,12 @@ export const MessagePageContainer = () => {
 
 
     let addText = () => {
-        dispatch(addTextAC())
+        dispatch(actions.addTextAC())
     }
 
     let changeMessageValue = (e) => {
         let text = e.target.value
-        dispatch(onChangeAC(text))
+        dispatch(actions.onChangeAC(text))
 
     }
 

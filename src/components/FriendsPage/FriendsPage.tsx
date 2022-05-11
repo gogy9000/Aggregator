@@ -1,4 +1,4 @@
-import {ActionCreatorType, stateProfilePageType} from "../../Redux/ProfilePage/ProfilePageReducer";
+import {ActionsType, stateProfilePageType} from "../../Redux/ProfilePage/ProfilePageReducer";
 import React, {ChangeEvent, ChangeEventHandler, useState} from "react";
 import s from "./FriendsPage.module.css";
 import Paginator from "../Paginator/Paginator";
@@ -6,7 +6,7 @@ import {FriendList} from "./FriendList";
 
 type FriendsPagePropsType = {
     state: stateProfilePageType
-    dispatch: (action:ActionCreatorType)=>void
+    dispatch: (action:ActionsType)=>void
     getUsersCallBack:(userName:string, isFollow:string)=>void
     getFollowUsers?:(isFollow:string)=>void
 }
