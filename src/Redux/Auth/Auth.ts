@@ -14,7 +14,7 @@ let initialState:authStateType={
     isAuth:false
 }
 
-export const authReducer = (state=initialState,action:ActionsType) => {
+export const authReducer = (state:authStateType=initialState,action:ActionsType):authStateType => {
   switch (action.type) {
 
       case 'GET-AUTH-DATA':

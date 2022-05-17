@@ -1,19 +1,20 @@
 import {ActionsType, stateProfilePageType} from "../../Redux/ProfilePage/ProfilePageReducer";
-import React, {ChangeEvent, ChangeEventHandler, useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 import s from "./FriendsPage.module.css";
 import Paginator from "../Paginator/Paginator";
 import {FriendList} from "./FriendList";
+import {ActionsAppType} from "../../Redux/App/AppReducer";
 
 type FriendsPagePropsType = {
     state: stateProfilePageType
-    dispatch: (action:ActionsType)=>void
+    dispatch: (actions:ActionsType|ActionsAppType)=>void
     getUsersCallBack:(userName:string, isFollow:string)=>void
     getFollowUsers?:(isFollow:string)=>void
 }
 export const FriendsPage: React.FC<FriendsPagePropsType> = ({state, dispatch,getUsersCallBack}) => {
 
     const [userName, setUserName]=useState<string>('')
-    // const [isFollowUsers,setIsFollowUsers]=useState<string>('')
+
 
     const changeUserName = (e:ChangeEvent<HTMLInputElement>) => {
       setUserName(e.currentTarget.value)
@@ -22,10 +23,6 @@ export const FriendsPage: React.FC<FriendsPagePropsType> = ({state, dispatch,get
     const getUsers = (isFollow:string) => {
     getUsersCallBack(userName,isFollow)
 }
-
-// const onGetFollowUsers = () => {
-//     setIsFollowUsers()
-// }
 
     return (
         <div className={s.friendsPage}>

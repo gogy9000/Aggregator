@@ -8,13 +8,12 @@ import ProfilePageApiContainer from "./components/ProfilePage/ProfilePageApiCont
 import {FriendsPageFunctionalComponent} from "./components/FriendsPage/FriendsPageFunctionalComponent";
 import FriendsPageClassComponents from "./components/FriendsPage/FriendsPageClassComponents";
 import {ProfilePageContainerFC} from "./components/ProfilePage/ProfilePageContainerFC";
-// import {ProfilePageApiContainer} from "./ProfilePageApiContainer/ProfilePageApiContainer";
+
 
 
 const App = () => {
 
 
-    // @ts-ignore
     return (
 
 
@@ -30,19 +29,12 @@ const App = () => {
                 <div className='Content'>
 
                     <Routes>
-                        {/*<Route path='/profile:userId?' element= {ProfilePageContainerFC}/>*/}
-
                         <Route path="/" element={<ProfilePageContainerFC />}/>
                         <Route path="/profile/*" element={<ProfilePageContainerFC />}>
                             <Route path=":userId" element={<ProfilePageContainerFC />} />
                         </Route>
-
-
                         <Route path='/messenger' element={<MessagePageContainer/>}/>
-                        {/*<Route path='/friends' element={<FriendsPageFunctionalComponent/>}/>*/}
-                        <Route path='/friends' element={<FriendsPageClassComponents/>}/>
-
-
+                        <Route path='/friends' element={<FriendsPageFunctionalComponent/>}/>
                     </Routes>
                 </div>
             </div>

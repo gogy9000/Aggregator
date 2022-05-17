@@ -3,25 +3,34 @@ import React, {useEffect} from "react";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getAllUsersApi, getProfileApi} from "../../Api/Api";
+import {AppStateType} from "../../Redux/Redux-store";
+import {Dispatch} from "redux";
 
 export const ProfilePageContainerFC = () => {
 
-    let state=useSelector((state: any) => state.profilePage)
-    let auth= useSelector((state:any)=>state.auth)
+    let state = useSelector((state: AppStateType) => state.profilePage)
+    let auth = useSelector((state: AppStateType) => state.auth)
+    let initApp = useSelector((state: AppStateType) => state.AppReducer)
 
-    let dispatch= useDispatch()
+    const dispatch:Dispatch = useDispatch()
 
-    let params= useParams()
+    let params = useParams()
 
-    let userID = params.userId? Number(params.userId):auth.id;
+    let userID = params.userId ? Number(params.userId) : auth.id;
 
-    useEffect(()=>{getProfileApi(dispatch,userID)},[userID])
-    useEffect(()=> {getAllUsersApi(dispatch)},[state.profile])
+    useEffect(() => {
+        getProfileApi(dispatch, userID)
+    }, [userID])
+    useEffect(() => {
+        getAllUsersApi(dispatch)
+    }, [state.profile])
 
     return (
-        state.profile &&
-    <ProfilePage callBack={() => {
-    }}/>
+        <>{initApp.isFetching ?
+            <div>LOAD!!</div>
+            : <ProfilePage callBack={() => {
+            }}/>}
 
+        </>
     )
 }

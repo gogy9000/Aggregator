@@ -2,12 +2,14 @@ import {combineReducers, createStore} from "redux";
 import {messagePageReducer} from "./MessagePage/messagePageReducer";
 import {ProfilePageReducer} from "./ProfilePage/ProfilePageReducer";
 import {authReducer} from "./Auth/Auth";
+import {AppReducer} from "./App/AppReducer";
 
 
 const rootReducer = combineReducers({
     messagePage: messagePageReducer,
     profilePage: ProfilePageReducer,
-    auth: authReducer
+    auth: authReducer,
+    AppReducer:AppReducer
 });
 
 type rootReducerType = typeof rootReducer
