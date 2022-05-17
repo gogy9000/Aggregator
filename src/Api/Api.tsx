@@ -24,7 +24,7 @@ export const getAllUsersApi =(
     dispatch(actionsApp.toggleIsFetching(true))
     // @ts-ignore
     axios.get(
-        `https://social-network.samuraijs.com/api/1.0/users?count=9&page=${page}&term=${term}&friend=${friend}`
+        `https://social-network.samuraijs.com/api/1.0/users?count=9&page=${page}&term=${term}&friend=${friend}`,{withCredentials:true}
     )
         .then(
         (response: any) => {
@@ -35,33 +35,38 @@ export const getAllUsersApi =(
     );
 }
 
-// export const getFollowUsersApi=(dispatch:(getUsersAC:ActionsType)=>void,page: number =1,count:number,friend:boolean,term:string) => {
-//
-//     // @ts-ignore
-//     return axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=9&page=${page}`).then(
-//         (response: any) => {
-//
-//             dispatch(actions.getUsersAC(response.data.items,page));
-//             console.log(response)
-//         }
-//     );
-// }
+export const getFollowUsersApi=(dispatch:(actions:ActionsType)=>void,userId:string) => {
 
-// export const getUnFollowUsersApi=(dispatch:(getUsersAC:ActionsType)=>void,page: number =1,count:number,friend:boolean,term:string) => {
-//
-//     // @ts-ignore
-//     return axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=9&page=${page}`).then(
-//         (response: any) => {
-//             dispatch(actions.getUsersAC(response.data.items,page));
-//         }
-//     );
-// }
+    // @ts-ignore
+    return axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`,{},{
+        withCredentials:true,
+        headers: {"API-KEY": "9998b652-b16b-4b0d-b784-98bbaf34a6e7"}
+    }).then(
+        (response: any) => {
+            if(response.data.resultCode===0){dispatch(actions.followAC(userId))}
+        }
+    );
+}
+
+export const getUnFollowUsersApi=(dispatch:(actions:ActionsType)=>void,userId:string) => {
+
+    // @ts-ignore
+    return axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`,{
+        withCredentials:true,
+        headers: {"API-KEY": "9998b652-b16b-4b0d-b784-98bbaf34a6e7"}
+    }).then(
+        (response: any) => {
+            if(response.data.resultCode===0){dispatch(actions.unfollowAC(userId))}
+        }
+    );
+}
 
 
-export const getProfileApi= (dispatch: (getProfileAC: ActionsType|ActionsAppType) => void, userId: number | string | null) => {
+
+export const getProfileApi= (dispatch: (getProfileAC: ActionsType|ActionsAppType) => void, userId: number|null) => {
     dispatch(actionsApp.toggleIsFetching(true))
     // @ts-ignore
-     axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`).then(
+     axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`,{withCredentials:true}).then(
         (response: any) => {
 
             dispatch(actions.getProfileAC(response.data))

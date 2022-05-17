@@ -1,40 +1,40 @@
 import {InferActionsTypes} from "../Redux-store";
 
-export type   authStateType={
-     id:string|null
-     login:string|null
-     email:string|null
-     isAuth:boolean
+export type   authStateType = {
+    id: number | null
+    login: string | null
+    email: string | null
+    isAuth: boolean
 
- }
-let initialState:authStateType={
-    id:null,
-    login:null,
-    email:null,
-    isAuth:false
+}
+let initialState: authStateType = {
+    id: null,
+    login: null,
+    email: null,
+    isAuth: false
 }
 
-export const authReducer = (state:authStateType=initialState,action:ActionsType):authStateType => {
-  switch (action.type) {
+export const authReducer = (state: authStateType = initialState, action: ActionsType): authStateType => {
+    switch (action.type) {
 
-      case 'GET-AUTH-DATA':
-          return{
-              ...state,
-              id: action.id,
-              login:action.login,
-              email: action.email,
-              isAuth: true
-          }
+        case 'GET-AUTH-DATA':
+            return {
+                ...state,
+                id: Number(action.id),
+                login: action.login,
+                email: action.email,
+                isAuth: true
+            }
 
-      default: return state
-  }
+        default:
+            return state
+    }
 }
 
 
+type ActionsType = InferActionsTypes<typeof actions>
 
-type ActionsType= InferActionsTypes<typeof actions>
-
- export const actions={
-     getAuth:( id:string,login:string, email:string)=> ({type:'GET-AUTH-DATA',id,login,email} as const)
- }
+export const actions = {
+    getAuth: (id: string, login: string, email: string) => ({type: 'GET-AUTH-DATA', id, login, email} as const)
+}
 

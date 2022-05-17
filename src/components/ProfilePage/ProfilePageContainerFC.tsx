@@ -19,6 +19,7 @@ export const ProfilePageContainerFC = () => {
     let userID = params.userId ? Number(params.userId) : auth.id;
 
     useEffect(() => {
+        // debugger
         getProfileApi(dispatch, userID)
     }, [userID])
     useEffect(() => {

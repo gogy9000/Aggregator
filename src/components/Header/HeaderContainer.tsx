@@ -5,22 +5,25 @@ import {useDispatch, useSelector} from "react-redux";
 import * as axios from 'axios'
 import {actions} from "../../Redux/Auth/Auth";
 import {NavItem} from "../NavBar/NavItem/NavItem";
+import {AppStateType} from "../../Redux/Redux-store";
+import {actionsApp} from "../../Redux/App/AppReducer";
 
 
 
 
 const HeaderContainer = () => {
-   const state=useSelector((state:any)=>state.auth)
+   const state=useSelector((state:AppStateType)=>state.auth)
   const dispatch= useDispatch()
 
  useEffect(()=>{
-
+    // dispatch(actionsApp.toggleIsFetching(true))
     // @ts-ignore
     return  axios.get('https://social-network.samuraijs.com/api/1.0/auth/me',{withCredentials:true}
      ).then((response:any)=>{
          if (response.data.resultCode!==0){return}
       let {id, login, email}=response.data.data
          dispatch(actions.getAuth(id, login, email))
+        dispatch(actionsApp.toggleIsFetching(false))
     })
  },[])
 
@@ -35,7 +38,7 @@ export default HeaderContainer
 
 
 type HeaderPropsType={
-    login:string
+    login:string|null
     isAuth:boolean
 }
 

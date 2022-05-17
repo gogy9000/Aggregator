@@ -6,6 +6,7 @@ import {
     stateProfilePageType,
 
 } from "../../Redux/ProfilePage/ProfilePageReducer";
+import {getFollowUsersApi, getUnFollowUsersApi} from "../../Api/Api";
 
 type FriendListType ={
     state:stateProfilePageType
@@ -19,12 +20,13 @@ export const FriendList:React.FC<FriendListType> = ({state,dispatch}) => {
 
         (user: any) => {
             const follow = () => {
-
-                dispatch(actions.followAC(user.id))
+                getFollowUsersApi(dispatch,user.id)
+                // dispatch(actions.followAC(user.id))
             }
 
             const unFollow = () => {
-                dispatch(actions.unfollowAC(user.id))
+                getUnFollowUsersApi(dispatch,user.id)
+
             }
 
 
