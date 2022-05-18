@@ -18,12 +18,12 @@ export const FriendDescriptionBlock = (props: any) => {
                 </div>
                 <div className={s.ButtonFollowUnFollow}>
                     {props.user.followed
-                        ? <div onClick={props.unfollow}>
-                            <NavItem elementName={'unfollow'} to={''}/>
-                        </div>
-                        : <div onClick={props.follow}>
-                            <NavItem elementName={'follow'} to={''}/>
-                        </div>
+                        ? <button onClick={props.unfollow} disabled={props.isFetchingRequest}>
+                            unfollow
+                        </button>
+                        : <button onClick={props.follow} disabled={props.isFetchingRequest}>
+                            follow
+                        </button>
                     }
                 </div>
             </div>

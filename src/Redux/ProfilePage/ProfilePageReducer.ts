@@ -7,7 +7,7 @@ export type PhotosObjectType = {
 }
 export type UserObjectType = {
     followed: boolean
-    id: string | null
+    id: string
     uniqueUrlName: string | null
     name: string | null
     photos: PhotosObjectType

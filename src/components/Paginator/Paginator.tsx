@@ -28,14 +28,26 @@ const PaginatorApiContainer: React.FC<PaginatorApiContainerType> = (props) => {
             getAllUsersApi(page).then((data:any)=>{
                 props.dispatch(actions.getUsersAC(data.items, page))
             })
-
         }
-        action === 'next' ? clicker(1) :
-            action === 'forward' ? clicker(3) :
-                action === 'backForward' ? clicker(-3) :
-                    action === 'back' ? clicker(-1) :
-                        action === 'nextUp3Page' ? clicker(2) :
-                            clicker(0)
+        switch (action) {
+            case 'next':
+                clicker(1)
+                break
+            case 'forward':
+                clicker(3)
+                break
+            case 'backForward':
+                clicker(-3)
+                break
+            case 'back':
+                clicker(-1)
+                break
+            case 'nextUp3Page':
+                clicker(2)
+                break
+            default : clicker(0)
+        }
+
     }
 
     //в return два блока кнопок, первый блок рисуется только при стартовом значении паджинатора.

@@ -17,7 +17,7 @@ export const getAllUsersApi =(page:number=1,term:string='', friend:string=''):an
     );
 }
 
-export const getFollowUsersApi=(userId:string) => {
+export const getFollowUsersApi=(userId:string|null) => {
 
     // @ts-ignore
     return axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`,{},{

@@ -4,6 +4,7 @@ import {PhotoBar} from "./PhotoBar";
 import {useDispatch, useSelector} from "react-redux";
 import {AvatarBlock} from "./AvatarBlock";
 import React from "react";
+import {AppStateType} from "../../Redux/Redux-store";
 
 type ProfileSidebarPropsType={
     callBack:()=>void
@@ -11,12 +12,13 @@ type ProfileSidebarPropsType={
 export const ProfileSidebar:React.FC<ProfileSidebarPropsType> = (props) => {
 
     const state = useSelector((state: any) => state.profilePage)
+    const initState= useSelector((state:AppStateType)=>state.AppReducer)
     const dispatch = useDispatch()
 
 
     return (
 
-        state? <div>
+        initState.isFetching?<div>loading</div>: <div>
 
                 <NavItem to={'/profile/'}>
                     <div>{state.profile=== null ? 'state.profile.fullName' : state.profile.fullName}</div>
@@ -27,7 +29,7 @@ export const ProfileSidebar:React.FC<ProfileSidebarPropsType> = (props) => {
                 <PhotoBar/>
 
 
-            </div>:<div>asd</div>
+            </div>
 
     )
 }
