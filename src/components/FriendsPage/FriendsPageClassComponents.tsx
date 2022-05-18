@@ -1,7 +1,9 @@
 import React from "react";
 import {connect} from "react-redux";
-import {getAllUsersApi, getProfileApi} from "../../Api/Api";
+import {getAllUsersApi} from "../../Api/Api";
 import {FriendsPage} from "./FriendsPage";
+import {actionsApp} from "../../Redux/App/AppReducer";
+import {actions} from "../../Redux/ProfilePage/ProfilePageReducer";
 
 
 
@@ -15,21 +17,17 @@ class FriendsPageClassComponents extends React.Component<any, any> {
     }
 
     getUsersCallBack = (userName: string, isFollow:string) => {
-        getAllUsersApi(this.props.dispatch, 1, userName,isFollow)
-
+        this.props.dispatch(actionsApp.toggleIsFetching(true))
+        getAllUsersApi( 1, userName,isFollow).then((data:any)=>{
+            this.props.dispatch(actions.getUsersAC(data.items,1));
+            this.props. dispatch(actionsApp.toggleIsFetching(false))
+        }
+)
     }
 
-    // getFollowUsers=(isFollow:string)=>{
-    //     getAllUsersApi(this.props.dispatch, 1, '',isFollow)
-    // }
-
-
     componentDidMount() {
+        getAllUsersApi()
 
-
-        getAllUsersApi(this.props.dispatch,)
-        // getProfileApi(this.props.dispatch,this.props.match.params)
-        console.log(this.props)
     }
 
     render() {
@@ -38,7 +36,7 @@ class FriendsPageClassComponents extends React.Component<any, any> {
             <FriendsPage state={this.props.state}
                          dispatch={this.props.dispatch}
                          getUsersCallBack={this.getUsersCallBack}
-                         // getFollowUsers={this.getFollowUsers}
+
             />
         )
     }

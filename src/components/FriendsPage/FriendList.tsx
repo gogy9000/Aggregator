@@ -20,12 +20,16 @@ export const FriendList:React.FC<FriendListType> = ({state,dispatch}) => {
 
         (user: any) => {
             const follow = () => {
-                getFollowUsersApi(dispatch,user.id)
-                // dispatch(actions.followAC(user.id))
+                getFollowUsersApi(user.id).then((data:any)=>{
+                    if(data.resultCode===0){dispatch(actions.followAC(user.id))}
+                })
+
             }
 
             const unFollow = () => {
-                getUnFollowUsersApi(dispatch,user.id)
+                getUnFollowUsersApi(user.id).then((data:any)=>{
+                    if(data.resultCode===0){dispatch(actions.unfollowAC(user.id))}
+                })
 
             }
 

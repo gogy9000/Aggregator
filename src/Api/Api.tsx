@@ -4,38 +4,20 @@ import {actionsApp,ActionsAppType} from "../Redux/App/AppReducer";
 
 
 
-type getUsersApiType={
-    dispatch?:(actions:ActionsType)=>void
-    page?: number
-    count?:number
-    friend?:string
-    term?:string
-    userId?:number
-
-}
-
-
-
-export const getAllUsersApi =(
-    dispatch:(getUsersAC:ActionsType|ActionsAppType)=>void,
-    page:number=1,term:string='',
-    friend:string='') => {
-
-    dispatch(actionsApp.toggleIsFetching(true))
+export const getAllUsersApi =(page:number=1,term:string='', friend:string=''):any => {
     // @ts-ignore
-    axios.get(
-        `https://social-network.samuraijs.com/api/1.0/users?count=9&page=${page}&term=${term}&friend=${friend}`,{withCredentials:true}
+  return   axios.get(
+        `https://social-network.samuraijs.com/api/1.0/users?count=9&page=${page}&term=${term}&friend=${friend}`,
+        {withCredentials:true}
     )
         .then(
         (response: any) => {
-
-            dispatch(actions.getUsersAC(response.data.items,page));
-            dispatch(actionsApp.toggleIsFetching(false))
+            return response.data
         }
     );
 }
 
-export const getFollowUsersApi=(dispatch:(actions:ActionsType)=>void,userId:string) => {
+export const getFollowUsersApi=(userId:string) => {
 
     // @ts-ignore
     return axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`,{},{
@@ -43,12 +25,12 @@ export const getFollowUsersApi=(dispatch:(actions:ActionsType)=>void,userId:stri
         headers: {"API-KEY": "9998b652-b16b-4b0d-b784-98bbaf34a6e7"}
     }).then(
         (response: any) => {
-            if(response.data.resultCode===0){dispatch(actions.followAC(userId))}
+            return response.data
         }
     );
 }
 
-export const getUnFollowUsersApi=(dispatch:(actions:ActionsType)=>void,userId:string) => {
+export const getUnFollowUsersApi=(userId:string) => {
 
     // @ts-ignore
     return axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`,{
@@ -56,7 +38,7 @@ export const getUnFollowUsersApi=(dispatch:(actions:ActionsType)=>void,userId:st
         headers: {"API-KEY": "9998b652-b16b-4b0d-b784-98bbaf34a6e7"}
     }).then(
         (response: any) => {
-            if(response.data.resultCode===0){dispatch(actions.unfollowAC(userId))}
+            return response.data
         }
     );
 }

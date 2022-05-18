@@ -5,6 +5,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {getAllUsersApi, getProfileApi} from "../../Api/Api";
 import {AppStateType} from "../../Redux/Redux-store";
 import {Dispatch} from "redux";
+import {actions} from "../../Redux/ProfilePage/ProfilePageReducer";
+import {actionsApp} from "../../Redux/App/AppReducer";
 
 export const ProfilePageContainerFC = () => {
 
@@ -22,8 +24,13 @@ export const ProfilePageContainerFC = () => {
         // debugger
         getProfileApi(dispatch, userID)
     }, [userID])
+
     useEffect(() => {
-        getAllUsersApi(dispatch)
+        dispatch(actionsApp.toggleIsFetching(true))
+        getAllUsersApi(1).then((data:any)=>{
+           dispatch(actions.getUsersAC(data.items, 1))
+            dispatch(actionsApp.toggleIsFetching(false))
+        })
     }, [state.profile])
 
     return (

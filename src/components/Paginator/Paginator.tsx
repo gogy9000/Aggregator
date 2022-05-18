@@ -1,4 +1,4 @@
-import {ActionsType,  stateProfilePageType} from "../../Redux/ProfilePage/ProfilePageReducer";
+import {actions, ActionsType, stateProfilePageType} from "../../Redux/ProfilePage/ProfilePageReducer";
 import React from "react";
 import {getAllUsersApi} from "../../Api/Api";
 import {CustomButtonByPaginator} from "./CustomButtonByPaginator";
@@ -23,12 +23,19 @@ const PaginatorApiContainer: React.FC<PaginatorApiContainerType> = (props) => {
 
 
     const clickPage = (action: string) => {
-        action === 'next' ? getAllUsersApi(props.dispatch, props.state.currentPage + 1) :
-            action === 'forward' ? getAllUsersApi(props.dispatch, props.state.currentPage + 3) :
-                action === 'backForward' ? getAllUsersApi(props.dispatch, props.state.currentPage - 3) :
-                    action === 'back' ? getAllUsersApi(props.dispatch, props.state.currentPage - 1) :
-                        action === 'nextUp3Page' ? getAllUsersApi(props.dispatch, props.state.currentPage + 2) :
-                            getAllUsersApi(props.dispatch, props.state.currentPage)
+        const clicker = (num:number) => {
+            let page=props.state.currentPage + num
+            getAllUsersApi(page).then((data:any)=>{
+                props.dispatch(actions.getUsersAC(data.items, page))
+            })
+
+        }
+        action === 'next' ? clicker(1) :
+            action === 'forward' ? clicker(3) :
+                action === 'backForward' ? clicker(-3) :
+                    action === 'back' ? clicker(-1) :
+                        action === 'nextUp3Page' ? clicker(2) :
+                            clicker(0)
     }
 
     //в return два блока кнопок, первый блок рисуется только при стартовом значении паджинатора.
