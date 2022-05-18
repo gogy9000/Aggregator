@@ -2,14 +2,17 @@ import * as axios from 'axios'
 import {actions, ActionsType} from "../Redux/ProfilePage/ProfilePageReducer";
 import {actionsApp,ActionsAppType} from "../Redux/App/AppReducer";
 
+    // @ts-ignore
+const instance= axios.create({
+        withCredentials:true,
+        baseURL:'https://social-network.samuraijs.com/api/1.0/',
+        headers: {"API-KEY": "9998b652-b16b-4b0d-b784-98bbaf34a6e7"}
 
+    })
 
 export const getAllUsersApi =(page:number=1,term:string='', friend:string=''):any => {
-    // @ts-ignore
-  return   axios.get(
-        `https://social-network.samuraijs.com/api/1.0/users?count=9&page=${page}&term=${term}&friend=${friend}`,
-        {withCredentials:true}
-    )
+
+  return   instance.get(`users?count=9&page=${page}&term=${term}&friend=${friend}`)
         .then(
         (response: any) => {
             return response.data
@@ -19,11 +22,8 @@ export const getAllUsersApi =(page:number=1,term:string='', friend:string=''):an
 
 export const getFollowUsersApi=(userId:string|null) => {
 
-    // @ts-ignore
-    return axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`,{},{
-        withCredentials:true,
-        headers: {"API-KEY": "9998b652-b16b-4b0d-b784-98bbaf34a6e7"}
-    }).then(
+
+    return instance.post(`follow/${userId}`).then(
         (response: any) => {
             return response.data
         }
@@ -32,27 +32,15 @@ export const getFollowUsersApi=(userId:string|null) => {
 
 export const getUnFollowUsersApi=(userId:string) => {
 
-    // @ts-ignore
-    return axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`,{
-        withCredentials:true,
-        headers: {"API-KEY": "9998b652-b16b-4b0d-b784-98bbaf34a6e7"}
-    }).then(
-        (response: any) => {
-            return response.data
-        }
-    );
+    return instance.delete(`follow/${userId}`).then((response: any) => response.data);
 }
 
 
 
-export const getProfileApi= (dispatch: (getProfileAC: ActionsType|ActionsAppType) => void, userId: number|null) => {
-    dispatch(actionsApp.toggleIsFetching(true))
-    // @ts-ignore
-     axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`,{withCredentials:true}).then(
-        (response: any) => {
+export const getProfileApi= ( userId: number|null) => {
 
-            dispatch(actions.getProfileAC(response.data))
-            dispatch(actionsApp.toggleIsFetching(false))
-        }
+    return  instance.get(`profile/${userId}`).then(
+        (response: any) => response.data
+
     );
 }

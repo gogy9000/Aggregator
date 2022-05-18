@@ -4,6 +4,8 @@ import {getAllUsersApi, getProfileApi} from "../../Api/Api";
 import {connect, useDispatch} from "react-redux";
 
 import {useParams} from "react-router-dom";
+import {actions} from "../../Redux/ProfilePage/ProfilePageReducer";
+import {actionsApp} from "../../Redux/App/AppReducer";
 
 
 const withRouter = (WrappedComponent: any) => (props: any) => {
@@ -12,9 +14,13 @@ const withRouter = (WrappedComponent: any) => (props: any) => {
     let dispatch = useDispatch()
 
     let refresh = () => {
+        dispatch(actionsApp.toggleIsFetching(true))
         setUId(uId = params.userId ? Number(params.userId) : 2)
 
-        getProfileApi(dispatch, uId)
+        getProfileApi(uId).then((data:any)=>{
+            dispatch(actions.getProfileAC(data))
+            dispatch(actionsApp.toggleIsFetching(false))
+        })
     }
 
 
@@ -42,7 +48,8 @@ export class ProfilePageApiContainer extends React.Component<any, any> {
     componentDidMount() {
 
 
-        getAllUsersApi(this.props.dispatch)
+        // getAllUsersApi(this.props.dispatch)
+
         // getProfileApi(this.props.dispatch,2)
 
     }
