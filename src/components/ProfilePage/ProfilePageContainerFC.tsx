@@ -14,7 +14,7 @@ export const ProfilePageContainerFC = () => {
     let auth = useSelector((state: AppStateType) => state.auth)
     let initApp = useSelector((state: AppStateType) => state.AppReducer)
 
-    const dispatch:Dispatch = useDispatch()
+    const dispatch: Dispatch = useDispatch()
 
     let params = useParams()
 
@@ -22,7 +22,7 @@ export const ProfilePageContainerFC = () => {
 
     useEffect(() => {
         dispatch(actionsApp.toggleIsFetching(true))
-        profileApi.getProfileApi( userID).then((data:any)=>{
+        profileApi.getProfileApi(userID).then((data: any) => {
             dispatch(actions.getProfileAC(data))
             dispatch(actionsApp.toggleIsFetching(false))
         })
@@ -30,8 +30,8 @@ export const ProfilePageContainerFC = () => {
 
     useEffect(() => {
         dispatch(actionsApp.toggleIsFetching(true))
-        userApi.getAllUsersApi(1).then((data:any)=>{
-           dispatch(actions.getUsersAC(data.items, 1))
+        userApi.getAllUsersApi(1).then((data: any) => {
+            dispatch(actions.getUsersAC(data.items, 1))
             dispatch(actionsApp.toggleIsFetching(false))
         })
     }, [state.profile])

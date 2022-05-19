@@ -8,27 +8,35 @@ import {ActionsAppType} from "../../Redux/AppReducer/AppReducer";
 type FriendsPagePropsType = {
     state: stateProfilePageType
     dispatch: (actions: ActionsType | ActionsAppType) => void
-    getUsersCallBack: (userName: string, isFollow: string) => void
+    getUsersCallBack: (page: number, userName: string, isFollow: string, count: number) => void
     getFollowUsers?: (isFollow: string) => void
 }
 export const FriendsPage: React.FC<FriendsPagePropsType> = ({state, dispatch, getUsersCallBack}) => {
 
     const [userName, setUserName] = useState<string>('')
     const [isFollowers, setIsFollowers] = useState<string>('')
+    const [count, setCount] = useState<number>(10)
+    const [page, setPage] = useState<number>(1)
 
     const changeUserName = (e: ChangeEvent<HTMLInputElement>) => {
         setUserName(e.currentTarget.value)
     }
-    useEffect(()=>{
-        getUsersCallBack(userName, isFollowers)
-    },[userName, isFollowers])
+    useEffect(() => {
+        getUsersCallBack(page, userName, isFollowers, count)
+    }, [userName, isFollowers, page])
 
 
     return (
         <div className={s.friendsPage}>
 
             <div className={s.onlineOfflineFriendsBlock}>
-                <Paginator state={state} dispatch={dispatch}/>
+                <Paginator clickPageCallBack={setPage}
+                           page={page}
+                           count={count}
+                           state={state}
+                           dispatch={dispatch}
+                           userName={userName}
+                           isFollowers={isFollowers}/>
             </div>
 
             <div className={s.searchFriends}>
@@ -51,6 +59,7 @@ export const FriendsPage: React.FC<FriendsPagePropsType> = ({state, dispatch, ge
 
                 <input onChange={changeUserName} type="text" value={userName}/>
                 <button onClick={() => {
+                    setCount(20)
                 }}> search
                 </button>
             </div>

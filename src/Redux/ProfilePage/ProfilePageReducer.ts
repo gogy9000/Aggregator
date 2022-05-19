@@ -36,7 +36,7 @@ let initialState: stateProfilePageType = {
 
 export type ActionsType = InferActionsTypes<typeof actions>
 
-export const ProfilePageReducer = (state: stateProfilePageType = initialState, action: ActionsType):stateProfilePageType => {
+export const ProfilePageReducer = (state: stateProfilePageType = initialState, action: ActionsType): stateProfilePageType => {
 
     switch (action.type) {
 
@@ -74,9 +74,6 @@ export const ProfilePageReducer = (state: stateProfilePageType = initialState, a
             return state
     }
 }
-
-
-
 
 
 export const actions = {

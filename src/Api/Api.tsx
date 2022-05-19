@@ -11,50 +11,23 @@ const instance = axios.create({
 })
 
 export const userApi = {
-    getAllUsersApi: (page: number = 1, term: string = '', friend: string = '') => instance.get(
-        `users?count=9&page=${page}&term=${term}&friend=${friend}`).then((response: any) => response.data),
+    getAllUsersApi: (page: number = 1, term: string = '', friend: string = '', count: number = 10) => instance.get(
+        `users?count=${count}&page=${page}&term=${term}&friend=${friend}`).then((response: any) => response.data),
 
 }
 
-export const followApi={
-    getFollowUsersApi:(userId: string | null) => instance.post(`follow/${userId}`).then(
+export const followApi = {
+    getFollowUsersApi: (userId: string | null) => instance.post(`follow/${userId}`).then(
         (response: any) => response.data),
 
-    getUnFollowUsersApi : (userId: string) => instance.delete(`follow/${userId}`).then(
+    getUnFollowUsersApi: (userId: string) => instance.delete(`follow/${userId}`).then(
         (response: any) => response.data)
 }
 
-export const profileApi={
-    getProfileApi : (userId: number | null) => instance.get(`profile/${userId}`).then(
-            (response: any) => response.data
-        )
+export const profileApi = {
+    getProfileApi: (userId: number | null) => instance.get(`profile/${userId}`).then(
+        (response: any) => response.data
+    )
 
 }
 
-// export const getAllUsersApi = (page: number = 1, term: string = '', friend: string = ''): any => {
-//     return instance.get(`users?count=9&page=${page}&term=${term}&friend=${friend}`)
-//         .then((response: any) => response.data);
-// }
-//
-// export const getFollowUsersApi = (userId: string | null) => {
-//
-//
-//     return instance.post(`follow/${userId}`).then(
-//         (response: any) => {
-//             return response.data
-//         }
-//     );
-// }
-//
-// export const getUnFollowUsersApi = (userId: string) => {
-//
-//     return instance.delete(`follow/${userId}`).then((response: any) => response.data);
-// }
-//
-//
-// export const getProfileApi = (userId: number | null) => {
-//
-//     return instance.get(`profile/${userId}`).then(
-//         (response: any) => response.data
-//     );
-// }

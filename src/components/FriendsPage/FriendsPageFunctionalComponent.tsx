@@ -14,19 +14,11 @@ export const FriendsPageFunctionalComponent = () => {
     const initState = useSelector((state: AppStateType) => state.AppReducer)
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(actionsApp.toggleIsFetching(false))
-        userApi.getAllUsersApi().then((data: any) => {
-                dispatch(actions.getUsersAC(data.items, 1));
-                dispatch(actionsApp.toggleIsFetching(false))
-            }
-        )
-    }, [])
 
-    const getUsersCallBack = (userName: string, isFollow: string) => {
+    const getUsersCallBack = (page: number, userName: string, isFollow: string, count: number) => {
         dispatch(actionsApp.toggleIsFetching(false))
-        userApi.getAllUsersApi(1, userName, isFollow).then((data: any) => {
-            dispatch(actions.getUsersAC(data.items, 1));
+        userApi.getAllUsersApi(page, userName, isFollow, count).then((data: any) => {
+            dispatch(actions.getUsersAC(data.items, page));
             dispatch(actionsApp.toggleIsFetching(false))
         })
     }

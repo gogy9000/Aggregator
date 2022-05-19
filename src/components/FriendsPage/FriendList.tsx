@@ -17,16 +17,14 @@ export const FriendList: React.FC<FriendListType> = ({state, dispatch}) => {
 
 
     const mappedUsers = state.users.map((user: UserObjectType) => <MappedUsers key={user.id}
-                                                                                             user={user}
-                                                                                             dispatch={dispatch}/>
+                                                                               user={user}
+                                                                               dispatch={dispatch}/>
     )
 
 
     return <div>{mappedUsers}</div>
 
 }
-
-
 
 
 type MappedUsersPropsType = {
