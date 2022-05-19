@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {ProfilePage} from "./ProfilePage";
-import {getAllUsersApi, getProfileApi} from "../../Api/Api";
+
 import {connect, useDispatch} from "react-redux";
 
 import {useParams} from "react-router-dom";
 import {actions} from "../../Redux/ProfilePage/ProfilePageReducer";
 import {actionsApp} from "../../Redux/App/AppReducer";
+import {profileApi} from "../../Api/Api";
 
 
 const withRouter = (WrappedComponent: any) => (props: any) => {
@@ -17,7 +18,7 @@ const withRouter = (WrappedComponent: any) => (props: any) => {
         dispatch(actionsApp.toggleIsFetching(true))
         setUId(uId = params.userId ? Number(params.userId) : 2)
 
-        getProfileApi(uId).then((data:any)=>{
+        profileApi.getProfileApi(uId).then((data:any)=>{
             dispatch(actions.getProfileAC(data))
             dispatch(actionsApp.toggleIsFetching(false))
         })

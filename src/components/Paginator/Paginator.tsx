@@ -1,8 +1,9 @@
 import {actions, ActionsType, stateProfilePageType} from "../../Redux/ProfilePage/ProfilePageReducer";
 import React from "react";
-import {getAllUsersApi} from "../../Api/Api";
+
 import {CustomButtonByPaginator} from "./CustomButtonByPaginator";
 import {ActionsAppType} from "../../Redux/App/AppReducer";
+import {userApi} from "../../Api/Api";
 
 
 type PaginatorApiContainerType = {
@@ -25,7 +26,7 @@ const PaginatorApiContainer: React.FC<PaginatorApiContainerType> = (props) => {
     const clickPage = (action: string) => {
         const clicker = (num:number) => {
             let page=props.state.currentPage + num
-            getAllUsersApi(page).then((data:any)=>{
+            userApi.getAllUsersApi(page).then((data:any)=>{
                 props.dispatch(actions.getUsersAC(data.items, page))
             })
         }

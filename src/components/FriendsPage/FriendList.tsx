@@ -6,7 +6,7 @@ import {
     stateProfilePageType, UserObjectType,
 
 } from "../../Redux/ProfilePage/ProfilePageReducer";
-import {getFollowUsersApi, getUnFollowUsersApi} from "../../Api/Api";
+import {followApi} from "../../Api/Api";
 
 type FriendListType = {
     state: stateProfilePageType
@@ -38,7 +38,7 @@ export const MappedUsers: React.FC<MappedUsersPropsType> = ({user, dispatch}) =>
 
     const follow = () => {
         setIsFetchingRequest(true)
-        getFollowUsersApi(user.id).then((data: any) => {
+        followApi.getFollowUsersApi(user.id).then((data: any) => {
             if (data.resultCode === 0) {
                 dispatch(actions.followAC(user.id))
             }
@@ -49,7 +49,7 @@ export const MappedUsers: React.FC<MappedUsersPropsType> = ({user, dispatch}) =>
 
     const unFollow = () => {
         setIsFetchingRequest(true)
-        getUnFollowUsersApi(user.id).then((data: any) => {
+        followApi.getUnFollowUsersApi(user.id).then((data: any) => {
             if (data.resultCode === 0) {
                 dispatch(actions.unfollowAC(user.id))
             }

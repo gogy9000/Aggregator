@@ -2,10 +2,10 @@ import React, {useEffect} from "react";
 
 import {useDispatch, useSelector} from "react-redux";
 import {FriendsPage} from "./FriendsPage";
-import {getAllUsersApi} from "../../Api/Api";
 import {actions} from "../../Redux/ProfilePage/ProfilePageReducer";
 import {AppStateType} from "../../Redux/Redux-store";
 import {actionsApp} from "../../Redux/App/AppReducer";
+import {userApi} from "../../Api/Api";
 
 
 export const FriendsPageFunctionalComponent = () => {
@@ -16,7 +16,7 @@ export const FriendsPageFunctionalComponent = () => {
 
     useEffect(() => {
         dispatch(actionsApp.toggleIsFetching(false))
-        getAllUsersApi().then((data: any) => {
+        userApi.getAllUsersApi().then((data: any) => {
                 dispatch(actions.getUsersAC(data.items, 1));
                 dispatch(actionsApp.toggleIsFetching(false))
             }
@@ -25,7 +25,7 @@ export const FriendsPageFunctionalComponent = () => {
 
     const getUsersCallBack = (userName: string, isFollow: string) => {
         dispatch(actionsApp.toggleIsFetching(false))
-        getAllUsersApi(1, userName, isFollow).then((data: any) => {
+        userApi.getAllUsersApi(1, userName, isFollow).then((data: any) => {
             dispatch(actions.getUsersAC(data.items, 1));
             dispatch(actionsApp.toggleIsFetching(false))
         })

@@ -2,11 +2,12 @@ import {ProfilePage} from "./ProfilePage";
 import React, {useEffect} from "react";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {getAllUsersApi, getProfileApi} from "../../Api/Api";
+
 import {AppStateType} from "../../Redux/Redux-store";
 import {Dispatch} from "redux";
 import {actions} from "../../Redux/ProfilePage/ProfilePageReducer";
 import {actionsApp} from "../../Redux/App/AppReducer";
+import {profileApi, userApi} from "../../Api/Api";
 
 export const ProfilePageContainerFC = () => {
 
@@ -22,7 +23,7 @@ export const ProfilePageContainerFC = () => {
 
     useEffect(() => {
         dispatch(actionsApp.toggleIsFetching(true))
-        getProfileApi( userID).then((data:any)=>{
+        profileApi.getProfileApi( userID).then((data:any)=>{
             dispatch(actions.getProfileAC(data))
             dispatch(actionsApp.toggleIsFetching(false))
         })
@@ -30,7 +31,7 @@ export const ProfilePageContainerFC = () => {
 
     useEffect(() => {
         dispatch(actionsApp.toggleIsFetching(true))
-        getAllUsersApi(1).then((data:any)=>{
+        userApi.getAllUsersApi(1).then((data:any)=>{
            dispatch(actions.getUsersAC(data.items, 1))
             dispatch(actionsApp.toggleIsFetching(false))
         })
