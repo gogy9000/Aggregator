@@ -1,6 +1,6 @@
 import * as axios from 'axios'
 import {actions, ActionsType} from "../Redux/ProfilePage/ProfilePageReducer";
-import {actionsApp, ActionsAppType} from "../Redux/App/AppReducer";
+import {actionsApp, ActionsAppType} from "../Redux/AppReducer/AppReducer";
 
 // @ts-ignore
 const instance = axios.create({

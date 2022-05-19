@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {FriendsPage} from "./FriendsPage";
 import {actions} from "../../Redux/ProfilePage/ProfilePageReducer";
 import {AppStateType} from "../../Redux/Redux-store";
-import {actionsApp} from "../../Redux/App/AppReducer";
+import {actionsApp} from "../../Redux/AppReducer/AppReducer";
 import {userApi} from "../../Api/Api";
 
 

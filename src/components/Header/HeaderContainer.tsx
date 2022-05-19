@@ -6,7 +6,7 @@ import * as axios from 'axios'
 import {actions} from "../../Redux/Auth/Auth";
 import {NavItem} from "../NavBar/NavItem/NavItem";
 import {AppStateType} from "../../Redux/Redux-store";
-import {actionsApp} from "../../Redux/App/AppReducer";
+import {actionsApp} from "../../Redux/AppReducer/AppReducer";
 
 
 

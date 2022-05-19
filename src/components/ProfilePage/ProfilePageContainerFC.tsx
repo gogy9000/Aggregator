@@ -2,11 +2,10 @@ import {ProfilePage} from "./ProfilePage";
 import React, {useEffect} from "react";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-
 import {AppStateType} from "../../Redux/Redux-store";
 import {Dispatch} from "redux";
 import {actions} from "../../Redux/ProfilePage/ProfilePageReducer";
-import {actionsApp} from "../../Redux/App/AppReducer";
+import {actionsApp} from "../../Redux/AppReducer/AppReducer";
 import {profileApi, userApi} from "../../Api/Api";
 
 export const ProfilePageContainerFC = () => {

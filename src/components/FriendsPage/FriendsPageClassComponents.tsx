@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 
 import {FriendsPage} from "./FriendsPage";
-import {actionsApp} from "../../Redux/App/AppReducer";
+import {actionsApp} from "../../Redux/AppReducer/AppReducer";
 import {actions} from "../../Redux/ProfilePage/ProfilePageReducer";
 import {userApi} from "../../Api/Api";
 

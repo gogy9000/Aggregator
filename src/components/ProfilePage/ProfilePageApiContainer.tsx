@@ -5,7 +5,7 @@ import {connect, useDispatch} from "react-redux";
 
 import {useParams} from "react-router-dom";
 import {actions} from "../../Redux/ProfilePage/ProfilePageReducer";
-import {actionsApp} from "../../Redux/App/AppReducer";
+import {actionsApp} from "../../Redux/AppReducer/AppReducer";
 import {profileApi} from "../../Api/Api";
 
 

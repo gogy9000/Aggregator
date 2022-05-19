@@ -2,7 +2,7 @@ import {actions, ActionsType, stateProfilePageType} from "../../Redux/ProfilePag
 import React from "react";
 
 import {CustomButtonByPaginator} from "./CustomButtonByPaginator";
-import {ActionsAppType} from "../../Redux/App/AppReducer";
+import {ActionsAppType} from "../../Redux/AppReducer/AppReducer";
 import {userApi} from "../../Api/Api";
 
 

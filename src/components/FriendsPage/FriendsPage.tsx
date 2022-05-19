@@ -1,28 +1,28 @@
 import {ActionsType, stateProfilePageType} from "../../Redux/ProfilePage/ProfilePageReducer";
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import s from "./FriendsPage.module.css";
 import Paginator from "../Paginator/Paginator";
 import {FriendList} from "./FriendList";
-import {ActionsAppType} from "../../Redux/App/AppReducer";
+import {ActionsAppType} from "../../Redux/AppReducer/AppReducer";
 
 type FriendsPagePropsType = {
     state: stateProfilePageType
-    dispatch: (actions:ActionsType|ActionsAppType)=>void
-    getUsersCallBack:(userName:string, isFollow:string)=>void
-    getFollowUsers?:(isFollow:string)=>void
+    dispatch: (actions: ActionsType | ActionsAppType) => void
+    getUsersCallBack: (userName: string, isFollow: string) => void
+    getFollowUsers?: (isFollow: string) => void
 }
-export const FriendsPage: React.FC<FriendsPagePropsType> = ({state, dispatch,getUsersCallBack}) => {
+export const FriendsPage: React.FC<FriendsPagePropsType> = ({state, dispatch, getUsersCallBack}) => {
 
-    const [userName, setUserName]=useState<string>('')
+    const [userName, setUserName] = useState<string>('')
+    const [isFollowers, setIsFollowers] = useState<string>('')
 
-
-    const changeUserName = (e:ChangeEvent<HTMLInputElement>) => {
-      setUserName(e.currentTarget.value)
+    const changeUserName = (e: ChangeEvent<HTMLInputElement>) => {
+        setUserName(e.currentTarget.value)
     }
+    useEffect(()=>{
+        getUsersCallBack(userName, isFollowers)
+    },[userName, isFollowers])
 
-    const getUsers = (isFollow:string) => {
-    getUsersCallBack(userName,isFollow)
-}
 
     return (
         <div className={s.friendsPage}>
@@ -32,13 +32,27 @@ export const FriendsPage: React.FC<FriendsPagePropsType> = ({state, dispatch,get
             </div>
 
             <div className={s.searchFriends}>
-                <button onClick={()=>{getUsers('true')}} > follow</button>
-                <button onClick={()=>{getUsers('false')}} > unfollow</button>
-                <button onClick={()=>{getUsers('')}} > all</button>
+                <button onClick={() => {
+                    setIsFollowers('true')
+
+                }}> follow
+                </button>
+                <button onClick={() => {
+                    setIsFollowers('false')
+
+                }}> unfollow
+                </button>
+                <button onClick={() => {
+                    setIsFollowers('')
+
+                }}> all
+                </button>
 
 
                 <input onChange={changeUserName} type="text" value={userName}/>
-                    <button onClick={()=>{getUsers('')}} > search</button>
+                <button onClick={() => {
+                }}> search
+                </button>
             </div>
 
             <div className={s.friendList}><FriendList state={state} dispatch={dispatch}/>

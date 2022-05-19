@@ -16,13 +16,13 @@ type FriendListType = {
 export const FriendList: React.FC<FriendListType> = ({state, dispatch}) => {
 
 
-    const FriendDescriptionBlockMap = state.users.map((user: UserObjectType) => <MappedUsers key={user.id}
+    const mappedUsers = state.users.map((user: UserObjectType) => <MappedUsers key={user.id}
                                                                                              user={user}
                                                                                              dispatch={dispatch}/>
     )
 
 
-    return <div>{FriendDescriptionBlockMap}</div>
+    return <div>{mappedUsers}</div>
 
 }
 
@@ -34,6 +34,7 @@ type MappedUsersPropsType = {
     dispatch: (action: ActionsType) => void
 }
 export const MappedUsers: React.FC<MappedUsersPropsType> = ({user, dispatch}) => {
+
     const [isFetchingRequest, setIsFetchingRequest] = useState(false)
 
     const follow = () => {
