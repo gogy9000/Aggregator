@@ -1,4 +1,6 @@
 import {InferActionsTypes} from "../Redux-store";
+import {actionsApp, ActionsAppType} from "../AppReducer/AppReducer";
+import {userApi} from "../../Api/Api";
 
 
 export type PhotosObjectType = {
@@ -85,4 +87,12 @@ export const actions = {
     } as const),
     followAC: (id: string) => ({type: 'FOLLOW', id} as const),
     unfollowAC: (id: string) => ({type: 'UNFOLLOW', id} as const)
+}
+
+export const getUserThunk=(page: number, userName: string, isFollow: string, count: number)=>(dispatch:(ac:ActionsType|ActionsAppType)=>void)=>{
+    dispatch(actionsApp.toggleIsFetching(false))
+    userApi.getAllUsersApi(page, userName, isFollow, count).then((data: any) => {
+        dispatch(actions.getUsersAC(data.items, page));
+        dispatch(actionsApp.toggleIsFetching(false))
+    })
 }

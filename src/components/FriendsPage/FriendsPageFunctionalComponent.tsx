@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 
 import {useDispatch, useSelector} from "react-redux";
 import {FriendsPage} from "./FriendsPage";
-import {actions} from "../../Redux/ProfilePage/ProfilePageReducer";
+import {actions, getUserThunk} from "../../Redux/ProfilePage/ProfilePageReducer";
 import {AppStateType} from "../../Redux/Redux-store";
 import {actionsApp} from "../../Redux/AppReducer/AppReducer";
 import {userApi} from "../../Api/Api";
@@ -16,11 +16,12 @@ export const FriendsPageFunctionalComponent = () => {
 
 
     const getUsersCallBack = (page: number, userName: string, isFollow: string, count: number) => {
-        dispatch(actionsApp.toggleIsFetching(false))
-        userApi.getAllUsersApi(page, userName, isFollow, count).then((data: any) => {
-            dispatch(actions.getUsersAC(data.items, page));
-            dispatch(actionsApp.toggleIsFetching(false))
-        })
+        dispatch(getUserThunk(page, userName, isFollow, count))
+        // dispatch(actionsApp.toggleIsFetching(false))
+        // userApi.getAllUsersApi(page, userName, isFollow, count).then((data: any) => {
+        //     dispatch(actions.getUsersAC(data.items, page));
+        //     dispatch(actionsApp.toggleIsFetching(false))
+        // })
     }
 
 
