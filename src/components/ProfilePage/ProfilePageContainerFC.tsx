@@ -25,11 +25,6 @@ export const ProfilePageContainerFC = () => {
     }, [state.profile])
 
     return (
-        <>{initApp.isFetching ?
-            <div>LOAD!!</div>
-            : <ProfilePage callBack={() => {
-            }}/>}
-
-        </>
+        <>{initApp.isFetching ? <div>LOAD!!</div> : <ProfilePage/>}</>
     )
 }

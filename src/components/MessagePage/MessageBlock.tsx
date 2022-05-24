@@ -1,27 +1,13 @@
+import React, {useState} from "react";
 import s from "./MessagePage.module.css";
 import logo from "../../logo.svg";
-import React, {useState} from "react";
 import {NavLink} from "react-router-dom";
 
-
-export const MassageList = (props) => {
-    return (
-        props.state.messagePage.messagePage.map(
-            (el) => {
-                return (
-                    <MessageBlock id={el.id}
-
-                                  name={el.name}
-                                  old={el.old}
-                                  message={el.message}
-                                  key={el.id}/>
-                )
-            }
-        )
-    )
+type MessageBlockPropsType = {
+    message: string
+    name: string
 }
-
-const MessageBlock = (props) => {
+export const MessageBlock: React.FC<MessageBlockPropsType> = ({name, message}) => {
     let [onOf, setOnOff] = useState(true)
     return (
         <div className={s.MessageBlock}>
@@ -32,10 +18,10 @@ const MessageBlock = (props) => {
                 <NavLink to={'/profile'}>
                     <div onMouseEnter={() => setOnOff(onOf ? onOf = false : onOf = true)}
                          onMouseLeave={() => setOnOff(onOf ? onOf = false : onOf = true)}
-                         className={onOf ? s.NickName : s.onNickName}>{props.name}:
+                         className={onOf ? s.NickName : s.onNickName}>{name}:
                     </div>
                 </NavLink>
-                <div className={s.MessageBody}>{props.message}</div>
+                <div className={s.MessageBody}>{message}</div>
             </div>
         </div>
     )

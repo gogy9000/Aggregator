@@ -6,29 +6,27 @@ import {AvatarBlock} from "./AvatarBlock";
 import React from "react";
 import {AppStateType} from "../../Redux/Redux-store";
 
-type ProfileSidebarPropsType={
-    callBack:()=>void
-}
-export const ProfileSidebar:React.FC<ProfileSidebarPropsType> = (props) => {
+type ProfileSidebarPropsType = {}
+export const ProfileSidebar: React.FC<ProfileSidebarPropsType> = (props) => {
 
-    const state = useSelector((state: any) => state.profilePage)
-    const initState= useSelector((state:AppStateType)=>state.AppReducer)
-    const dispatch = useDispatch()
-
+    const state = useSelector((state: AppStateType) => state.profilePage)
+    const initState = useSelector((state: AppStateType) => state.AppReducer)
 
     return (
 
-        initState.isFetching?<div>loading</div>: <div>
-
+        initState.isFetching ?
+            <div>loading</div>
+            : <div>
                 <NavItem to={'/profile/'}>
-                    <div>{state.profile=== null ? 'state.profile.fullName' : state.profile.fullName}</div>
+                    <div>{state.profile === null ?
+                        'loading name...'
+                        : state.profile.fullName}
+                    </div>
                 </NavItem>
-                <AvatarBlock state={state}/>
-                <NavItem elementName={'settings'} to={'/settings'}/> {/*it's settings*/}
-                <FriendsBar state={state} dispatch={dispatch} callBack={props.callBack}/>
+                <AvatarBlock/>
+                <NavItem elementName={'settings'} to={'/settings'}/>
+                <FriendsBar/>
                 <PhotoBar/>
-
-
             </div>
 
     )

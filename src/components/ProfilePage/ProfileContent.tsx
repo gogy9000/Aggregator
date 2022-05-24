@@ -5,12 +5,12 @@ export const ProfileContent = () => {
 
     return (
         <div className={s.ProfileContent}>
-            <div className={s.ProfileContentBlock}> </div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-
+            <div className={s.ProfileContentBlock}>
+            <div>a</div>
+            <div>s</div>
+            <div>d</div>
+            <div>f</div>
+            </div>
         </div>
     )
 }

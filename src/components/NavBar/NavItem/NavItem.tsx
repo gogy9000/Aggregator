@@ -2,7 +2,12 @@ import React, {useState} from "react";
 import s from "../NavBar.module.css";
 import {NavLink} from "react-router-dom";
 
-export const NavItem = (props) => {
+type NavItemPropsType={
+
+    to:string
+    elementName?:string
+}
+export const NavItem:React.FC<NavItemPropsType> = ({children,to,elementName}) => {
     let [onOf, setOnOff] = useState(true)
 
     return (
@@ -10,8 +15,8 @@ export const NavItem = (props) => {
              onMouseLeave={() => setOnOff(onOf ? onOf = false : onOf = true)}
              className={onOf ? s.elemBlock  : s.backGroundColor}
              >
-            {props.children}
-            <NavLink to={props.to}>{props.elementName}</NavLink>
+            {children}
+            <NavLink to={to}>{elementName}</NavLink>
         </div>
     )
 }

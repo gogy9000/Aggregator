@@ -1,7 +1,7 @@
 import s from "./ProfilePage.module.css";
 import {NavItem} from "../NavBar/NavItem/NavItem";
 
-export const PhotoBar = (props) => {
+export const PhotoBar = () => {
     return (
         <div className={s.PhotoBar}>
             <NavItem elementName={'Photo'} to={'/Photo'}/>

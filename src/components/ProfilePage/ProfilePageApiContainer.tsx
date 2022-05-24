@@ -60,8 +60,7 @@ export class ProfilePageApiContainer extends React.Component<any, any> {
 
         return (
 
-            <ProfilePage callBack={() => {
-            }}/>
+            <ProfilePage />
         )
     }
 
