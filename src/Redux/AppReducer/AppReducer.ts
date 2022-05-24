@@ -4,7 +4,7 @@ type initStateType={
     isFetching:boolean
 }
 const initState:initStateType ={
-    isFetching:true
+    isFetching:false
 }
 
 export type ActionsAppType = InferActionsTypes<typeof actionsApp>

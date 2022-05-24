@@ -1,6 +1,6 @@
-import {InferActionsTypes} from "../Redux-store";
-import {actionsApp, ActionsAppType} from "../AppReducer/AppReducer";
-import {userApi} from "../../Api/Api";
+import {InferActionsTypes, UnionActionsType} from "../Redux-store";
+import {actionsApp} from "../AppReducer/AppReducer";
+import {profileApi, userApi} from "../../Api/Api";
 
 
 export type PhotosObjectType = {
@@ -89,10 +89,24 @@ export const actions = {
     unfollowAC: (id: string) => ({type: 'UNFOLLOW', id} as const)
 }
 
-export const getUserThunk=(page: number, userName: string, isFollow: string, count: number)=>(dispatch:(ac:ActionsType|ActionsAppType)=>void)=>{
-    dispatch(actionsApp.toggleIsFetching(false))
-    userApi.getAllUsersApi(page, userName, isFollow, count).then((data: any) => {
+export const getUserTC=(
+    page: number, userName?: string, isFollow?: string, count?: number)=>(
+        dispatch:(action:UnionActionsType)=>void)=>{
+
+    // dispatch(actionsApp.toggleIsFetching(true))
+    userApi.getAllUsersApi(page, userName, isFollow, count)
+        .then((data: any) => {
+            console.log(data)
         dispatch(actions.getUsersAC(data.items, page));
         dispatch(actionsApp.toggleIsFetching(false))
     })
 }
+export const getProfileTC = (userID:number|null) => (dispatch:(action:UnionActionsType)=>void)=>{
+    dispatch(actionsApp.toggleIsFetching(true))
+    profileApi.getProfileApi(userID)
+        .then((data: any) => {
+            dispatch(actions.getProfileAC(data))
+            dispatch(actionsApp.toggleIsFetching(false))
+        })
+}
+

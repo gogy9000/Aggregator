@@ -4,9 +4,9 @@ import Footer from './components/Footer/Footer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import NavBar from './components/NavBar/NavBar';
 import {MessagePageContainer} from "./components/MessagePage/messagePageContainer";
-import ProfilePageApiContainer from "./components/ProfilePage/ProfilePageApiContainer";
+// import ProfilePageApiContainer from "./components/ProfilePage/ProfilePageApiContainer";
 import {FriendsPageFunctionalComponent} from "./components/FriendsPage/FriendsPageFunctionalComponent";
-import FriendsPageClassComponents from "./components/FriendsPage/FriendsPageClassComponents";
+// import FriendsPageClassComponents from "./components/FriendsPage/FriendsPageClassComponents";
 import {ProfilePageContainerFC} from "./components/ProfilePage/ProfilePageContainerFC";
 
 

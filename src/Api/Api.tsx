@@ -6,14 +6,13 @@ import {actionsApp, ActionsAppType} from "../Redux/AppReducer/AppReducer";
 const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
-    headers: {"API-KEY": "9998b652-b16b-4b0d-b784-98bbaf34a6e7"}
+    headers: {"API-KEY": "c73c3d73-c86d-4ccb-b780-4d18cdc9edd5"}
 
 })
 
 export const userApi = {
     getAllUsersApi: (page: number = 1, term: string = '', friend: string = '', count: number = 10) => instance.get(
-        `users?count=${count}&page=${page}&term=${term}&friend=${friend}`).then((response: any) => response.data),
-
+        `users?count=${count}&page=${page}&term=${term}&friend=${friend}`).then((response: any) => response.data)
 }
 
 export const followApi = {
@@ -28,6 +27,10 @@ export const profileApi = {
     getProfileApi: (userId: number | null) => instance.get(`profile/${userId}`).then(
         (response: any) => response.data
     )
-
+}
+export const authApi={
+    getAuthApi:()=>instance.get(`auth/me`).then(
+        (response:any)=>response.data
+    )
 }
 

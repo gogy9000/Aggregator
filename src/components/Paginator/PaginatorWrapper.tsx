@@ -1,29 +1,29 @@
-import {actions, ActionsType, stateProfilePageType, UserObjectType} from "../../Redux/ProfilePage/ProfilePageReducer";
+import { stateProfilePageType, UserObjectType} from "../../Redux/ProfilePage/ProfilePageReducer";
 import React from "react";
 
 import {CustomButtonByPaginator} from "./CustomButtonByPaginator";
-import {ActionsAppType} from "../../Redux/AppReducer/AppReducer";
-import {userApi} from "../../Api/Api";
+
 
 
 type PaginatorApiContainerType = {
     state: stateProfilePageType
-    dispatch: (actions: ActionsType | ActionsAppType) => void
     clickPageCallBack: (PageNumber: number) => void
-    isFollowers: string
-    userName: string
+
+
     page: number
     count: number
 }
 //это паджинатор...
 
-const PaginatorApiContainer: React.FC<PaginatorApiContainerType> = ({count, page, clickPageCallBack, state}) => {
+export const PaginatorWrapper: React.FC<PaginatorApiContainerType> = ({count, page, clickPageCallBack, state}) => {
 
     const {currentPage, users} = state
 
     const clickPage = (action: string) => {
         const clicker = (num: number) => {
-            clickPageCallBack(page + num)
+            let sum=page + num
+            if(sum<1){sum=1}
+            clickPageCallBack(sum)
 
         }
         switch (action) {
@@ -59,7 +59,7 @@ const PaginatorApiContainer: React.FC<PaginatorApiContainerType> = ({count, page
     )
 
 }
-export default PaginatorApiContainer
+
 
 type PaginatorPropsType = {
 
@@ -70,8 +70,6 @@ type PaginatorPropsType = {
 }
 
 const Paginator: React.FC<PaginatorPropsType> = ({clickPageCallBack, currentPage, users, count}) => {
-    console.log(users.length)
-    console.log(count)
 
     return (
         <div>

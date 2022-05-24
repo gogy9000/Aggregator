@@ -3,10 +3,11 @@ import logo from "./logo.svg"
 import s from "./Header.module.css"
 import {useDispatch, useSelector} from "react-redux";
 import * as axios from 'axios'
-import {actions} from "../../Redux/Auth/Auth";
+import {actions, getAuthTC} from "../../Redux/Auth/Auth";
 import {NavItem} from "../NavBar/NavItem/NavItem";
 import {AppStateType} from "../../Redux/Redux-store";
 import {actionsApp} from "../../Redux/AppReducer/AppReducer";
+import {authApi} from "../../Api/Api";
 
 
 
@@ -16,15 +17,25 @@ const HeaderContainer = () => {
   const dispatch= useDispatch()
 
  useEffect(()=>{
+    dispatch(getAuthTC())
+     // authApi.getAuthApi().then(
+     //     (data:any)=>{
+     //         if (data.resultCode!==0){return}
+     //         let {id, login, email}=data.data
+     //         dispatch(actions.getAuth(id, login, email))
+     //         dispatch(actionsApp.toggleIsFetching(false))
+     //     }
+     // )
     // dispatch(actionsApp.toggleIsFetching(true))
-    // @ts-ignore
-    return  axios.get('https://social-network.samuraijs.com/api/1.0/auth/me',{withCredentials:true}
-     ).then((response:any)=>{
-         if (response.data.resultCode!==0){return}
-      let {id, login, email}=response.data.data
-         dispatch(actions.getAuth(id, login, email))
-        dispatch(actionsApp.toggleIsFetching(false))
-    })
+    // // @ts-ignore
+    // return  axios.get('https://social-network.samuraijs.com/api/1.0/auth/me',{withCredentials:true}
+    //  ).then((response:any)=>{
+    //
+    //      if (response.data.resultCode!==0){return}
+    //   let {id, login, email}=response.data.data
+    //      dispatch(actions.getAuth(id, login, email))
+    //     dispatch(actionsApp.toggleIsFetching(false))
+    // })
  },[])
 
 
