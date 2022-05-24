@@ -42,9 +42,9 @@ export const actions = {
 
 export const getAuthTC = () => (dispatch:(ac:UnionActionsType)=>void)=>{
     authApi.getAuthApi().then(
-        (data:any)=>{
-            if (data.resultCode!==0){return}
-            let {id, login, email}=data.data
+        (response:any)=>{
+            if (response.data.resultCode!==0){return}
+            let {id, login, email}=response.data.data
             dispatch(actions.getAuth(id, login, email))
             dispatch(actionsApp.toggleIsFetching(false))
         }

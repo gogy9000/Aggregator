@@ -1,6 +1,6 @@
 import {InferActionsTypes, UnionActionsType} from "../Redux-store";
 import {actionsApp} from "../AppReducer/AppReducer";
-import {profileApi, userApi} from "../../Api/Api";
+import {followApi, profileApi, userApi} from "../../Api/Api";
 
 
 export type PhotosObjectType = {
@@ -53,7 +53,6 @@ export const ProfilePageReducer = (state: stateProfilePageType = initialState, a
             console.log(state.users)
             return {...state, users: action.usersApi, currentPage: action.page}
 
-
         case 'FOLLOW':
 
             return {
@@ -92,21 +91,40 @@ export const actions = {
 export const getUserTC=(
     page: number, userName?: string, isFollow?: string, count?: number)=>(
         dispatch:(action:UnionActionsType)=>void)=>{
-
-    // dispatch(actionsApp.toggleIsFetching(true))
     userApi.getAllUsersApi(page, userName, isFollow, count)
-        .then((data: any) => {
-            console.log(data)
-        dispatch(actions.getUsersAC(data.items, page));
+        .then((response: any) => {
+        dispatch(actions.getUsersAC(response.data.items, page));
         dispatch(actionsApp.toggleIsFetching(false))
     })
 }
+
 export const getProfileTC = (userID:number|null) => (dispatch:(action:UnionActionsType)=>void)=>{
     dispatch(actionsApp.toggleIsFetching(true))
     profileApi.getProfileApi(userID)
-        .then((data: any) => {
-            dispatch(actions.getProfileAC(data))
+        .then((response: any) => {
+            dispatch(actions.getProfileAC(response.data))
             dispatch(actionsApp.toggleIsFetching(false))
         })
 }
+
+export const followTC = (userId:string,setDisabledButton:any) =>(dispatch:(action:UnionActionsType)=>void)=>{
+    setDisabledButton(true)
+    followApi.getFollowUsersApi(userId).then((response: any) => {
+        if (response.data.resultCode === 0) {
+            dispatch(actions.followAC(userId))
+            setDisabledButton(false)
+        }
+    })
+}
+
+export const unFollowTC = (userId:string,setDisabledButton:any) =>(dispatch:(action:UnionActionsType)=>void)=>{
+    setDisabledButton(true)
+    followApi.getUnFollowUsersApi(userId).then((response: any) => {
+        if (response.data.resultCode === 0) {
+            dispatch(actions.unfollowAC(userId))
+            setDisabledButton(false)
+        }
+    })
+}
+
 

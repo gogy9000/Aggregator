@@ -18,6 +18,7 @@ export const AppReducer = (state:initStateType=initState, action:ActionsAppType)
 }
 
 export const actionsApp={
+
     toggleIsFetching:(isFetching:boolean)=>({type:'TOGGLE-IS-FETCHING',isFetching }as const)
 }
 

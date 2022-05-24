@@ -3,17 +3,15 @@ import React, {ChangeEvent, useEffect, useState} from "react";
 import s from "./FriendsPage.module.css";
 import {PaginatorWrapper} from "../Paginator/PaginatorWrapper";
 import {FriendList} from "./FriendList";
-
 import {useDispatch} from "react-redux";
 
-type FriendsPagePropsType = {
-    state: stateProfilePageType
-}
+type FriendsPagePropsType = { state: stateProfilePageType }
+
 export const FriendsPage: React.FC<FriendsPagePropsType> = ({state}) => {
 
     const [userName, setUserName] = useState<string>('')
     const [isFollowers, setIsFollowers] = useState<string>('')
-    const [count, setCount] = useState<number>(10)
+    const [count, setCount] = useState<number>(3)
     const [page, setPage] = useState<number>(1)
 
     const dispatch = useDispatch()
@@ -24,7 +22,6 @@ export const FriendsPage: React.FC<FriendsPagePropsType> = ({state}) => {
     useEffect(() => {
         dispatch(getUserTC(page, userName, isFollowers, count))
     }, [userName, isFollowers, count, page])
-
 
     return (
         <div className={s.friendsPage}>
@@ -54,15 +51,16 @@ export const FriendsPage: React.FC<FriendsPagePropsType> = ({state}) => {
                 }}> all
                 </button>
 
-
                 <input onChange={changeUserName} type="text" value={userName}/>
+
                 <button onClick={() => {
-                    setCount(20)
-                }}> search
+                    setUserName('')
+                }}> clear
                 </button>
+
             </div>
 
-            <div className={s.friendList}><FriendList state={state} dispatch={dispatch}/>
+            <div className={s.friendList}><FriendList state={state}/>
 
             </div>
         </div>

@@ -1,7 +1,6 @@
 import s from "./FriendList.module.css";
 import {defaultPhoto} from "../../photo/photo";
 import React from "react";
-import {NavItem} from "../NavBar/NavItem/NavItem";
 
 export const FriendDescriptionBlock = (props: any) => {
 
