@@ -7,7 +7,10 @@ import {MessagePageContainer} from "./components/MessagePage/messagePageContaine
 // import ProfilePageApiContainer from "./components/ProfilePage/ProfilePageApiContainer";
 import {FriendsPageFunctionalComponent} from "./components/FriendsPage/FriendsPageFunctionalComponent";
 // import FriendsPageClassComponents from "./components/FriendsPage/FriendsPageClassComponents";
-import {ProfilePageContainerFC} from "./components/ProfilePage/ProfilePageContainerFC";
+import {
+    ProfilePageContainerFC
+} from "./components/ProfilePage/ProfilePageContainerFC";
+import {Login} from "./components/login/Login";
 
 const App = () => {
 
@@ -26,12 +29,19 @@ const App = () => {
             <div className='Content-wrapper'>
                 <div className='Content'>
                     <Routes>
-                        <Route path="/" element={<ProfilePageContainerFC />}/>
-                        <Route path="/profile/*" element={<ProfilePageContainerFC />}>
-                            <Route path=":userId" element={<ProfilePageContainerFC />} />
+                        <Route path="/" element={<ProfilePageContainerFC/>}/>
+
+                        <Route path="/profile/*" element={<ProfilePageContainerFC/>}>
+                            <Route path=":userId" element={<ProfilePageContainerFC/>}/>
                         </Route>
+
                         <Route path='/messenger' element={<MessagePageContainer/>}/>
+
                         <Route path='/friends' element={<FriendsPageFunctionalComponent/>}/>
+
+                        <Route path='/login' element={<Login/>}/>
+
+
                     </Routes>
                 </div>
             </div>

@@ -1,6 +1,6 @@
-import * as axios from 'axios'
+import  axios from 'axios'
 
-// @ts-ignore
+
 const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',

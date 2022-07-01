@@ -7,6 +7,7 @@ import {useParams} from "react-router-dom";
 import {actions} from "../../Redux/ProfilePage/ProfilePageReducer";
 import {actionsApp} from "../../Redux/AppReducer/AppReducer";
 import {profileApi} from "../../Api/Api";
+import {AppStateType} from "../../Redux/Redux-store";
 
 
 const withRouter = (WrappedComponent: any) => (props: any) => {
@@ -67,7 +68,7 @@ export class ProfilePageApiContainer extends React.Component<any, any> {
 
 }
 
-const mapStateToProps = (state: any) => (
+const mapStateToProps = (state: AppStateType) => (
 
     {state: state.profilePage})
 

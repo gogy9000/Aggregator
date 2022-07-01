@@ -5,7 +5,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/Redux-store";
 import {getProfileTC, getUserTC} from "../../Redux/ProfilePage/ProfilePageReducer";
 
-export const ProfilePageContainerFC = () => {
+
+export const ProfilePageContainerFC =  () => {
 
     let state = useSelector((state: AppStateType) => state.profilePage)
     let auth = useSelector((state: AppStateType) => state.auth)
@@ -24,7 +25,20 @@ export const ProfilePageContainerFC = () => {
         dispatch(getUserTC(1))
     }, [state.profile])
 
+
     return (
-        <>{initApp.isFetching ? <div>LOAD!!</div> : <ProfilePage/>}</>
+        <>
+
+            {
+                initApp.isFetching
+                    ?
+                    <div>LOAD!!</div>
+                    :
+                    <ProfilePage/>
+            }
+
+        </>
     )
 }
+
+

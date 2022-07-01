@@ -7,13 +7,15 @@ export type   authStateType = {
     login: string | null
     email: string | null
     isAuth: boolean
+    fakeAuth:boolean
 
 }
 let initialState: authStateType = {
     id: 2,
     login: null,
     email: null,
-    isAuth: false
+    isAuth: false,
+    fakeAuth:false
 }
 
 export const authReducer = (state: authStateType = initialState, action: ActionsAuthType): authStateType => {
@@ -25,7 +27,9 @@ export const authReducer = (state: authStateType = initialState, action: Actions
                 id: Number(action.id),
                 login: action.login,
                 email: action.email,
-                isAuth: true
+                isAuth: true,
+                fakeAuth:false
+
             }
 
         default:
@@ -40,15 +44,18 @@ export const actions = {
     getAuth: (id: string, login: string, email: string) => ({type: 'GET-AUTH-DATA', id, login, email} as const)
 }
 
-export const getAuthTC = () => (dispatch:(ac:UnionActionsType)=>void)=>{
-    authApi.getAuthApi().then(
-        (response:any)=>{
-            if (response.data.resultCode!==0){return}
-            let {id, login, email}=response.data.data
-            dispatch(actions.getAuth(id, login, email))
-            dispatch(actionsApp.toggleIsFetching(false))
-        }
-    )
+export const getAuthTC = () => async (dispatch:(ac:UnionActionsType)=>void)=>{
+    try {
+        const response= await authApi.getAuthApi()
+        if (response.data.resultCode!==0){return}
+        let {id, login, email}=response.data.data
+        dispatch(actions.getAuth(id, login, email))
+        dispatch(actionsApp.toggleIsFetching(false))
+    }catch (e){
+        throw e
+    }
+
+
 }
 
 

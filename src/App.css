@@ -1,6 +1,6 @@
 .generalSettings{
+  margin: 0 auto;
   width: 1200px;
-  margin-left: 600px;
   background-color: #ffffff;
   display: grid;
   grid-template-areas:
