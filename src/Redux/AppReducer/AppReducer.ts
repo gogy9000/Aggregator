@@ -1,6 +1,6 @@
 import {InferActionsTypes} from "../Redux-store";
 
-type initStateType={
+export type initStateType={
     isFetching:boolean
 }
 const initState:initStateType ={
