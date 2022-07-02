@@ -3,7 +3,7 @@ import React, {useEffect} from "react";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/Redux-store";
-import {getProfileTC, getUserTC} from "../../Redux/ProfilePage/ProfilePageReducer";
+import {thunkProfile} from "../../Redux/ProfilePage/ProfilePageReducer";
 
 
 export const ProfilePageContainerFC =  () => {
@@ -19,11 +19,12 @@ export const ProfilePageContainerFC =  () => {
     useEffect(() => {
         let userID = params.userId ? Number(params.userId) : auth.id;
         if (!userID) {return}
-        dispatch(getProfileTC(userID))
+        dispatch(thunkProfile.getProfile(userID))
+        dispatch(thunkProfile.getProfileStatus(userID))
     }, [params.userId])
 
     useEffect(() => {
-        dispatch(getUserTC(1))
+        dispatch(thunkProfile.getUser(1))
     }, [state.profile])
 
 

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {FriendDescriptionBlock} from "./FriendDescriptionBlock";
-import {stateProfilePageType, UserObjectType, followTC, unFollowTC,} from "../../Redux/ProfilePage/ProfilePageReducer";
+import {stateProfilePageType, thunkProfile, UserObjectType,} from "../../Redux/ProfilePage/ProfilePageReducer";
 import {useDispatch} from "react-redux";
 
 type FriendListType = {
@@ -22,9 +22,9 @@ export const MappedUsers: React.FC<MappedUsersPropsType> = ({user}) => {
     const [isFetchingRequest, setIsFetchingRequest] = useState(false)
     const dispatch=useDispatch()
 
-    const follow = () => dispatch(followTC(user.id,setIsFetchingRequest))
+    const follow = () => dispatch(thunkProfile.follow(user.id,setIsFetchingRequest))
 
-    const unFollow = () => dispatch(unFollowTC(user.id,setIsFetchingRequest))
+    const unFollow = () => dispatch(thunkProfile.unFollow(user.id,setIsFetchingRequest))
 
     return (
         <FriendDescriptionBlock key={user.id}

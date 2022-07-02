@@ -25,11 +25,11 @@ export const followApi = {
     isFollowUser:(userId: string)=>instance.get(`follow/${userId}`)
 }
 
-export const profileApi = {
+export const APIProfile = {
     getProfile: (userId: number ) => instance.get(`profile/${userId}`),
     updateProfile:(updatingProfile:ApiProfileType)=>instance.put(`profile`,{updatingProfile}),
     getProfileStatus:(userId:number)=>instance.get(`profile/status/${userId}`),
-    updateProfileStatus:(newStatus:number)=>instance.put(`profile/status`,{status:newStatus}),
+    updateProfileStatus:(newStatus:string)=>instance.put(`profile/status`,{status:newStatus}),
     updateProfilePhoto:(newImage:File)=>instance.put(`profile/photo`,{image:newImage}),
 }
 

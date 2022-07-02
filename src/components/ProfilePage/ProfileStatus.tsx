@@ -1,12 +1,12 @@
 import React, {ChangeEvent} from "react";
 import {compose, Dispatch} from "redux";
 import {connect, DispatchProp} from "react-redux";
-import {AppStateType} from "../../Redux/Redux-store";
-import {actions} from "../../Redux/ProfilePage/ProfilePageReducer";
+import {AppDispatchType, AppStateType} from "../../Redux/Redux-store";
+import {actionsProfile, thunkProfile} from "../../Redux/ProfilePage/ProfilePageReducer";
 
 type ProfileStatusType = {
     profileStatus: string
-    dispatch:Dispatch
+    dispatch:AppDispatchType
 }
 type ProfileStatusStateType = {
     editMode: boolean,
@@ -38,7 +38,7 @@ export class ProfileStatus extends React.Component<ProfileStatusType, ProfileSta
             return
         }
 
-        this.props.dispatch(actions.changeProfileStatus(this.state.newStatus.trim()))
+        this.props.dispatch(thunkProfile.updateProfileStatus(this.state.newStatus.trim()))
         this.toggleEditMode()
         this.setState({newStatus:''})
 

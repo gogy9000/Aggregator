@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {actionsApp} from "../Redux/AppReducer/AppReducer";
-import {profileApi} from "../Api/Api";
-import {actions} from "../Redux/ProfilePage/ProfilePageReducer";
+import {APIProfile} from "../Api/Api";
+import {actionsProfile, thunkProfile} from "../Redux/ProfilePage/ProfilePageReducer";
 
 export const withRouter = (WrappedComponent: any) => (props: any) => {
     let [uId, setUId] = useState<number>(2)
@@ -14,9 +14,10 @@ export const withRouter = (WrappedComponent: any) => (props: any) => {
         dispatch(actionsApp.toggleIsFetching(true))
         setUId(uId = params.userId ? Number(params.userId) : 2)
 
-        profileApi.getProfile(uId).then((data: any) => {
-            dispatch(actions.getProfileAC(data))
+        APIProfile.getProfile(uId).then((data: any) => {
+            dispatch(actionsProfile.getProfile(data))
             dispatch(actionsApp.toggleIsFetching(false))
+            console.log(data)
         })
     }
 

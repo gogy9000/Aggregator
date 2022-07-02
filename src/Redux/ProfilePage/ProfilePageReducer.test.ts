@@ -1,5 +1,5 @@
 import  {ProfilePageReducer,
-    actions, ApiProfileType,
+    actionsProfile, ApiProfileType,
     stateProfilePageType,
     UserObjectType
 } from "./ProfilePageReducer";
@@ -43,24 +43,24 @@ beforeEach(()=>{
 
 
 it('state should be update',()=>{
-    let action= actions.getUsersAC(users,page)
+    let action= actionsProfile.getUsers(users,page)
     let newState=ProfilePageReducer(state,action)
     expect(newState.users.length).toBe(1)
 })
 
 it('page should be update',()=>{
     let page=3
-    let action= actions.getUsersAC(users,page)
+    let action= actionsProfile.getUsers(users,page)
     let newState=ProfilePageReducer(state,action)
     expect(newState.currentPage).toBe(3)
 })
 test('followed should be true',()=>{
-    let action= actions.followAC('2')
+    let action= actionsProfile.follow('2')
     let newState=ProfilePageReducer(state,action)
     expect(newState.users[0].followed).toBeTruthy()
 })
 test('followed should be false',()=>{
-    let action= actions.unfollowAC('2')
+    let action= actionsProfile.unfollow('2')
     let newState=ProfilePageReducer(state,action)
     expect(newState.users[0].followed).toBeFalsy()
 })
