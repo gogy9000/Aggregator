@@ -1,25 +1,24 @@
 import {NavItem} from "../NavBar/NavItem/NavItem";
 import {FriendsBar} from "./FriendsBar";
 import {PhotoBar} from "./PhotoBar";
-import {connect, useDispatch, useSelector} from "react-redux";
+import {connect} from "react-redux";
 import {AvatarBlock} from "./AvatarBlock";
 import React from "react";
 import {AppStateType} from "../../Redux/Redux-store";
 import {compose} from "redux";
-import {initStateType} from "../../Redux/AppReducer/AppReducer";
-import {stateProfilePageType} from "../../Redux/ProfilePage/ProfilePageReducer";
+import {ProfileStatus, ProfileStatusCompose} from "./ProfileStatus";
 
-type ProfileSidebarType={
-    state:AppStateType
+
+type ProfileSidebarType = {
+    state: AppStateType
 }
 
-export class ProfileSidebar extends React.Component< ProfileSidebarType , any> {
-
+export class ProfileSidebar extends React.Component<ProfileSidebarType, { editMode: boolean }> {
 
 
 
     render() {
-        console.log(this.props)
+
         return (
 
             this.props.state.AppReducer.isFetching ?
@@ -32,6 +31,7 @@ export class ProfileSidebar extends React.Component< ProfileSidebarType , any> {
                         </div>
                     </NavItem>
                     <AvatarBlock/>
+                    <ProfileStatusCompose/>
                     <NavItem elementName={'settings'} to={'/settings'}/>
                     <FriendsBar/>
                     <PhotoBar/>
@@ -41,14 +41,15 @@ export class ProfileSidebar extends React.Component< ProfileSidebarType , any> {
     }
 }
 
-const mapStateToProps = (state:AppStateType) => {
+const mapStateToProps = (state: AppStateType) => {
 
-    return{
-        state:state
+    return {
+        state: state
     }
 
 }
 
-export const ProfileSidebarCompose=compose(
+export const ProfileSidebarCompose = compose(
     connect(mapStateToProps))(ProfileSidebar)
+
 

@@ -14,7 +14,7 @@ export const withRouter = (WrappedComponent: any) => (props: any) => {
         dispatch(actionsApp.toggleIsFetching(true))
         setUId(uId = params.userId ? Number(params.userId) : 2)
 
-        profileApi.getProfileApi(uId).then((data: any) => {
+        profileApi.getProfile(uId).then((data: any) => {
             dispatch(actions.getProfileAC(data))
             dispatch(actionsApp.toggleIsFetching(false))
         })

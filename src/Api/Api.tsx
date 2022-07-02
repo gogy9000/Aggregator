@@ -1,5 +1,12 @@
 import  axios from 'axios'
+import {ApiProfileType} from "../Redux/ProfilePage/ProfilePageReducer";
 
+export type loginDataType={
+    email:string
+    password:string
+    rememberMe?:boolean
+    captcha?:boolean
+}
 
 const instance = axios.create({
     withCredentials: true,
@@ -13,15 +20,23 @@ export const userApi = {
 }
 
 export const followApi = {
-    getFollowUsersApi: (userId: string | null) => instance.post(`follow/${userId}`),
-    getUnFollowUsersApi: (userId: string) => instance.delete(`follow/${userId}`)
+    getFollowUsers: (userId: string ) => instance.post(`follow/${userId}`),
+    getUnFollowUsers: (userId: string) => instance.delete(`follow/${userId}`),
+    isFollowUser:(userId: string)=>instance.get(`follow/${userId}`)
 }
 
 export const profileApi = {
-    getProfileApi: (userId: number | null) => instance.get(`profile/${userId}`)
+    getProfile: (userId: number ) => instance.get(`profile/${userId}`),
+    updateProfile:(updatingProfile:ApiProfileType)=>instance.put(`profile`,{updatingProfile}),
+    getProfileStatus:(userId:number)=>instance.get(`profile/status/${userId}`),
+    updateProfileStatus:(newStatus:number)=>instance.put(`profile/status`,{status:newStatus}),
+    updateProfilePhoto:(newImage:File)=>instance.put(`profile/photo`,{image:newImage}),
 }
 
 export const authApi={
-    getAuthApi:()=>instance.get(`auth/me`)
+    getAuthApi:()=>instance.get(`auth/me`),
+    logIn:(loginData:loginDataType)=>instance.post(`/auth/login`,{loginData}),
+    logOut:()=>instance.delete(`/auth/login`)
+
 }
 

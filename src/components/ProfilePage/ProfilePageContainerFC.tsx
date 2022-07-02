@@ -18,6 +18,7 @@ export const ProfilePageContainerFC =  () => {
 
     useEffect(() => {
         let userID = params.userId ? Number(params.userId) : auth.id;
+        if (!userID) {return}
         dispatch(getProfileTC(userID))
     }, [params.userId])
 

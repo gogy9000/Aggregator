@@ -19,6 +19,7 @@ export type stateProfilePageType = {
     users: Array<UserObjectType>
     profile: ApiProfileType
     currentPage: number
+    profileStatus: string
 }
 export type ApiProfileType = {
     aboutMe?: string | null
@@ -33,7 +34,9 @@ export type ApiProfileType = {
 let initialState: stateProfilePageType = {
     users: [] as Array<UserObjectType>,
     profile: null as ApiProfileType | null,
-    currentPage: 1 as number
+    currentPage: 1 as number,
+    profileStatus: 'zasd' as string
+
 }
 
 export type ActionsType = InferActionsTypes<typeof actions>
@@ -71,6 +74,8 @@ export const ProfilePageReducer = (state: stateProfilePageType = initialState, a
                     followed: false
                 } : user)
             }
+        case 'CHANGE-PROFILE-STATUS':
+            return {...state, profileStatus:action.newStatus}
         default:
             return state
     }
@@ -85,31 +90,32 @@ export const actions = {
         page
     } as const),
     followAC: (id: string) => ({type: 'FOLLOW', id} as const),
-    unfollowAC: (id: string) => ({type: 'UNFOLLOW', id} as const)
+    unfollowAC: (id: string) => ({type: 'UNFOLLOW', id} as const),
+    changeProfileStatus: (newStatus: string) => ({type: 'CHANGE-PROFILE-STATUS', newStatus} as const)
 }
 
-export const getUserTC=(
-    page: number, userName?: string, isFollow?: string, count?: number)=>(
-        dispatch:(action:UnionActionsType)=>void)=>{
+export const getUserTC = (
+    page: number, userName?: string, isFollow?: string, count?: number) => (
+    dispatch: (action: UnionActionsType) => void) => {
     userApi.getAllUsersApi(page, userName, isFollow, count)
         .then((response: any) => {
-        dispatch(actions.getUsersAC(response.data.items, page));
-        dispatch(actionsApp.toggleIsFetching(false))
-    })
+            dispatch(actions.getUsersAC(response.data.items, page));
+            dispatch(actionsApp.toggleIsFetching(false))
+        })
 }
 
-export const getProfileTC = (userID:number|null) => (dispatch:(action:UnionActionsType)=>void)=>{
+export const getProfileTC = (userID: number ) => (dispatch: (action: UnionActionsType) => void) => {
     dispatch(actionsApp.toggleIsFetching(true))
-    profileApi.getProfileApi(userID)
+    profileApi.getProfile(userID)
         .then((response: any) => {
             dispatch(actions.getProfileAC(response.data))
             dispatch(actionsApp.toggleIsFetching(false))
         })
 }
 
-export const followTC = (userId:string,setDisabledButton:any) =>(dispatch:(action:UnionActionsType)=>void)=>{
+export const followTC = (userId: string, setDisabledButton: any) => (dispatch: (action: UnionActionsType) => void) => {
     setDisabledButton(true)
-    followApi.getFollowUsersApi(userId).then((response: any) => {
+    followApi.getFollowUsers(userId).then((response: any) => {
         if (response.data.resultCode === 0) {
             dispatch(actions.followAC(userId))
             setDisabledButton(false)
@@ -117,9 +123,9 @@ export const followTC = (userId:string,setDisabledButton:any) =>(dispatch:(actio
     })
 }
 
-export const unFollowTC = (userId:string,setDisabledButton:any) =>(dispatch:(action:UnionActionsType)=>void)=>{
+export const unFollowTC = (userId: string, setDisabledButton: any) => (dispatch: (action: UnionActionsType) => void) => {
     setDisabledButton(true)
-    followApi.getUnFollowUsersApi(userId).then((response: any) => {
+    followApi.getUnFollowUsers(userId).then((response: any) => {
         if (response.data.resultCode === 0) {
             dispatch(actions.unfollowAC(userId))
             setDisabledButton(false)
