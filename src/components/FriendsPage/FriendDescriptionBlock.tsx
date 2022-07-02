@@ -1,6 +1,7 @@
 import s from "./FriendList.module.css";
 import {defaultPhoto} from "../../photo/photo";
 import React from "react";
+import {NavLink} from "react-router-dom";
 
 export const FriendDescriptionBlock = (props: any) => {
 
@@ -13,7 +14,8 @@ export const FriendDescriptionBlock = (props: any) => {
             </div>
             <div>
                 <div className={s.FriendName}>
-                    {props.user.name}
+                    <NavLink to={`/profile/${props.user.id}`}>{props.user.name}</NavLink>
+
                 </div>
                 <div className={s.ButtonFollowUnFollow}>
                     {props.user.followed
