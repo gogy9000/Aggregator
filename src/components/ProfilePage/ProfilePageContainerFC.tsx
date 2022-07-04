@@ -24,9 +24,7 @@ export const ProfilePageContainerFC =  () => {
         dispatch(thunkProfile.getProfileStatus(userID))
     }, [params.userId])
 
-    useEffect(() => {
-        dispatch(thunkProfile.getUser())
-    }, [state.profile])
+
 
 
     return (

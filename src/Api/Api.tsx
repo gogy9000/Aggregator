@@ -82,4 +82,4 @@ export type ProfileType ={
     lookingForAJobDescription: string|null
     photos: {small: string|null, large: string|null}
     userId: number
-} |null
+}

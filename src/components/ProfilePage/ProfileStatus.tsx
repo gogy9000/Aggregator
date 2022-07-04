@@ -5,7 +5,7 @@ import {AppDispatchType, AppStateType} from "../../Redux/Redux-store";
 import {actionsProfile, thunkProfile} from "../../Redux/ProfilePage/ProfilePageReducer";
 
 type ProfileStatusType = {
-    profileStatus: string
+    state: AppStateType
     dispatch:AppDispatchType
 }
 type ProfileStatusStateType = {
@@ -18,13 +18,14 @@ export class ProfileStatus extends React.Component<ProfileStatusType, ProfileSta
 
     state = {
         editMode: false,
-        newStatus: this.props.profileStatus,
+        newStatus: this.props.state.profilePage.profileStatus,
         error:''
 
     }
 
 
     toggleEditMode() {
+        if(this.props.state.auth.id!==this.props.state.profilePage.profile.userId){return}
         this.setState({editMode: !this.state.editMode})
     }
 
@@ -48,7 +49,11 @@ export class ProfileStatus extends React.Component<ProfileStatusType, ProfileSta
           this.setState({error: ''})
       }
     }
-
+    componentDidUpdate(prevProps: Readonly<ProfileStatusType>, prevState: Readonly<ProfileStatusStateType>, snapshot?: any) {
+    if(prevProps.state.profilePage.profileStatus!==this.props.state.profilePage.profileStatus){
+        this.setState({newStatus: this.props.state.profilePage.profileStatus})
+    }
+    }
 
     render() {
 
@@ -63,7 +68,7 @@ export class ProfileStatus extends React.Component<ProfileStatusType, ProfileSta
                            onBlur={this.fetchStatus.bind(this)}/>
                     :
                     <span onDoubleClick={this.toggleEditMode.bind(this)}>
-                        {this.props.profileStatus}
+                        {this.props.state.profilePage.profileStatus}
                     </span>
 
                 }
@@ -73,7 +78,8 @@ export class ProfileStatus extends React.Component<ProfileStatusType, ProfileSta
 }
 
 const mapStateToProps = (state: AppStateType) => ({
-    profileStatus: state.profilePage.profileStatus
+    state: state
 })
 
 export const ProfileStatusCompose = compose(connect(mapStateToProps))(ProfileStatus)
+

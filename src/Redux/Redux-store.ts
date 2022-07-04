@@ -22,10 +22,10 @@ export type AppDispatchType = ThunkDispatch<AppStateType, unknown, UnionActionsT
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, UnionActionsType>
 
 
-export let store = createStore(rootReducer,loadState(),applyMiddleware(thunk))
+export let store = createStore(rootReducer,applyMiddleware(thunk))
 
 store.subscribe(() => {
-    saveState(store.getState());
+    // saveState(store.getState());
 });
 // @ts-ignore
 window.store = store

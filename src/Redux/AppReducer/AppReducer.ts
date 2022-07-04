@@ -1,7 +1,7 @@
 import {AppDispatchType, AppThunk, InferActionsTypes} from "../Redux-store";
 import {APIProfile, authApi} from "../../Api/Api";
 import {actionsAuth, thunkAuth} from "../Auth/Auth";
-import {actionsProfile} from "../ProfilePage/ProfilePageReducer";
+import {actionsProfile, thunkProfile} from "../ProfilePage/ProfilePageReducer";
 
 export type initStateType = {
     isFetching: boolean
@@ -30,24 +30,23 @@ export const thunkApp = {
 
     initializeApp: (): AppThunk => async (dispatch: AppDispatchType) => {
         try {
-
             dispatch(actionsApp.toggleIsFetching(true))
             let authData = await authApi.getAuthApi()
             console.log(authData)
             if (authData.data.resultCode === 0) {
                 const {email,login, id}= authData.data.data
                 dispatch(actionsAuth.setAuthData(id,login, email))
-                let authProfile = await APIProfile.getProfile(authData.data.data.id)
-                if(authProfile.status===200){
-                    dispatch(actionsProfile.getProfile(authProfile.data))
-                }else {console.log(authProfile.statusText)}
-                console.log(authProfile)
+                dispatch(thunkProfile.getProfile(id))
+                     dispatch(thunkProfile.getProfileStatus(id))
+
             } else {
                 console.log(authData)
             }
 
         } catch (e) {
             console.log(e)
+        }finally {
+            dispatch(actionsApp.toggleIsFetching(false))
         }
     }
 }

@@ -32,7 +32,7 @@ export type ApiProfileType = {
 
 let initialState: stateProfilePageType = {
     users: [] as Array<UserDataType>,
-    profile: null as ProfileType | null,
+    profile: {} as ProfileType ,
     currentPage: 1 as number,
     profileStatus: 'zasd' as string
 
@@ -113,6 +113,7 @@ export const thunkProfile = {
     },
     updateProfileStatus: (newStatus: string): AppThunk => async (dispatch: AppDispatchType) => {
         try {
+
             const res = await APIProfile.updateProfileStatus(newStatus)
             console.log(res)
             if (res.data.resultCode === 0) {
