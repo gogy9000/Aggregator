@@ -11,8 +11,20 @@ import {
     ProfilePageContainerFC
 } from "./components/ProfilePage/ProfilePageContainerFC";
 import {Login} from "./components/login/Login";
+import {useDispatch} from "react-redux";
+import {useEffect} from "react";
+import {useDispatchApp} from "./customHooks/CustomHooks";
+import {thunkApp} from "./Redux/AppReducer/AppReducer";
+
 
 const App = () => {
+
+    const dispatch= useDispatchApp()
+
+    useEffect(()=>{
+        dispatch(thunkApp.initializeApp())
+    },[])
+
 
     return (
 

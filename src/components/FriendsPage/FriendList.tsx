@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {FriendDescriptionBlock} from "./FriendDescriptionBlock";
 import {stateProfilePageType, thunkProfile, UserObjectType,} from "../../Redux/ProfilePage/ProfilePageReducer";
 import {useDispatch} from "react-redux";
+import {UserDataType} from "../../Api/Api";
 
 type FriendListType = {
     state: stateProfilePageType
@@ -9,13 +10,13 @@ type FriendListType = {
 
 export const FriendList: React.FC<FriendListType> = ({state}) => {
 
-    const mappedUsers = state.users.map((user: UserObjectType) => <MappedUsers key={user.id} user={user}/>)
+    const mappedUsers = state.users.map((user: UserDataType) => <MappedUsers key={user.id} user={user}/>)
 
     return <div>{mappedUsers}</div>
 }
 
 
-type MappedUsersPropsType = { user: UserObjectType }
+type MappedUsersPropsType = { user: UserDataType }
 
 export const MappedUsers: React.FC<MappedUsersPropsType> = ({user}) => {
 

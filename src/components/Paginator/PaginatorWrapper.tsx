@@ -2,6 +2,7 @@ import { stateProfilePageType, UserObjectType} from "../../Redux/ProfilePage/Pro
 import React from "react";
 
 import {CustomButtonByPaginator} from "./CustomButtonByPaginator";
+import {UserDataType, UsersDataType} from "../../Api/Api";
 
 
 
@@ -65,7 +66,7 @@ type PaginatorPropsType = {
 
     currentPage: number
     clickPageCallBack: (action: string) => void
-    users: Array<UserObjectType>
+    users: Array<UserDataType>
     count: number
 }
 

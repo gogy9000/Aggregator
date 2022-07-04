@@ -4,9 +4,10 @@ import  {ProfilePageReducer,
     UserObjectType
 } from "./ProfilePageReducer";
 import {v1} from "uuid";
+import {ProfileType, UserDataType, UsersDataType} from "../../Api/Api";
 
 let state:stateProfilePageType
-let  users:Array<UserObjectType>
+let  users:Array<UserDataType>
 let page:number
 
 beforeEach(()=>{
@@ -16,7 +17,7 @@ beforeEach(()=>{
         users: [
             {
                 followed: true,
-                id: '2',
+                id: 2,
                 uniqueUrlName: null,
                 name: "Stan",
                 // @ts-ignore
@@ -24,16 +25,16 @@ beforeEach(()=>{
                 status: 'null'
             }
         ],
-        profile:{} as ApiProfileType,
-        currentPage: 1
+        profile:{} as ProfileType,
+        currentPage: 1,
+        profileStatus:''
     },
       users=[
         {
             followed: false,
-            id: v1(),
+            id: 45,
             uniqueUrlName: null,
             name: "StainsLOVE",
-            // @ts-ignore
             photos: {small: null, large: null},
             status: null,
         }
@@ -55,12 +56,12 @@ it('page should be update',()=>{
     expect(newState.currentPage).toBe(3)
 })
 test('followed should be true',()=>{
-    let action= actionsProfile.follow('2')
+    let action= actionsProfile.follow(2)
     let newState=ProfilePageReducer(state,action)
     expect(newState.users[0].followed).toBeTruthy()
 })
 test('followed should be false',()=>{
-    let action= actionsProfile.unfollow('2')
+    let action= actionsProfile.unfollow(2)
     let newState=ProfilePageReducer(state,action)
     expect(newState.users[0].followed).toBeFalsy()
 })

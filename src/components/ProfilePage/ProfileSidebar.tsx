@@ -13,7 +13,7 @@ type ProfileSidebarType = {
     state: AppStateType
 }
 
-export class ProfileSidebar extends React.Component<ProfileSidebarType, { editMode: boolean }> {
+export class ProfileSidebar extends React.Component<ProfileSidebarType> {
 
 
 

@@ -1,6 +1,6 @@
 import {AppDispatchType, AppStateType, AppThunk, InferActionsTypes, UnionActionsType} from "../Redux-store";
 import {actionsApp} from "../AppReducer/AppReducer";
-import {followApi, APIProfile, userApi} from "../../Api/Api";
+import {followApi, APIProfile, userApi, ProfileType, UsersDataType, UserDataType} from "../../Api/Api";
 
 export type PhotosObjectType = {
     small: string | null | undefined
@@ -15,8 +15,8 @@ export type UserObjectType = {
     status: string | null
 }
 export type stateProfilePageType = {
-    users: Array<UserObjectType>
-    profile: ApiProfileType
+    users: Array<UserDataType>
+    profile: ProfileType
     currentPage: number
     profileStatus: string
 }
@@ -31,8 +31,8 @@ export type ApiProfileType = {
 } | null
 
 let initialState: stateProfilePageType = {
-    users: [] as Array<UserObjectType>,
-    profile: null as ApiProfileType | null,
+    users: [] as Array<UserDataType>,
+    profile: null as ProfileType | null,
     currentPage: 1 as number,
     profileStatus: 'zasd' as string
 
@@ -47,7 +47,7 @@ export const ProfilePageReducer = (state: stateProfilePageType = initialState, a
         case EnumProfile.getProfile:
             return {
                 ...state,
-                profile: {...action.profile}
+                profile: action.profile
             }
 
         case EnumProfile.getUsers:
@@ -57,81 +57,84 @@ export const ProfilePageReducer = (state: stateProfilePageType = initialState, a
 
             return {
                 ...state,
-                users: [...state.users.map((user: UserObjectType) => user.id === action.id ? {
-                    ...user,
-                    followed: true
-                } : user)]
+                users: [...state.users.map((user: UserDataType) => user.id === action.id
+                    ? {...user, followed: true} : user)]
             }
 
         case EnumProfile.unfollow:
             return {
                 ...state,
-                users: state.users.map((user: UserObjectType) => user.id === action.id ? {
+                users: state.users.map((user: UserDataType) => user.id === action.id ? {
                     ...user,
                     followed: false
                 } : user)
             }
         case EnumProfile.updateProfileStatus:
-            return {...state, profileStatus:action.newStatus}
+            return {...state, profileStatus: action.newStatus}
         default:
             return state
     }
 }
 
 export enum EnumProfile {
-    getProfile='GET-PROFILE',
-    getUsers='GET-USERS',
-    follow='FOLLOW',
-    unfollow='UNFOLLOW',
-    updateProfileStatus='UPDATE-PROFILE-STATUS'
+    getProfile = 'GET-PROFILE',
+    getUsers = 'GET-USERS',
+    follow = 'FOLLOW',
+    unfollow = 'UNFOLLOW',
+    updateProfileStatus = 'UPDATE-PROFILE-STATUS'
 }
 
 
-
 export const actionsProfile = {
-    getProfile: (profile: ApiProfileType) => ({type: EnumProfile.getProfile, profile} as const),
-    getUsers: (usersApi: Array<UserObjectType>, page: number) => ({
+    getProfile: (profile: ProfileType) => ({type: EnumProfile.getProfile, profile} as const),
+    getUsers: (usersApi: Array<UserDataType>, page: number=1) => ({
         type: EnumProfile.getUsers,
         usersApi,
         page
     } as const),
-    follow: (id: string) => ({type: EnumProfile.follow, id} as const),
-    unfollow: (id: string) => ({type: EnumProfile.unfollow, id} as const),
+    follow: (id: number) => ({type: EnumProfile.follow, id} as const),
+    unfollow: (id: number) => ({type: EnumProfile.unfollow, id} as const),
     updateProfileStatus: (newStatus: string) => ({type: EnumProfile.updateProfileStatus, newStatus} as const)
 }
-export const thunkProfile={
-    getProfileStatus:(userId:number)=>async (dispatch:AppDispatchType, getState:AppStateType)=>{
-       try{
+export const thunkProfile = {
+    getProfileStatus: (userId: number):AppThunk => async (dispatch: AppDispatchType) => {
+        try {
+            const res = await APIProfile.getProfileStatus(userId)
+            if(res.status===200){
+                dispatch(actionsProfile.updateProfileStatus(res.data))
+                console.log(res)
 
-           const res=await APIProfile.getProfileStatus(userId)
-           dispatch(actionsProfile.updateProfileStatus(res.data))
-           console.log(res)
-       } catch (e) {
-           throw e
-       }
+            }else {
+                console.log(res.statusText)}
+
+        } catch (e) {
+            throw e
+        }
     },
-    updateProfileStatus:(newStatus:string):AppThunk=>async (dispatch:AppDispatchType)=>{
-        try{
-          const res=await APIProfile.updateProfileStatus(newStatus)
-            console.dir(res)
-            if (res.data.resultCode===0){
+    updateProfileStatus: (newStatus: string): AppThunk => async (dispatch: AppDispatchType) => {
+        try {
+            const res = await APIProfile.updateProfileStatus(newStatus)
+            console.log(res)
+            if (res.data.resultCode === 0) {
                 dispatch(actionsProfile.updateProfileStatus(newStatus))
+            } else {
+                console.log(res.data.messages)
             }
-        }catch (e) {
+        } catch (e) {
             throw e
         }
     },
 
-     getUser : (
-        page: number, userName?: string, isFollow?: string, count?: number) =>async (
-        dispatch: (action: UnionActionsType) => void) => {
-        userApi.getAllUsersApi(page, userName, isFollow, count)
-            .then((response: any) => {
+    getUser: (
+        page?: number, userName?: string, isFollow?: string, count?: number):AppThunk => async (
+        dispatch: AppDispatchType) => {
+        userApi.getUsersApi(page, userName, isFollow, count)
+            .then((response) => {
                 dispatch(actionsProfile.getUsers(response.data.items, page));
                 dispatch(actionsApp.toggleIsFetching(false))
             })
     },
-     getProfile : (userID: number ) => (dispatch: (action: UnionActionsType) => void) => {
+    getProfile: (userID: number) => (dispatch: (action: UnionActionsType) => void) => {
         dispatch(actionsApp.toggleIsFetching(true))
         APIProfile.getProfile(userID)
             .then((response: any) => {
@@ -139,7 +142,7 @@ export const thunkProfile={
                 dispatch(actionsApp.toggleIsFetching(false))
             })
     },
-     follow : (userId: string, setDisabledButton: any) => (dispatch: (action: UnionActionsType) => void) => {
+    follow: (userId: number, setDisabledButton: any) => (dispatch: (action: UnionActionsType) => void) => {
         setDisabledButton(true)
         followApi.getFollowUsers(userId).then((response: any) => {
             if (response.data.resultCode === 0) {
@@ -148,7 +151,7 @@ export const thunkProfile={
             }
         })
     },
-     unFollow : (userId: string, setDisabledButton: any) => (dispatch: (action: UnionActionsType) => void) => {
+    unFollow: (userId: number, setDisabledButton: any) => (dispatch: (action: UnionActionsType) => void) => {
         setDisabledButton(true)
         followApi.getUnFollowUsers(userId).then((response: any) => {
             if (response.data.resultCode === 0) {
@@ -156,8 +159,7 @@ export const thunkProfile={
                 setDisabledButton(false)
             }
         })
-    }
-
+    },
 
 }
 

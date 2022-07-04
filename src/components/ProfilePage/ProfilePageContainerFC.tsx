@@ -4,6 +4,7 @@ import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/Redux-store";
 import {thunkProfile} from "../../Redux/ProfilePage/ProfilePageReducer";
+import {useDispatchApp} from "../../customHooks/CustomHooks";
 
 
 export const ProfilePageContainerFC =  () => {
@@ -12,7 +13,7 @@ export const ProfilePageContainerFC =  () => {
     let auth = useSelector((state: AppStateType) => state.auth)
     let initApp = useSelector((state: AppStateType) => state.AppReducer)
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatchApp()
 
     let params = useParams()
 
@@ -24,7 +25,7 @@ export const ProfilePageContainerFC =  () => {
     }, [params.userId])
 
     useEffect(() => {
-        dispatch(thunkProfile.getUser(1))
+        dispatch(thunkProfile.getUser())
     }, [state.profile])
 
 

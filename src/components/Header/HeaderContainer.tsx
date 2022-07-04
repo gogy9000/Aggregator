@@ -1,8 +1,7 @@
 import React, {useEffect} from "react"
 import logo from "./logo.svg"
 import s from "./Header.module.css"
-import {useDispatch, useSelector} from "react-redux";
-import {actions, getAuthTC} from "../../Redux/Auth/Auth";
+import { useSelector} from "react-redux";
 import {NavItem} from "../NavBar/NavItem/NavItem";
 import {AppStateType} from "../../Redux/Redux-store";
 
@@ -14,11 +13,7 @@ export const HeaderContainer = () => {
 
    const state=useSelector((state:AppStateType)=>state.auth)
 
-  const dispatch= useDispatch()
 
- useEffect(()=>{
-    dispatch(getAuthTC())
- },[])
 
     return <Header login={state.login} isAuth={state.isAuth} />
 }

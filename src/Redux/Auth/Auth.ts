@@ -1,4 +1,4 @@
-import {InferActionsTypes, UnionActionsType} from "../Redux-store";
+import {AppDispatchType, AppThunk, InferActionsTypes, UnionActionsType} from "../Redux-store";
 import {authApi} from "../../Api/Api";
 import {actionsApp} from "../AppReducer/AppReducer";
 
@@ -11,7 +11,7 @@ export type   authStateType = {
 
 }
 let initialState: authStateType = {
-    id: 2,
+    id: null,
     login: null,
     email: null,
     isAuth: false,
@@ -38,24 +38,27 @@ export const authReducer = (state: authStateType = initialState, action: Actions
 }
 
 
-export type ActionsAuthType = InferActionsTypes<typeof actions>
+export type ActionsAuthType = InferActionsTypes<typeof actionsAuth>
 
-export const actions = {
-    getAuth: (id: string, login: string, email: string) => ({type: 'GET-AUTH-DATA', id, login, email} as const)
+export const actionsAuth = {
+    setAuthData: (id: number, login: string, email: string) => ({type: 'GET-AUTH-DATA', id, login, email} as const)
 }
+export const thunkAuth={
+     getAuth : ():AppThunk => async (dispatch:AppDispatchType)=>{
+        try {
+            const response= await authApi.getAuthApi()
+            if (response.data.resultCode!==0){return}
+            let {id, login, email}=response.data.data
+            dispatch(actionsAuth.setAuthData(id, login, email))
+            dispatch(actionsApp.toggleIsFetching(false))
+            return response
+        }catch (e){
+            throw e
+        }
 
-export const getAuthTC = () => async (dispatch:(ac:UnionActionsType)=>void)=>{
-    try {
-        const response= await authApi.getAuthApi()
-        if (response.data.resultCode!==0){return}
-        let {id, login, email}=response.data.data
-        dispatch(actions.getAuth(id, login, email))
-        dispatch(actionsApp.toggleIsFetching(false))
-    }catch (e){
-        throw e
+
     }
-
-
 }
+
 
 
