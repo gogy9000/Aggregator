@@ -1,6 +1,6 @@
 import {AppDispatchType, AppThunk, InferActionsTypes, UnionActionsType} from "../Redux-store";
-import {authApi} from "../../Api/Api";
-import {actionsApp} from "../AppReducer/AppReducer";
+import {authApi, loginDataType} from "../../Api/Api";
+import {actionsApp, thunkApp} from "../AppReducer/AppReducer";
 
 export type   authStateType = {
     id: number | null
@@ -57,6 +57,16 @@ export const thunkAuth={
         }
 
 
+    },
+    login:(loginData:loginDataType):AppThunk=>async (dispatch:AppDispatchType)=>{
+        try {
+            const res= await authApi.logIn({...loginData})
+            console.log(loginData)
+            console.log(res)
+            dispatch(thunkApp.initializeApp())
+        } catch (e) {
+            console.log(e)
+        }
     }
 }
 

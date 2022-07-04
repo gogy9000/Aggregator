@@ -51,7 +51,7 @@ export const APIProfile = {
 
 export const authApi={
     getAuthApi:()=>instance.get(`auth/me`).then((res:AxiosResponse<DataType<AuthDataType>>)=>res),
-    logIn:(loginData:loginDataType)=>instance.post(`/auth/login`,{loginData}),
+    logIn:(loginData:loginDataType)=>instance.post(`/auth/login`,{...loginData}),
     logOut:()=>instance.delete(`/auth/login`)
 
 }
