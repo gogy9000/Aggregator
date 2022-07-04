@@ -15,6 +15,7 @@ import {useEffect} from "react";
 import {useDispatchApp} from "./customHooks/CustomHooks";
 import {thunkApp} from "./Redux/AppReducer/AppReducer";
 import {thunkProfile} from "./Redux/ProfilePage/ProfilePageReducer";
+import {FinalForm} from "./components/final-form/FinalForm";
 
 
 const App = () => {
@@ -52,7 +53,7 @@ const App = () => {
 
                         <Route path='/friends' element={<FriendsPageFunctionalComponent/>}/>
 
-                        <Route path='/login' element={<Login/>}/>
+                        <Route path='/login' element={<FinalForm/>}/>
 
 
                     </Routes>
