@@ -9,11 +9,11 @@ beforeEach(()=>{
         login:null,
         email:null,
         isAuth:false,
-        fakeAuth:false
+
     }
 })
 test('authData should be updated',()=>{
-    let action= actionsAuth.setAuthData(1,'azaza','email')
+    let action= actionsAuth.setAuthData(1,'azaza','email',true)
     let newState= authReducer(state,action)
     expect(newState.id).toBe(1)
     expect(newState.email).toBe('email')

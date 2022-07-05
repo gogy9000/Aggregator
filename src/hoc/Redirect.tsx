@@ -6,12 +6,12 @@ import React from "react";
 export const Redirect = (WrappedComponent: any) => {
 
     const Foo = (props: any) => {
-        let fakeAuth = useSelector((state: AppStateType) => state.auth.fakeAuth)
+        let isAuth = useSelector((state: AppStateType) => state.auth.isAuth)
 
         return (
             <>
                 {
-                    fakeAuth
+                    isAuth
                         ?
                         <WrappedComponent {...props}/>
                         :

@@ -3,7 +3,7 @@ import {MessagePage} from "./messagePage";
 import {Redirect} from "../../hoc/Redirect";
 
 
-export const MessagePageContainer = () => {
+export const MessagePageContainer = Redirect(() => {
 
         return (
             <div>
@@ -11,6 +11,7 @@ export const MessagePageContainer = () => {
             </div>
         )
     }
+)
 
 
 

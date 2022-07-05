@@ -7,7 +7,7 @@ export type   authStateType = {
     login: string | null
     email: string | null
     isAuth: boolean
-    fakeAuth:boolean
+
 
 }
 let initialState: authStateType = {
@@ -15,7 +15,7 @@ let initialState: authStateType = {
     login: null,
     email: null,
     isAuth: false,
-    fakeAuth:false
+
 }
 
 export const authReducer = (state: authStateType = initialState, action: ActionsAuthType): authStateType => {
@@ -27,8 +27,8 @@ export const authReducer = (state: authStateType = initialState, action: Actions
                 id: Number(action.id),
                 login: action.login,
                 email: action.email,
-                isAuth: true,
-                fakeAuth:false
+                isAuth: action.isAuth,
+
 
             }
 
@@ -41,7 +41,8 @@ export const authReducer = (state: authStateType = initialState, action: Actions
 export type ActionsAuthType = InferActionsTypes<typeof actionsAuth>
 
 export const actionsAuth = {
-    setAuthData: (id: number, login: string, email: string) => ({type: 'GET-AUTH-DATA', id, login, email} as const)
+    setAuthData: (id: number|null, login: string|null, email: string|null, isAuth:boolean) => (
+        {type: 'GET-AUTH-DATA', id, login, email,isAuth} as const)
 }
 export const thunkAuth={
      getAuth : ():AppThunk => async (dispatch:AppDispatchType)=>{
@@ -49,7 +50,7 @@ export const thunkAuth={
             const response= await authApi.getAuthApi()
             if (response.data.resultCode!==0){return}
             let {id, login, email}=response.data.data
-            dispatch(actionsAuth.setAuthData(id, login, email))
+            dispatch(actionsAuth.setAuthData(id, login, email,true))
             dispatch(actionsApp.toggleIsFetching(false))
             return response
         }catch (e){
@@ -67,6 +68,17 @@ export const thunkAuth={
         } catch (e) {
             console.log(e)
         }
+    },
+    logout:():AppThunk=>async (dispatch:AppDispatchType)=>{
+         try {
+             const res=await authApi.logOut()
+
+             console.log(res)
+             dispatch(actionsAuth.setAuthData(null,null,null,false))
+
+         }catch (e) {
+             console.log(e)
+         }
     }
 }
 

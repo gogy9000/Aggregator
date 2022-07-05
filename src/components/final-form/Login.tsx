@@ -4,6 +4,9 @@ import { Form, Field } from 'react-final-form'
 import {useDispatchApp} from "../../customHooks/CustomHooks";
 import {thunkAuth} from "../../Redux/Auth/Auth";
 import {composeValidators, minValue, mustBeNumber, required} from "../../utils/validators/Validators";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../Redux/Redux-store";
+import { Navigate } from 'react-router-dom';
 
 // const sleep = (ms:number) => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -11,18 +14,18 @@ import {composeValidators, minValue, mustBeNumber, required} from "../../utils/v
 
 
  export const Login = () => {
-
+    const isAuth=useSelector((state:AppStateType)=>state.auth.isAuth)
     const dispatch=useDispatchApp()
 
      const onSubmit =  (values:any) => {
             dispatch(thunkAuth.login(values))
      }
 
-
+    if(isAuth){return <Navigate replace to='/profile'/>}
     return (
          <Styles>
-             <h1>Login</h1>
 
+             <h1>Login</h1>
              <Form
                  onSubmit={onSubmit}
                  initialValues={{ rememberMe:false }}

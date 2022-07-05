@@ -35,7 +35,7 @@ export const thunkApp = {
             console.log(authData)
             if (authData.data.resultCode === 0) {
                 const {email,login, id}= authData.data.data
-                dispatch(actionsAuth.setAuthData(id,login, email))
+                dispatch(actionsAuth.setAuthData(id,login, email,true))
                 dispatch(thunkProfile.getProfile(id))
                      dispatch(thunkProfile.getProfileStatus(id))
 
