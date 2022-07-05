@@ -7,7 +7,7 @@ let state: stateMessagePageType
 beforeEach(()=>{
     state={
         messagePage: [
-            {id: '1', name: 'sasha', old: 56, message: 'да я с твоей мамкой  танцевал!'},
+            {id: '1', name: 'sasha', old: 56, message: {message:'да я с твоей мамкой  танцевал!'}},
         ],
         newPost: '',
     }
@@ -18,7 +18,7 @@ test('newPost should be changed',()=>{
     expect(newState.newPost).toBe('!!!')
 })
 test('new message should be created',()=>{
-    let action=actions.addTextAC()
+    let action=actions.addTextAC({message:'a'})
     let newState=messagePageReducer(state,action)
     expect(newState.messagePage.length).toBe(2)
 })

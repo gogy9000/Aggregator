@@ -28,7 +28,7 @@ export const authReducer = (state: authStateType = initialState, action: Actions
                 login: action.login,
                 email: action.email,
                 isAuth: true,
-                fakeAuth:false
+                fakeAuth:true
 
             }
 

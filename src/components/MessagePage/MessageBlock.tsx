@@ -4,7 +4,7 @@ import logo from "../../logo.svg";
 import {NavLink} from "react-router-dom";
 
 type MessageBlockPropsType = {
-    message: string
+    message: {message: string }
     name: string
 }
 export const MessageBlock: React.FC<MessageBlockPropsType> = ({name, message}) => {
@@ -25,7 +25,7 @@ export const MessageBlock: React.FC<MessageBlockPropsType> = ({name, message}) =
                     </div>
                 </NavLink>
 
-                <div className={s.MessageBody}>{message}</div>
+                <div className={s.MessageBody}>{message.message}</div>
 
             </div>
 

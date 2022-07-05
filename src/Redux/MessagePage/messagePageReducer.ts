@@ -6,7 +6,7 @@ type messagePageType={
     id: string
     name: string
     old: number
-    message: string
+    message: {message: string }
 }
 
 
@@ -17,14 +17,14 @@ export type stateMessagePageType={
 
 let initialState:stateMessagePageType = {
     messagePage: [
-        {id: v1(), name: 'sasha', old: 56, message: 'да я с твоей мамкой  танцевал!'},
+        {id: v1(), name: 'sasha', old: 56, message: {message:'да я с твоей мамкой  танцевал!'}},
     ],
     newPost: '',
 }
 
 
 
-export const messagePageReducer = (state:stateMessagePageType = initialState, action:ActionsType):stateMessagePageType => {
+export const messagePageReducer = (state:stateMessagePageType = initialState, action:ActionsMessageType):stateMessagePageType => {
 
 
     switch (action.type) {
@@ -35,7 +35,7 @@ export const messagePageReducer = (state:stateMessagePageType = initialState, ac
                 id: v1(),
                 name: 'Pasha',
                 old: Math.round(Math.random() * 100),
-                message: state.newPost
+                message: action.payload
             }
 
             return {...state, messagePage:[...state.messagePage, newText],newPost:''}
@@ -52,9 +52,9 @@ export const messagePageReducer = (state:stateMessagePageType = initialState, ac
 }
 
 
-type ActionsType= InferActionsTypes<typeof actions>
+export type ActionsMessageType = InferActionsTypes<typeof actions>
 
 export const actions = {
-    addTextAC:() => ({type: 'ADD-TEXT'} as const),
+    addTextAC:(payload:{message:string}) => ({type: 'ADD-TEXT',payload} as const),
     onChangeAC:(text:string) => ({type: 'ON-CHANGE', newText: text} as const)
 }

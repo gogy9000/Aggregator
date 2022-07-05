@@ -10,7 +10,9 @@ import {thunkAuth} from "../../Redux/Auth/Auth";
 
 
  export const FinalForm = () => {
+
     const dispatch=useDispatchApp()
+
      const onSubmit =  (values:any) => {
             dispatch(thunkAuth.login(values))
          // @ts-ignore
