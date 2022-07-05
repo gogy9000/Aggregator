@@ -10,12 +10,11 @@ import {FriendsPageFunctionalComponent} from "./components/FriendsPage/FriendsPa
 import {
     ProfilePageContainerFC
 } from "./components/ProfilePage/ProfilePageContainerFC";
-import {Login} from "./components/login/Login";
 import {useEffect} from "react";
 import {useDispatchApp} from "./customHooks/CustomHooks";
 import {thunkApp} from "./Redux/AppReducer/AppReducer";
 import {thunkProfile} from "./Redux/ProfilePage/ProfilePageReducer";
-import {FinalForm} from "./components/final-form/FinalForm";
+import {Login} from "./components/final-form/Login";
 
 
 const App = () => {
@@ -53,7 +52,7 @@ const App = () => {
 
                         <Route path='/friends' element={<FriendsPageFunctionalComponent/>}/>
 
-                        <Route path='/login' element={<FinalForm/>}/>
+                        <Route path='/login' element={<Login/>}/>
 
 
                     </Routes>

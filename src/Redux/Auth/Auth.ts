@@ -15,7 +15,7 @@ let initialState: authStateType = {
     login: null,
     email: null,
     isAuth: false,
-    fakeAuth:true
+    fakeAuth:false
 }
 
 export const authReducer = (state: authStateType = initialState, action: ActionsAuthType): authStateType => {
@@ -28,7 +28,7 @@ export const authReducer = (state: authStateType = initialState, action: Actions
                 login: action.login,
                 email: action.email,
                 isAuth: true,
-                fakeAuth:true
+                fakeAuth:false
 
             }
 
