@@ -51,10 +51,13 @@ export const APIProfile = {
 
 export const authApi={
     getAuthApi:()=>instance.get(`auth/me`).then((res:AxiosResponse<DataType<AuthDataType>>)=>res),
-    logIn:(loginData:loginDataType)=>instance.post(`/auth/login`,{...loginData}),
-    logOut:()=>instance.delete(`/auth/login`)
 
+    logIn:(loginData:loginDataType)=>instance.post(`/auth/login`,{...loginData})
+        .then((res:AxiosResponse<DataType<{userId:string}>>)=>res),
+
+    logOut:()=>instance.delete(`/auth/login`).then((res:AxiosResponse<DataType<{}>>)=>res)
 }
+
 export type AuthDataType={
     email: string
     id: number

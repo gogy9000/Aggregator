@@ -33,17 +33,17 @@ export class ProfileStatus extends React.Component<ProfileStatusType, ProfileSta
         this.setState({newStatus: e.currentTarget.value})
     }
 
-    fetchStatus() {
-        if (!this.state.newStatus.trim().length){
-            this.setState({error:'все плохо,  переписывай...'})
-            return
-        }
-
-        this.props.dispatch(thunkProfile.updateProfileStatus(this.state.newStatus.trim()))
-        this.toggleEditMode()
-        this.setState({newStatus:''})
-
-    }
+    // fetchStatus() {
+    //     if (!this.state.newStatus.trim().length){
+    //         this.setState({error:'все плохо,  переписывай...'})
+    //         return
+    //     }
+    //
+    //     this.props.dispatch(thunkProfile.updateProfileStatus(this.state.newStatus.trim()))
+    //     this.toggleEditMode()
+    //     this.setState({newStatus:''})
+    //
+    // }
     clearError(){
       if (this.state.error) {
           this.setState({error: ''})
@@ -65,7 +65,8 @@ export class ProfileStatus extends React.Component<ProfileStatusType, ProfileSta
                            value={this.state.error?this.state.error:this.state.newStatus}
                            onFocus={this.clearError.bind(this)}
                            onChange={this.changeStatus.bind(this)}
-                           onBlur={this.fetchStatus.bind(this)}/>
+                           // onBlur={this.fetchStatus.bind(this)}
+                    />
                     :
                     <span onDoubleClick={this.toggleEditMode.bind(this)}>
                         {this.props.state.profilePage.profileStatus}

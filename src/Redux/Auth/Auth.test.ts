@@ -9,6 +9,7 @@ beforeEach(()=>{
         login:null,
         email:null,
         isAuth:false,
+        errorLog:null
 
     }
 })

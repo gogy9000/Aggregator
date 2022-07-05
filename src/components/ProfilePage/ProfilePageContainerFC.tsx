@@ -1,15 +1,14 @@
 import {ProfilePage} from "./ProfilePage";
 import React, {useEffect} from "react";
-import {useParams} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {Navigate, useParams} from "react-router-dom";
+import {useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/Redux-store";
 import {thunkProfile} from "../../Redux/ProfilePage/ProfilePageReducer";
 import {useDispatchApp} from "../../customHooks/CustomHooks";
 
 
-export const ProfilePageContainerFC =  () => {
+export const ProfilePageContainerFC =  React.memo( () => {
 
-    let state = useSelector((state: AppStateType) => state.profilePage)
     let auth = useSelector((state: AppStateType) => state.auth)
     let initApp = useSelector((state: AppStateType) => state.AppReducer)
 
@@ -18,7 +17,7 @@ export const ProfilePageContainerFC =  () => {
     let params = useParams()
 
     useEffect(() => {
-        let userID = params.userId ? Number(params.userId) : auth.id;
+        let userID = params.userId? Number(params.userId):auth.id
         if (!userID) {return}
         dispatch(thunkProfile.getProfile(userID))
         dispatch(thunkProfile.getProfileStatus(userID))
@@ -29,7 +28,6 @@ export const ProfilePageContainerFC =  () => {
 
     return (
         <>
-
             {
                 initApp.isFetching
                     ?
@@ -41,5 +39,6 @@ export const ProfilePageContainerFC =  () => {
         </>
     )
 }
+)
 
 

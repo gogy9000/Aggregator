@@ -7,6 +7,7 @@ import {composeValidators, minValue, mustBeNumber, required} from "../../utils/v
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/Redux-store";
 import { Navigate } from 'react-router-dom';
+import {FORM_ERROR} from "final-form";
 
 // const sleep = (ms:number) => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -15,6 +16,8 @@ import { Navigate } from 'react-router-dom';
 
  export const Login = () => {
     const isAuth=useSelector((state:AppStateType)=>state.auth.isAuth)
+    const errorLog=useSelector((state:AppStateType)=>state.auth.errorLog)
+
     const dispatch=useDispatchApp()
 
      const onSubmit =  (values:any) => {
@@ -22,13 +25,13 @@ import { Navigate } from 'react-router-dom';
      }
 
     if(isAuth){return <Navigate replace to='/profile'/>}
+
     return (
          <Styles>
 
              <h1>Login</h1>
              <Form
                  onSubmit={onSubmit}
-                 initialValues={{ rememberMe:false }}
                  render={({handleSubmit, form, submitting, pristine, values}) => (
                      <form onSubmit={handleSubmit}>
                          <div>
@@ -40,7 +43,8 @@ import { Navigate } from 'react-router-dom';
                                  <div>
                                      <label>email</label>
                                      <input {...input} type="text" placeholder="email" />
-                                     {meta.error && meta.touched && <span>{meta.error}</span>}
+                                     {meta.error  && meta.touched && <span>{meta.error}</span>}
+                                     {errorLog&&errorLog['email'] && <span>{errorLog['email']}</span>}
                                  </div>
                              )}</Field>
                          </div>
@@ -52,7 +56,7 @@ import { Navigate } from 'react-router-dom';
                                  <div>
                                      <label>password</label>
                                      <input {...input} type="password" placeholder="password" />
-                                     {meta.error && meta.touched && <span>{meta.error}</span>}
+                                     {(meta.error || meta.submitError)&& meta.touched && <span>{meta.error || meta.submitError}</span>}
                                  </div>
                              )}
 
