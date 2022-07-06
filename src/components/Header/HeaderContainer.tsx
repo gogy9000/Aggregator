@@ -9,29 +9,29 @@ import {useDispatchApp} from "../../customHooks/CustomHooks";
 import {thunkAuth} from "../../Redux/Auth/Auth";
 
 
-export const HeaderContainer =() => {
+export const HeaderContainer = () => {
 
-        const dispatch = useDispatchApp()
+    const dispatch = useDispatchApp()
 
-        const state = useSelector((state: AppStateType) => state.auth)
+    const state = useSelector((state: AppStateType) => state.auth)
 
-        const logout = () => {
-            dispatch(thunkAuth.logout())
-        }
-
-
-        return <Header login={state.login} isAuth={state.isAuth} logout={logout}/>
+    const logout = () => {
+        dispatch(thunkAuth.logout())
     }
+
+
+    return <Header login={state.login} isAuth={state.isAuth} logout={logout}/>
+}
 
 
 type HeaderPropsType = {
     login: string | null
     isAuth: boolean
-    logout:()=>void
+    logout: () => void
 }
 
-export const Header: React.FC<HeaderPropsType> = ({login, isAuth,logout}) => {
-    const [editMod, setEditMod]=useState(false)
+export const Header: React.FC<HeaderPropsType> = ({login, isAuth, logout}) => {
+    const [editMod, setEditMod] = useState(false)
     const onClickCallback = () => {
         logout()
         setEditMod(false)
@@ -45,10 +45,19 @@ export const Header: React.FC<HeaderPropsType> = ({login, isAuth,logout}) => {
             <div className={s.LogoEmpty}>
                 <div>
                     {isAuth
-                        ? <div onMouseEnter={()=>{setEditMod(true)}}>{login}</div>
+                        ? <div onMouseEnter={() => {
+                            setEditMod(true)
+                        }}>{login}</div>
                         : <NavItem to={'/login'} elementName={'Sign in'}/>}
                 </div>
-                {editMod && <button onClick={onClickCallback}>logout</button>}
+                {
+                    editMod &&
+                    <button onClick={onClickCallback}
+                            onMouseLeave={() => {
+                                setEditMod(false)
+                            }}>logout
+                    </button>
+                }
             </div>
         </div>
     )
