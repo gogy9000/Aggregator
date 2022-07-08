@@ -19,7 +19,7 @@ export type AppStateType=ReturnType<rootReducerType>
 export type InferActionsTypes <T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
 export type UnionActionsType=ActionsType|ActionsAppType|ActionsAuthType|ActionsMessageType
 export type AppDispatchType = ThunkDispatch<AppStateType, unknown, UnionActionsType>
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, UnionActionsType>
+export type AppThunk<ReturnType = any> = ThunkAction<ReturnType, AppStateType, unknown, UnionActionsType>
 
 
 export let store = createStore(rootReducer,applyMiddleware(thunk))

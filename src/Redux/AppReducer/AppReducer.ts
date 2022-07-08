@@ -1,5 +1,5 @@
 import {AppDispatchType, AppThunk, InferActionsTypes} from "../Redux-store";
-import {APIProfile, authApi} from "../../Api/Api";
+import {APIProfile, authApi, AuthDataType} from "../../Api/Api";
 import {actionsAuth, thunkAuth} from "../Auth/Auth";
 import {actionsProfile, thunkProfile} from "../ProfilePage/ProfilePageReducer";
 
@@ -38,18 +38,15 @@ export const thunkApp = {
         try {
             dispatch(actionsApp.initializeApp(true))
             dispatch(actionsApp.toggleIsFetching(true))
-            let authData = await authApi.getAuthApi()
-            console.log(authData)
-            if (authData.data.resultCode === 0) {
-                const {email, login, id} = authData.data.data
-                dispatch(actionsAuth.setAuthData(id, login, email, true))
-                dispatch(thunkProfile.getProfile(id))
-                dispatch(thunkProfile.getProfileStatus(id))
-                dispatch(thunkProfile.getUser())
-
-            } else {
-                console.log(authData)
-            }
+            dispatch(thunkAuth.getAuth()).then((res: AuthDataType) => {
+                    console.log(res)
+                    if (res) {
+                        dispatch(thunkProfile.getProfile(res.id))
+                        dispatch(thunkProfile.getProfileStatus(res.id))
+                        dispatch(thunkProfile.getUser())
+                    }
+                }
+            )
 
         } catch (e) {
             console.log(e)

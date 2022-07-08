@@ -1,5 +1,5 @@
 import {AppDispatchType, AppThunk, InferActionsTypes} from "../Redux-store";
-import {authApi, loginDataType} from "../../Api/Api";
+import {authApi, AuthDataType, loginDataType} from "../../Api/Api";
 import {actionsApp, thunkApp} from "../AppReducer/AppReducer";
 
 
@@ -53,19 +53,19 @@ export const actionsAuth = {
 }
 export const thunkAuth = {
     getAuth: (): AppThunk => async (dispatch: AppDispatchType) => {
-        try {
-            const response = await authApi.getAuthApi()
-            if (response.data.resultCode !== 0) {
-                return
-            }
-            let {id, login, email} = response.data.data
-            dispatch(actionsAuth.setAuthData(id, login, email, true))
-            dispatch(actionsApp.toggleIsFetching(false))
-            return response
-        } catch (e) {
-            throw e
-        }
 
+
+            return authApi.getAuthApi().then((response)=>{
+                if (response.data.resultCode === 0) {
+                    let {id, login, email} = response.data.data
+                    dispatch(actionsAuth.setAuthData(id, login, email, true))
+                    dispatch(actionsApp.toggleIsFetching(false))
+                    return response.data.data
+                }else {
+                    console.log(response.data.messages)
+                }
+
+            })
 
     },
     login: (loginData: loginDataType): AppThunk => async (dispatch: AppDispatchType) => {
@@ -73,10 +73,11 @@ export const thunkAuth = {
             const res = await authApi.logIn({...loginData})
             if (res.data.resultCode === 0) {
                 dispatch(thunkApp.initializeApp())
-            } else {
-                return res.data.messages
-            }
 
+            } else {
+                return Promise.resolve(res.data.messages)
+
+            }
         } catch (e) {
             console.log(e)
         }
