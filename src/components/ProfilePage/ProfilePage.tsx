@@ -1,5 +1,5 @@
 import s from "./ProfilePage.module.css";
-import {ProfileSidebar, ProfileSidebarCompose} from "./ProfileSidebar";
+import {ProfileSidebarCompose} from "./ProfileSidebar";
 import {ProfileContent} from "./ProfileContent";
 import React from "react";
 

@@ -1,22 +1,33 @@
 import s from "./ProfilePage.module.css";
 import {defaultPhoto} from "../../photo/photo";
 import React from "react";
-import {useSelector} from "react-redux";
+import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/Redux-store";
 
+import {getProfile} from "../../Redux/Selectors";
+import {ProfileType} from "../../Api/Api";
+import {compose} from "redux";
+
 type AvatarBlockPropsType={
+profile:ProfileType
 }
 
-export const AvatarBlock:React.FC<AvatarBlockPropsType> = () => {
+class AvatarBlockClass extends React.Component<AvatarBlockPropsType,any> {
 
-    const state = useSelector((state: AppStateType) => state.profilePage)
-
-    return (
-        <div>
-            <div className={s.Avatar}>
-                 <img src={!!state.profile?.photos?.large?state.profile.photos.large:defaultPhoto} />
+    render() {
+        return (
+            <div>
+                <div className={s.Avatar}>
+                    <img src={!!this.props.profile?.photos?.large ? this.props.profile.photos.large : defaultPhoto}/>
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
+export const mapStateToProps = (state:AppStateType) => ({
+  profile:getProfile(state)
+})
+
+export const AvatarBlock = compose(connect(mapStateToProps))(AvatarBlockClass)
+
 

@@ -6,14 +6,17 @@ import {AvatarBlock} from "./AvatarBlock";
 import React from "react";
 import {AppStateType} from "../../Redux/Redux-store";
 import {compose} from "redux";
-import {ProfileStatus, ProfileStatusCompose} from "./ProfileStatus";
+import {ProfileStatus} from "./ProfileStatus";
+import {getIsFetching, getProfile} from "../../Redux/Selectors";
+import {ProfileType} from "../../Api/Api";
 
 
 type ProfileSidebarType = {
-    state: AppStateType
+    isFetching: boolean
+    profile:ProfileType
 }
 
-export class ProfileSidebar extends React.Component<ProfileSidebarType> {
+ class ProfileSidebar extends React.Component<ProfileSidebarType, any> {
 
 
 
@@ -21,17 +24,17 @@ export class ProfileSidebar extends React.Component<ProfileSidebarType> {
 
         return (
 
-            this.props.state.AppReducer.isFetching ?
+            this.props.isFetching ?
                 <div>loading</div>
                 : <div>
                     <NavItem to={'/profile/'}>
-                        <div>{this.props.state.profilePage.profile === null ?
+                        <div>{this.props.profile === null ?
                             'loading name...'
-                            : this.props.state.profilePage.profile.fullName}
+                            : this.props.profile.fullName}
                         </div>
                     </NavItem>
                     <AvatarBlock/>
-                    <ProfileStatusCompose/>
+                    <ProfileStatus/>
                     <NavItem elementName={'settings'} to={'/settings'}/>
                     <FriendsBar/>
                     <PhotoBar/>
@@ -44,7 +47,8 @@ export class ProfileSidebar extends React.Component<ProfileSidebarType> {
 const mapStateToProps = (state: AppStateType) => {
 
     return {
-        state: state
+        isFetching: getIsFetching(state),
+        profile:getProfile(state)
     }
 
 }

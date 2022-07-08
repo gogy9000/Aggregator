@@ -14,7 +14,7 @@ type ProfileStatusStateType = {
     error:string
 }
 
-export class ProfileStatus extends React.Component<ProfileStatusType, ProfileStatusStateType> {
+export class ProfileStatusClass extends React.Component<ProfileStatusType, ProfileStatusStateType> {
 
     state = {
         editMode: false,
@@ -82,5 +82,5 @@ const mapStateToProps = (state: AppStateType) => ({
     state: state
 })
 
-export const ProfileStatusCompose = compose(connect(mapStateToProps))(ProfileStatus)
+export const ProfileStatus = compose(connect(mapStateToProps))(ProfileStatusClass)
 
