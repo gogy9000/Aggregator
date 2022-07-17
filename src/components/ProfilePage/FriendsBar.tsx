@@ -5,8 +5,9 @@ import {avaPhoto} from "../../photo/photo";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/Redux-store";
 import {Component} from "react";
-import {getUsers} from "../../Redux/Selectors";
+
 import {UserDataType} from "../../Api/Api";
+import {getUsers} from "../../Redux/Selectors";
 
 type FriendsBarClassPropsType = {
     users: UserDataType[]
