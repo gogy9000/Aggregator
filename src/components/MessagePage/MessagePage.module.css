@@ -7,8 +7,12 @@
 }
 .messageBox{
 grid-area: MB;
+    height: 400px;
+    overflow-y: auto;
     min-height: content-box;
+
     text-align: start;
+
 }
 .entryWindow{
 grid-area: EW;

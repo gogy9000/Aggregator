@@ -6,14 +6,15 @@ import {NavLink} from "react-router-dom";
 type MessageBlockPropsType = {
     message: {message: string }
     name: string
+    avatar:string|null
 }
-export const MessageBlock: React.FC<MessageBlockPropsType> = ({name, message}) => {
+export const MessageBlock: React.FC<MessageBlockPropsType> = ({name, message,avatar}) => {
     let [onOf, setOnOff] = useState(true)
     return (
         <div className={s.MessageBlock}>
 
             <div className={s.Avatar}>
-                <img src={logo} alt="logo"/>
+                <img src={!!avatar?avatar:logo} alt="logo"/>
             </div>
 
             <div className={s.BodyMess}>

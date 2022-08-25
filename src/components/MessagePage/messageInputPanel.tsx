@@ -1,19 +1,19 @@
 import s from "./MessagePage.module.css";
-import React, { useState} from "react";
-
-import {actions} from "../../Redux/MessagePage/messagePageReducer";
+import React, {FC, useState} from "react";
 import { Form, Field } from 'react-final-form'
-import {useDispatchApp} from "../../customHooks/CustomHooks";
 import {FormApi} from "final-form";
-import {composeValidators, required} from "../../utils/validators/Validators";
+import {required} from "../../utils/validators/Validators";
 
-export const MessageInputPanel = () => {
+type MessageInputPanelPropsType={
+    sendMessage:(value:string)=>void
+}
+export const MessageInputPanel:FC<MessageInputPanelPropsType> = (props) => {
+    const {sendMessage}=props
 
     let [onOf, setOnOff] = useState(true)
-    const dispatch = useDispatchApp()
 
     let addText = (values:{message:string},form: FormApi<{message: string}>) => {
-        dispatch(actions.addTextAC(values))
+        sendMessage(values.message)
         form.reset()
     }
 
