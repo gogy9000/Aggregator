@@ -15,7 +15,6 @@ export const MessagePage = () => {
     let [ws, setWs] = useState<WebSocket | null>(null)
     const [messagesData, setMessagesData] = useState<MessagesData[]>([])
     const messageList = useRef<HTMLDivElement>(null)
-
     useEffect(() => {
         setWs(new WebSocket("wss://social-network.samuraijs.com/handlers/ChatHandler.ashx"))
         return () => {
