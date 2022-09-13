@@ -1,7 +1,8 @@
 import {AppDispatchType, AppThunk, InferActionsTypes} from "../Redux-store";
 import {APIProfile, authApi, AuthDataType} from "../../Api/Api";
-import {actionsAuth, thunkAuth} from "../Auth/Auth";
+import {actionsAuth, authWorkers} from "../Auth/Auth";
 import {actionsProfile, thunkProfile} from "../ProfilePage/ProfilePageReducer";
+import {takeEvery} from "redux-saga/effects";
 
 export type initStateType = {
     isFetching: boolean
@@ -13,7 +14,7 @@ const initState: initStateType = {
 
 }
 
-export type ActionsAppType = InferActionsTypes<typeof actionsApp>
+export type ActionsAppType = InferActionsTypes<typeof actionsApp|typeof sagasAppActions>
 
 export const AppReducer = (state: initStateType = initState, action: ActionsAppType): initStateType => {
     switch (action.type) {
@@ -27,18 +28,26 @@ export const AppReducer = (state: initStateType = initState, action: ActionsAppT
     }
 }
 
+enum appConstants {
+    initializeApp="APP_INITIALIZE_APP"
+}
+
 export const actionsApp = {
     toggleIsFetching: (isFetching: boolean) => ({type: 'TOGGLE-IS-FETCHING', isFetching} as const),
     initializeApp: (isInitializedApp: boolean) => ({type: 'TOGGLE-IS-INITIALIZE-APP', isInitializedApp} as const)
 }
+export const sagasAppActions={
+    initializeApp:()=>({type:appConstants.initializeApp})
+}
 
-export const thunkApp = {
 
+export const appWorkers = {
     initializeApp: (): AppThunk => async (dispatch: AppDispatchType) => {
+        debugger
         try {
             dispatch(actionsApp.initializeApp(true))
             dispatch(actionsApp.toggleIsFetching(true))
-            dispatch(thunkAuth.getAuth()).then((res: AuthDataType) => {
+            dispatch(authWorkers.getAuth()).then((res: AuthDataType) => {
                     console.log(res)
                     if (res) {
                         dispatch(thunkProfile.getProfile(res.id))
@@ -55,4 +64,7 @@ export const thunkApp = {
             dispatch(actionsApp.initializeApp(false))
         }
     }
+}
+export function* appWatcher(){
+    yield takeEvery(appConstants.initializeApp,appWorkers.initializeApp)
 }
