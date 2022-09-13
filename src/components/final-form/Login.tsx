@@ -2,7 +2,7 @@ import React from 'react'
 import Styles from './Styles'
 import {Form, Field} from 'react-final-form'
 import {useDispatchApp} from "../../customHooks/CustomHooks";
-import {thunkAuth} from "../../Redux/Auth/Auth";
+import {authWorkers, sagasAuthActions} from "../../Redux/Auth/Auth";
 import {composeValidators, minValue, mustBeNumber, required} from "../../utils/validators/Validators";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/Redux-store";
@@ -19,10 +19,10 @@ export const Login = () => {
     const dispatch = useDispatchApp()
 
     const onSubmit = async (values: any) => {
-        let res = await dispatch(thunkAuth.login(values))
-        if (res != undefined) {
-            return {[FORM_ERROR]: res}
-        }
+        dispatch(sagasAuthActions.login(values))
+        // if (res != undefined) {
+        //     return {[FORM_ERROR]: res}
+        // }
     }
 
     if (isAuth) {

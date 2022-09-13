@@ -12,7 +12,7 @@ import {
 } from "./components/ProfilePage/ProfilePageContainerFC";
 import {useEffect} from "react";
 import {useDispatchApp} from "./customHooks/CustomHooks";
-import {thunkApp} from "./Redux/AppReducer/AppReducer";
+import {appWorkers} from "./Redux/AppReducer/AppReducer";
 import {thunkProfile} from "./Redux/ProfilePage/ProfilePageReducer";
 import {Login} from "./components/final-form/Login";
 import {useSelector} from "react-redux";
@@ -24,7 +24,7 @@ const App = () => {
     const dispatch = useDispatchApp()
 
     useEffect(() => {
-        dispatch(thunkApp.initializeApp())
+        dispatch(appWorkers.initializeApp())
     }, [])
 
 
