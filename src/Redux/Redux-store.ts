@@ -1,6 +1,6 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import {ActionsMessageType, messagePageReducer} from "./MessagePage/messagePageReducer";
-import {ActionsType, ProfilePageReducer} from "./ProfilePage/ProfilePageReducer";
+import {ActionsType, ProfilePageReducer, profileWatcher} from "./ProfilePage/ProfilePageReducer";
 import {ActionsAuthType, authReducer, authWatcher} from "./Auth/Auth";
 import {ActionsAppType, AppReducer, appWatcher} from "./AppReducer/AppReducer";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
@@ -29,7 +29,8 @@ export let store = createStore(rootReducer, applyMiddleware(thunk, sagaMiddlewar
 function* rootSaga() {
     const sagas = [
         authWatcher,
-        appWatcher
+        appWatcher,
+        profileWatcher
     ]
 
     yield all(sagas.map(saga =>

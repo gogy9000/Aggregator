@@ -1,6 +1,6 @@
 import {AppDispatchType, AppThunk, InferActionsTypes} from "../Redux-store";
 import {authApi, AuthDataType, DataType, loginDataType} from "../../Api/Api";
-import {actionsApp, appWorkers, sagasAppActions} from "../AppReducer/AppReducer";
+import {actionsApp, appWorkers, appActivators} from "../AppReducer/AppReducer";
 import {call, put, take, takeEvery, takeLatest} from 'redux-saga/effects'
 import {AxiosResponse, AxiosError} from "axios";
 
@@ -78,7 +78,7 @@ export const authWorkers = {
         try {
             const res: AxiosResponse<DataType<{ userId: string }>> = yield call(authApi.logIn, actions.loginData)
             if (res.data.resultCode === 0) {
-                yield put(sagasAppActions.initializeApp())
+                yield put(appActivators.initializeApp())
             } else {
                 yield put(actionsAuth.setErrorLog({["error"]: res.data.messages[0]}))
             }
@@ -118,10 +118,6 @@ export const sagasAuthActions = {
 }
 
 export function* authWatcher() {
-
-    // while (yield take(authConstants.authMe)) {
-    //     yield call(authWorkers.authMe) // waits for the fetchPosts task to terminate
-    // }
     yield takeEvery(authConstants.authMe,authWorkers.authMe)
     yield takeEvery(authConstants.logout, authWorkers.logout)
     yield takeEvery(authConstants.login, authWorkers.login)

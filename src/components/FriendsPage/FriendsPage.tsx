@@ -1,4 +1,4 @@
-import {stateProfilePageType, thunkProfile} from "../../Redux/ProfilePage/ProfilePageReducer";
+import {profileActivators, stateProfilePageType} from "../../Redux/ProfilePage/ProfilePageReducer";
 import React, {ChangeEvent, useEffect, useState} from "react";
 import s from "./FriendsPage.module.css";
 import {PaginatorWrapper} from "../Paginator/PaginatorWrapper";
@@ -10,7 +10,7 @@ type FriendsPagePropsType = { state: stateProfilePageType }
 export const FriendsPage: React.FC<FriendsPagePropsType> = ({state}) => {
 
     const [userName, setUserName] = useState<string>('')
-    const [isFollowers, setIsFollowers] = useState<string>('')
+    const [isFollow, setIsFollowers] = useState<string>('')
     const [count, setCount] = useState<number>(3)
     const [page, setPage] = useState<number>(1)
 
@@ -20,8 +20,8 @@ export const FriendsPage: React.FC<FriendsPagePropsType> = ({state}) => {
         setUserName(e.currentTarget.value)
     }
     useEffect(() => {
-        dispatch(thunkProfile.getUser(page, userName, isFollowers, count))
-    }, [userName, isFollowers, count, page])
+        dispatch(profileActivators.getUser({page, userName,  isFollow, count}))
+    }, [userName, isFollow, count, page])
 
     return (
         <div className={s.friendsPage}>
