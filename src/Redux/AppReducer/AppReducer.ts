@@ -1,8 +1,9 @@
 import {AppDispatchType, AppThunk, InferActionsTypes} from "../Redux-store";
-import {APIProfile, authApi, AuthDataType} from "../../Api/Api";
-import {actionsAuth, authWorkers} from "../Auth/Auth";
+import {APIProfile, authApi, AuthDataType, DataType} from "../../Api/Api";
+import {actionsAuth, authWorkers, sagasAuthActions} from "../Auth/Auth";
 import {actionsProfile, thunkProfile} from "../ProfilePage/ProfilePageReducer";
-import {takeEvery} from "redux-saga/effects";
+import {put, takeEvery,call,take} from "redux-saga/effects";
+import {AxiosResponse} from "axios";
 
 export type initStateType = {
     isFetching: boolean
@@ -42,26 +43,19 @@ export const sagasAppActions={
 
 
 export const appWorkers = {
-    initializeApp: (): AppThunk => async (dispatch: AppDispatchType) => {
-        debugger
+    initializeApp: function* ()  {
         try {
-            dispatch(actionsApp.initializeApp(true))
-            dispatch(actionsApp.toggleIsFetching(true))
-            dispatch(authWorkers.getAuth()).then((res: AuthDataType) => {
-                    console.log(res)
-                    if (res) {
-                        dispatch(thunkProfile.getProfile(res.id))
-                        dispatch(thunkProfile.getProfileStatus(res.id))
-                        dispatch(thunkProfile.getUser())
-                    }
-                }
-            )
-
+            yield put(actionsApp.initializeApp(true))
+            yield put(actionsApp.toggleIsFetching(true))
+            const res:AxiosResponse<DataType<AuthDataType>> = yield call(authWorkers.authMe)
+                        yield call(thunkProfile.getProfile,res.data.data.id)
+                        yield call(thunkProfile.getProfileStatus,res.data.data.id)
+                        yield call(thunkProfile.getUser)
         } catch (e) {
             console.log(e)
         } finally {
-            dispatch(actionsApp.toggleIsFetching(false))
-            dispatch(actionsApp.initializeApp(false))
+            yield put(actionsApp.toggleIsFetching(false))
+            yield put(actionsApp.initializeApp(false))
         }
     }
 }
