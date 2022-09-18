@@ -6,6 +6,7 @@ import {ActionsAppType, AppReducer, appWatcher} from "./AppReducer/AppReducer";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import createSagaMiddleware from 'redux-saga'
 import {all, spawn, call} from 'redux-saga/effects'
+import {errorLog} from "./ErrorLog";
 
 
 type rootReducerType = typeof rootReducer
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
     messagePage: messagePageReducer,
     profilePage: ProfilePageReducer,
     auth: authReducer,
-    AppReducer: AppReducer
+    AppReducer: AppReducer,
+    errorLog
 });
 
 const sagaMiddleware = createSagaMiddleware()
