@@ -99,7 +99,7 @@ export const actionsProfile = {
     updateProfileStatus: (newStatus: string) => ({type: EnumProfile.updateProfileStatus, newStatus} as const)
 }
 
-enum profileConst {
+export enum profileConst {
     getProfileStatus = "PROFILE/GET_PROFILE_STATUS",
     updateProfileStatus = "PROFILE/UPDATE_PROFILE_STATUS",
     getUser = "PROFILE/GET_USER",
@@ -127,7 +127,6 @@ export const profileWorkers = {
             const res: AxiosResponse<string> = yield call(APIProfile.getProfileStatus, action.userId)
             if (res.status === 200) {
                 yield put(actionsProfile.updateProfileStatus(res.data))
-                console.log(res)
             } else {
                 console.log(res.statusText)
             }

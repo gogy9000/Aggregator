@@ -37,7 +37,7 @@ function* rootSaga() {
         spawn(function* () {
             while (true) {
                 try {
-                    yield call(saga)
+                   yield call(saga)
                     break
                 } catch (e) {
                     console.log(e)
