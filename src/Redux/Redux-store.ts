@@ -5,8 +5,10 @@ import {ActionsAuthType, authReducer, authWatcher} from "./Auth/Auth";
 import {ActionsAppType, AppReducer, appWatcher} from "./AppReducer/AppReducer";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import createSagaMiddleware from 'redux-saga'
-import {all, spawn, call} from 'redux-saga/effects'
+import {all, spawn, call, put} from 'redux-saga/effects'
 import {errorLog} from "./ErrorLog";
+import {AxiosError} from "axios";
+import {errorsInterceptor} from "../utils/ErrorsInterceptor/ErrorsInterceptor";
 
 
 type rootReducerType = typeof rootReducer
@@ -43,6 +45,7 @@ function* rootSaga() {
                     break
                 } catch (e) {
                     console.log(e)
+                    errorsInterceptor(e,put)
                 }
             }
         })

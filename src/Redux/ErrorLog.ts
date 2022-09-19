@@ -20,6 +20,6 @@ export const errorLog = (state = initialState, action: ErrorLogActionsType): Ini
     }
 }
 type ErrorLogActionsType = InferActionsTypes<typeof errorsLogActions>
-const errorsLogActions = {
+ export const errorsLogActions = {
     addError: (payload: { [id: string]: string }) => ({type: "ADD-ERROR", payload} as const)
 }
