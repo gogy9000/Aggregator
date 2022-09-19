@@ -1,6 +1,6 @@
 import {AxiosRequestConfig, AxiosResponse, AxiosError} from "axios";
 import {errorsLogActions} from "../../Redux/ErrorLog";
-import {put} from "redux-saga/effects";
+import {all, put, spawn} from "redux-saga/effects";
 
 export class AxiosErrorClass<T = unknown, D = any> implements AxiosError {
     config!: AxiosRequestConfig<D>;
@@ -28,7 +28,12 @@ export function* errorsInterceptor  (error: unknown, id?: string)  {
         } else {
           yield  put(errorsLogActions.addError({app: error}))
         }
-    } else {
-         throw error
-    }
+    } else if(Array.isArray(error)){
+       yield all( error.map((item,index)=>spawn(function* (){
+           while (true){
+               yield  put(errorsLogActions.addError({[`app${index}`]: item}))
+           }
+        })))
+    }else {throw error}
+
 }

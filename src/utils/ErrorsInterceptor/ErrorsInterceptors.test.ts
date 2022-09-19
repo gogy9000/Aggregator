@@ -1,5 +1,5 @@
 import {errorsInterceptor} from "./ErrorsInterceptor";
-import {put} from "redux-saga/effects";
+import {all, put} from "redux-saga/effects";
 import {errorsLogActions} from "../../Redux/ErrorLog";
 
 test("errorsInterceptor should call the action with {app: no ok}",()=>{

@@ -148,11 +148,21 @@ export const profileWorkers = {
             yield call(errorsInterceptor,e)
         }
     },
-
     getUsers: function* (action: ReturnType<typeof profileActivators.getUser>) {
-        const response: AxiosResponse<UsersDataType> = yield call(userApi.getUsersApi, action.payload)
-        yield put(actionsProfile.getUsers(response.data.items, action.payload?.page));
-        yield put(actionsApp.toggleIsFetching(false))
+        try {
+            yield put(actionsApp.toggleIsFetching(true))
+            const response: AxiosResponse<UsersDataType> = yield call(userApi.getUsersApi, action.payload)
+            if (response.status===200){
+                yield put(actionsProfile.getUsers(response.data.items, action.payload?.page));
+            }else {
+                yield  call(errorsInterceptor,response.data.error)
+            }
+        }catch (e) {
+            yield call(errorsInterceptor,e)
+        }finally {
+            yield put(actionsApp.toggleIsFetching(false))
+        }
+
     },
     getProfile: function* (action: ReturnType<typeof profileActivators.getProfile>) {
         yield put(actionsApp.toggleIsFetching(true))
