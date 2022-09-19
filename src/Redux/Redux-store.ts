@@ -9,6 +9,7 @@ import {all, spawn, call, put} from 'redux-saga/effects'
 import {errorLog} from "./ErrorLog";
 import {AxiosError} from "axios";
 import {errorsInterceptor} from "../utils/ErrorsInterceptor/ErrorsInterceptor";
+import {composeWithDevTools} from "@redux-devtools/extension";
 
 
 type rootReducerType = typeof rootReducer
@@ -26,16 +27,14 @@ const rootReducer = combineReducers({
     errorLog
 });
 
+
+
 const sagaMiddleware = createSagaMiddleware()
 
-export let store = createStore(rootReducer, applyMiddleware(thunk, sagaMiddleware))
+export let store = createStore(rootReducer,composeWithDevTools(applyMiddleware(thunk, sagaMiddleware)))
 
 function* rootSaga() {
-    const sagas = [
-        authWatcher,
-        appWatcher,
-        profileWatcher
-    ]
+    const sagas = [authWatcher, appWatcher, profileWatcher]
 
     yield all(sagas.map(saga =>
         spawn(function* () {

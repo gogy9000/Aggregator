@@ -1,5 +1,6 @@
-import {AxiosRequestConfig, AxiosResponse,AxiosError} from "axios";
+import {AxiosRequestConfig, AxiosResponse, AxiosError} from "axios";
 import {errorsLogActions} from "../../Redux/ErrorLog";
+import {put} from "redux-saga/effects";
 
 export class AxiosErrorClass<T = unknown, D = any> implements AxiosError {
     config!: AxiosRequestConfig<D>;
@@ -13,16 +14,21 @@ export class AxiosErrorClass<T = unknown, D = any> implements AxiosError {
 }
 
 
-
-
-export const errorsInterceptor = (error: unknown, callback: Function, id?: string) => {
-
+export function* errorsInterceptor  (error: unknown, id?: string)  {
     if (error instanceof AxiosErrorClass) {
         if (id) {
-            callback(errorsLogActions.addError({[id]: error.message}))
+          yield  put(errorsLogActions.addError({[id]: error.message}))
+        } else {
+           yield put(errorsLogActions.addError({app: error.message}))
         }
-        callback(errorsLogActions.addError({app: error.message}))
+
+    } else if (typeof error === "string") {
+        if (id) {
+          yield  put(errorsLogActions.addError({[id]: error}))
+        } else {
+          yield  put(errorsLogActions.addError({app: error}))
+        }
     } else {
-        throw error
+         throw error
     }
 }
