@@ -3,6 +3,8 @@ import {actionsApp} from "../AppReducer/AppReducer";
 import {followApi, APIProfile, userApi, ProfileType, UsersDataType, UserDataType, DataType} from "../../Api/Api";
 import {call, put, takeEvery} from "redux-saga/effects";
 import {AxiosError, AxiosResponse} from "axios";
+import {errorsInterceptor} from "../../utils/ErrorsInterceptor/ErrorsInterceptor";
+import {errorsLogActions} from "../ErrorLog";
 
 export type PhotosObjectType = {
     small: string | null | undefined
@@ -128,10 +130,10 @@ export const profileWorkers = {
             if (res.status === 200) {
                 yield put(actionsProfile.updateProfileStatus(res.data))
             } else {
-                console.log(res.statusText)
+             yield  call(errorsInterceptor,res.statusText)
             }
         } catch (e) {
-            console.log(e)
+           yield call(errorsInterceptor,e)
         }
     },
     updateProfileStatus: function* (action: ReturnType<typeof profileActivators.updateProfileStatus>) {
