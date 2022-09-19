@@ -44,7 +44,7 @@ function* rootSaga() {
                     break
                 } catch (e) {
                     console.log(e)
-                    errorsInterceptor(e,put)
+                   yield call(errorsInterceptor,e)
                 }
             }
         })

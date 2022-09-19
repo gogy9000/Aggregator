@@ -142,10 +142,10 @@ export const profileWorkers = {
             if (res.data.resultCode === 0) {
                 yield put(actionsProfile.updateProfileStatus(action.newStatus))
             } else {
-                console.log(res.data.messages)
+                yield  call(errorsInterceptor,res.data.messages)
             }
         } catch (e) {
-            throw e
+            yield call(errorsInterceptor,e)
         }
     },
 

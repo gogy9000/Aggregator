@@ -15,7 +15,7 @@ export class AxiosErrorClass<T = unknown, D = any> implements AxiosError {
 
 
 export function* errorsInterceptor  (error: unknown, id?: string)  {
-    if (error instanceof AxiosErrorClass) {
+    if (error instanceof Error) {
         if (id) {
           yield  put(errorsLogActions.addError({[id]: error.message}))
         } else {
