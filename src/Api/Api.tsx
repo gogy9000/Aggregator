@@ -29,15 +29,13 @@ const instance = axios.create({
 })
 
 export const userApi = {
-    getUsersApi: (page: number = 1, term: string = '', friend: string = '', count: number = 10) => instance.get(
-        `users?count=${count}&page=${page}&term=${term}&friend=${friend}`).then((res:AxiosResponse<UsersDataType>)=> res)}
-
-
+    getUsersApi: (payload?:{page?: number , term?: string , friend?: string , count?: number }) => instance.get(
+        `users`,{params:payload}).then((res:AxiosResponse<UsersDataType>)=> res)}
 
 export const followApi = {
-    getFollowUsers: (userId: number ) => instance.post(`follow/${String(userId)}`),
-    getUnFollowUsers: (userId: number) => instance.delete(`follow/${String(userId)}`),
-    isFollowUser:(userId: number)=>instance.get(`follow/${String(userId)}`)
+    followUser:(userId: number ) => instance.post(`/follow/${userId}`),
+    unfollowUser: (userId: number) => instance.delete(`follow/${userId}`),
+    isFollowUser:(userId: number)=>instance.get(`follow/${userId}`)
 }
 
 export const APIProfile = {

@@ -1,18 +1,16 @@
 import  {ProfilePageReducer,
-    actionsProfile, ApiProfileType,
+    actionsProfile,
     stateProfilePageType,
-    UserObjectType
+
 } from "./ProfilePageReducer";
-import {v1} from "uuid";
-import {ProfileType, UserDataType, UsersDataType} from "../../Api/Api";
+
+import {ProfileType, UserDataType} from "../../Api/Api";
 
 let state:stateProfilePageType
 let  users:Array<UserDataType>
 let page:number
 
 beforeEach(()=>{
-
-
     state={
         users: [
             {
@@ -20,7 +18,6 @@ beforeEach(()=>{
                 id: 2,
                 uniqueUrlName: null,
                 name: "Stan",
-                // @ts-ignore
                 photos: {small: null, large: null},
                 status: 'null'
             }
@@ -28,7 +25,8 @@ beforeEach(()=>{
         profile:{} as ProfileType,
         currentPage: 1,
         profileStatus:''
-    },
+    }
+
       users=[
         {
             followed: false,
@@ -38,7 +36,7 @@ beforeEach(()=>{
             photos: {small: null, large: null},
             status: null,
         }
-    ],
+    ]
     page=2
 })
 

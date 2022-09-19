@@ -3,7 +3,7 @@ import React, {useEffect} from "react";
 import {Navigate, useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/Redux-store";
-import {thunkProfile} from "../../Redux/ProfilePage/ProfilePageReducer";
+import {profileActivators} from "../../Redux/ProfilePage/ProfilePageReducer";
 import {useDispatchApp} from "../../customHooks/CustomHooks";
 
 
@@ -19,8 +19,8 @@ export const ProfilePageContainerFC =  React.memo( () => {
     useEffect(() => {
         let userID = params.userId? Number(params.userId):auth.id
         if (!userID) {return}
-        dispatch(thunkProfile.getProfile(userID))
-        dispatch(thunkProfile.getProfileStatus(userID))
+        dispatch(profileActivators.getProfile(userID))
+        dispatch(profileActivators.getProfileStatus(userID))
     }, [params.userId])
 
 

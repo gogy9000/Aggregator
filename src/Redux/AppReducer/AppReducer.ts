@@ -1,8 +1,9 @@
-import {AppDispatchType, AppThunk, InferActionsTypes} from "../Redux-store";
-import {APIProfile, authApi, AuthDataType} from "../../Api/Api";
-import {actionsAuth, authWorkers} from "../Auth/Auth";
-import {actionsProfile, thunkProfile} from "../ProfilePage/ProfilePageReducer";
-import {takeEvery} from "redux-saga/effects";
+import {InferActionsTypes} from "../Redux-store";
+import {AuthDataType, DataType} from "../../Api/Api";
+import {authWorkers} from "../Auth/Auth";
+import {profileActivators, profileWorkers} from "../ProfilePage/ProfilePageReducer";
+import {put, takeEvery,call} from "redux-saga/effects";
+import {AxiosResponse} from "axios";
 
 export type initStateType = {
     isFetching: boolean
@@ -14,7 +15,7 @@ const initState: initStateType = {
 
 }
 
-export type ActionsAppType = InferActionsTypes<typeof actionsApp|typeof sagasAppActions>
+export type ActionsAppType = InferActionsTypes<typeof actionsApp|typeof appActivators>
 
 export const AppReducer = (state: initStateType = initState, action: ActionsAppType): initStateType => {
     switch (action.type) {
@@ -22,7 +23,6 @@ export const AppReducer = (state: initStateType = initState, action: ActionsAppT
             return {...state, isFetching: action.isFetching}
         case "TOGGLE-IS-INITIALIZE-APP":
             return {...state, isInitializedApp: action.isInitializedApp}
-
         default:
             return state
     }
@@ -36,32 +36,24 @@ export const actionsApp = {
     toggleIsFetching: (isFetching: boolean) => ({type: 'TOGGLE-IS-FETCHING', isFetching} as const),
     initializeApp: (isInitializedApp: boolean) => ({type: 'TOGGLE-IS-INITIALIZE-APP', isInitializedApp} as const)
 }
-export const sagasAppActions={
+export const appActivators={
     initializeApp:()=>({type:appConstants.initializeApp})
 }
 
-
 export const appWorkers = {
-    initializeApp: (): AppThunk => async (dispatch: AppDispatchType) => {
-        debugger
+    initializeApp: function* ()  {
         try {
-            dispatch(actionsApp.initializeApp(true))
-            dispatch(actionsApp.toggleIsFetching(true))
-            dispatch(authWorkers.getAuth()).then((res: AuthDataType) => {
-                    console.log(res)
-                    if (res) {
-                        dispatch(thunkProfile.getProfile(res.id))
-                        dispatch(thunkProfile.getProfileStatus(res.id))
-                        dispatch(thunkProfile.getUser())
-                    }
-                }
-            )
-
+            yield put(actionsApp.initializeApp(true))
+            yield put(actionsApp.toggleIsFetching(true))
+            const res:AxiosResponse<DataType<AuthDataType>> = yield call(authWorkers.authMe)
+                        yield put(profileActivators.getProfile(res.data.data.id))
+                        yield put(profileActivators.getProfileStatus(res.data.data.id))
+                        yield put(profileActivators.getUser())
         } catch (e) {
             console.log(e)
         } finally {
-            dispatch(actionsApp.toggleIsFetching(false))
-            dispatch(actionsApp.initializeApp(false))
+            yield put(actionsApp.toggleIsFetching(false))
+            yield put(actionsApp.initializeApp(false))
         }
     }
 }

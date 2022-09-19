@@ -3,7 +3,7 @@ import {useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {actionsApp} from "../Redux/AppReducer/AppReducer";
 import {APIProfile} from "../Api/Api";
-import {actionsProfile, thunkProfile} from "../Redux/ProfilePage/ProfilePageReducer";
+import {actionsProfile} from "../Redux/ProfilePage/ProfilePageReducer";
 
 export const withRouter = (WrappedComponent: any) => (props: any) => {
     let [uId, setUId] = useState<number>(2)

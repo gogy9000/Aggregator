@@ -1,11 +1,14 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import {ActionsMessageType, messagePageReducer} from "./MessagePage/messagePageReducer";
-import {ActionsType, ProfilePageReducer} from "./ProfilePage/ProfilePageReducer";
+import {ActionsType, ProfilePageReducer, profileWatcher} from "./ProfilePage/ProfilePageReducer";
 import {ActionsAuthType, authReducer, authWatcher} from "./Auth/Auth";
 import {ActionsAppType, AppReducer, appWatcher} from "./AppReducer/AppReducer";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import createSagaMiddleware from 'redux-saga'
-import {all, spawn, call} from 'redux-saga/effects'
+import {all, spawn, call, put} from 'redux-saga/effects'
+import {errorLog} from "./ErrorLog";
+import {AxiosError} from "axios";
+import {errorsInterceptor} from "../utils/ErrorsInterceptor/ErrorsInterceptor";
 
 
 type rootReducerType = typeof rootReducer
@@ -19,7 +22,8 @@ const rootReducer = combineReducers({
     messagePage: messagePageReducer,
     profilePage: ProfilePageReducer,
     auth: authReducer,
-    AppReducer: AppReducer
+    AppReducer: AppReducer,
+    errorLog
 });
 
 const sagaMiddleware = createSagaMiddleware()
@@ -29,17 +33,19 @@ export let store = createStore(rootReducer, applyMiddleware(thunk, sagaMiddlewar
 function* rootSaga() {
     const sagas = [
         authWatcher,
-        appWatcher
+        appWatcher,
+        profileWatcher
     ]
 
     yield all(sagas.map(saga =>
         spawn(function* () {
             while (true) {
                 try {
-                    yield call(saga)
+                   yield call(saga)
                     break
                 } catch (e) {
                     console.log(e)
+                    errorsInterceptor(e,put)
                 }
             }
         })
