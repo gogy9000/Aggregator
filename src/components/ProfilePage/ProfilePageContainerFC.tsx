@@ -9,15 +9,15 @@ import {useDispatchApp} from "../../customHooks/CustomHooks";
 
 export const ProfilePageContainerFC =  React.memo( () => {
 
-    let auth = useSelector((state: AppStateType) => state.auth)
-    let initApp = useSelector((state: AppStateType) => state.AppReducer)
+    let id = useSelector((state: AppStateType) => state.auth.id)
+    let isFetching = useSelector((state: AppStateType) => state.AppReducer.isFetching)
 
     const dispatch = useDispatchApp()
 
     let params = useParams()
 
     useEffect(() => {
-        let userID = params.userId? Number(params.userId):auth.id
+        let userID = params.userId? Number(params.userId):id
         if (!userID) {return}
         dispatch(profileActivators.getProfile(userID))
         dispatch(profileActivators.getProfileStatus(userID))
@@ -29,7 +29,7 @@ export const ProfilePageContainerFC =  React.memo( () => {
     return (
         <>
             {
-                initApp.isFetching
+                isFetching
                     ?
                     <div>LOAD!!</div>
                     :

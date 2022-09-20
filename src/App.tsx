@@ -4,9 +4,8 @@ import Footer from './components/Footer/Footer';
 import {HeaderContainer} from './components/Header/HeaderContainer';
 import NavBar from './components/NavBar/NavBar';
 import {MessagePageContainer} from "./components/MessagePage/messagePageContainer";
-// import ProfilePageApiContainer from "./components/ProfilePage/ProfilePageApiContainer";
-import {FriendsPageFunctionalComponent} from "./components/FriendsPage/FriendsPageFunctionalComponent";
-// import FriendsPageClassComponents from "./components/FriendsPage/FriendsPageClassComponents";
+
+
 import {
     ProfilePageContainerFC
 } from "./components/ProfilePage/ProfilePageContainerFC";
@@ -16,6 +15,7 @@ import {appActivators} from "./Redux/AppReducer/AppReducer";
 import {Login} from "./components/final-form/Login";
 import {useSelector} from "react-redux";
 import {AppStateType} from "./Redux/Redux-store";
+import {FriendsPage} from "./components/FriendsPage/FriendsPage";
 
 
 const App = () => {
@@ -54,7 +54,7 @@ const App = () => {
 
                                 <Route path='/messenger' element={<MessagePageContainer/>}/>
 
-                                <Route path='/friends' element={<FriendsPageFunctionalComponent/>}/>
+                                <Route path='/friends' element={<FriendsPage/>}/>
 
                                 <Route path='/login' element={<Login/>}/>
 

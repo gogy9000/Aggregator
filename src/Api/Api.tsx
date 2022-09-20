@@ -25,7 +25,7 @@ export type UserDataType={
 const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
-    headers: {"API-KEY": "c73c3d73-c86d-4ccb-b780-4d18cdc9edd5"}
+    headers: {"API-KEY": "1fb0efe7-1c1f-46ce-bb74-74ed02f7875f"}
 })
 
 export const userApi = {
@@ -33,9 +33,9 @@ export const userApi = {
         `users`,{params:payload}).then((res:AxiosResponse<UsersDataType>)=> res)}
 
 export const followApi = {
-    followUser:(userId: number ) => instance.post(`/follow/${userId}`),
-    unfollowUser: (userId: number) => instance.delete(`follow/${userId}`),
-    isFollowUser:(userId: number)=>instance.get(`follow/${userId}`)
+    followUser:(userId: number ) => instance.post<DataType<{}>>(`/follow/${userId}`),
+    unfollowUser: (userId: number) => instance.delete<DataType<{}>>(`follow/${userId}`),
+    isFollowUser:(userId: number)=>instance.get<boolean>(`follow/${userId}`)
 }
 
 export const APIProfile = {

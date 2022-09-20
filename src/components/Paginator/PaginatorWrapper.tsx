@@ -1,5 +1,5 @@
 import { stateProfilePageType, UserObjectType} from "../../Redux/ProfilePage/ProfilePageReducer";
-import React from "react";
+import React, {memo, useReducer} from "react";
 
 import {CustomButtonByPaginator} from "./CustomButtonByPaginator";
 import {UserDataType, UsersDataType} from "../../Api/Api";
@@ -7,20 +7,23 @@ import {UserDataType, UsersDataType} from "../../Api/Api";
 
 
 type PaginatorApiContainerType = {
-    state: stateProfilePageType
+
+    users:UserDataType[]
+    currentPage:number
     clickPageCallBack: (PageNumber: number) => void
-
-
     page: number
     count: number
 }
 //это паджинатор...
 
-export const PaginatorWrapper: React.FC<PaginatorApiContainerType> = ({count, page, clickPageCallBack, state}) => {
+export const PaginatorWrapper: React.FC<PaginatorApiContainerType> = memo(  (props) => {
+const {count, page, clickPageCallBack,currentPage,users}=props
 
-    const {currentPage, users} = state
+
+
 
     const clickPage = (action: string) => {
+
         const clicker = (num: number) => {
             let sum=page + num
             if(sum<1){sum=1}
@@ -59,7 +62,7 @@ export const PaginatorWrapper: React.FC<PaginatorApiContainerType> = ({count, pa
 
     )
 
-}
+})
 
 
 type PaginatorPropsType = {
@@ -70,7 +73,7 @@ type PaginatorPropsType = {
     count: number
 }
 
-const Paginator: React.FC<PaginatorPropsType> = ({clickPageCallBack, currentPage, users, count}) => {
+const Paginator: React.FC<PaginatorPropsType> = memo( ({clickPageCallBack, currentPage, users, count}) => {
 
     return (
         <div>
@@ -112,4 +115,4 @@ const Paginator: React.FC<PaginatorPropsType> = ({clickPageCallBack, currentPage
         </div>
     )
 
-}
+})

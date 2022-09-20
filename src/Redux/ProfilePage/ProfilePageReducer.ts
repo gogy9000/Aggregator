@@ -2,9 +2,9 @@ import {AppDispatchType, AppStateType, AppThunk, InferActionsTypes, UnionActions
 import {actionsApp} from "../AppReducer/AppReducer";
 import {followApi, APIProfile, userApi, ProfileType, UsersDataType, UserDataType, DataType} from "../../Api/Api";
 import {call, put, takeEvery} from "redux-saga/effects";
-import {AxiosError, AxiosResponse} from "axios";
+import {AxiosResponse} from "axios";
 import {errorsInterceptor} from "../../utils/ErrorsInterceptor/ErrorsInterceptor";
-import {errorsLogActions} from "../ErrorLog";
+
 
 export type PhotosObjectType = {
     small: string | null | undefined
@@ -23,6 +23,7 @@ export type stateProfilePageType = {
     profile: ProfileType
     currentPage: number
     profileStatus: string
+    fetchingList: { [id: string]: boolean }
 }
 export type ApiProfileType = {
     aboutMe?: string | null
@@ -35,10 +36,11 @@ export type ApiProfileType = {
 } | null
 
 let initialState: stateProfilePageType = {
-    users: [] as Array<UserDataType>,
+    users: [],
     profile: {} as ProfileType,
-    currentPage: 1 as number,
-    profileStatus: 'zasd' as string
+    currentPage: 1,
+    profileStatus: '' as string,
+    fetchingList: {}
 
 }
 
@@ -75,19 +77,40 @@ export const ProfilePageReducer = (state: stateProfilePageType = initialState, a
             }
         case EnumProfile.updateProfileStatus:
             return {...state, profileStatus: action.newStatus}
+        case EnumProfile.addIdInFetchingList:
+            return {
+                ...state,
+                fetchingList: {...state.fetchingList, [action.id]: true}
+            }
+        case EnumProfile.removeIdInFetchingList:
+            const newFetchingList = {...state.fetchingList}
+            delete newFetchingList[action.id]
+            return {
+                ...state,
+                fetchingList: newFetchingList
+            }
         default:
             return state
     }
 }
 
 export enum EnumProfile {
-    getProfile = 'GET-PROFILE',
-    getUsers = 'GET-USERS',
-    follow = 'FOLLOW',
-    unfollow = 'UNFOLLOW',
-    updateProfileStatus = 'UPDATE-PROFILE-STATUS'
+    getProfile = 'PROFILE/GET-PROFILE/ACTION',
+    getUsers = 'PROFILE/GET-USERS/ACTION',
+    follow = 'PROFILE/FOLLOW/ACTION',
+    unfollow = 'PROFILE/UNFOLLOW/ACTION',
+    updateProfileStatus = 'PROFILE/UPDATE-PROFILE-STATUS/ACTION',
+    addIdInFetchingList = 'PROFILE/ADD-ID-IN-FETCHING-LIST/ACTION',
+    removeIdInFetchingList = 'PROFILE/REMOVE-ID-IN-FETCHING-LIST/ACTION'
 }
-
+export enum ProfileConst {
+    getProfileStatus = "PROFILE/GET_PROFILE_STATUS/ACTIVATOR",
+    updateProfileStatus = "PROFILE/UPDATE_PROFILE_STATUS/ACTIVATOR",
+    getUser = "PROFILE/GET_USER/ACTIVATOR",
+    getProfile = "PROFILE/GET_PROFILE/ACTIVATOR",
+    follow = "PROFILE/FOLLOW/ACTIVATOR",
+    unFollow = "PROFILE/UNFOLLOW/ACTIVATOR"
+}
 
 export const actionsProfile = {
     getProfile: (profile: ProfileType) => ({type: EnumProfile.getProfile, profile} as const),
@@ -98,27 +121,22 @@ export const actionsProfile = {
     } as const),
     follow: (id: number) => ({type: EnumProfile.follow, id} as const),
     unfollow: (id: number) => ({type: EnumProfile.unfollow, id} as const),
-    updateProfileStatus: (newStatus: string) => ({type: EnumProfile.updateProfileStatus, newStatus} as const)
+    updateProfileStatus: (newStatus: string) => ({type: EnumProfile.updateProfileStatus, newStatus} as const),
+    addIdInFetchingList: (id: number) => ({type: EnumProfile.addIdInFetchingList, id} as const),
+    removeIdInFetchingList: (id: number) => ({type: EnumProfile.removeIdInFetchingList, id} as const)
 }
 
-export enum profileConst {
-    getProfileStatus = "PROFILE/GET_PROFILE_STATUS",
-    updateProfileStatus = "PROFILE/UPDATE_PROFILE_STATUS",
-    getUser = "PROFILE/GET_USER",
-    getProfile = "PROFILE/GET_PROFILE",
-    follow = "PROFILE/FOLLOW",
-    unFollow = "PROFILE/UNFOLLOW"
-}
+
 
 export const profileActivators = {
-    getProfileStatus: (userId: number) => ({type: profileConst.getProfileStatus, userId} as const),
-    updateProfileStatus: (newStatus: string) => ({type: profileConst.updateProfileStatus, newStatus} as const),
+    getProfileStatus: (userId: number) => ({type: ProfileConst.getProfileStatus, userId} as const),
+    updateProfileStatus: (newStatus: string) => ({type: ProfileConst.updateProfileStatus, newStatus} as const),
     getUser: (payload?: { page?: number, userName?: string, isFollow?: string, count?: number }) => (
-        {type: profileConst.getUser, payload} as const),
-    getProfile: (userID: number) => ({type: profileConst.getProfile, userID} as const),
-    follow: (payload: { userId: number, setDisabledButton: any }) => ({type: profileConst.follow, payload} as const),
-    unFollow: (payload: { userId: number, setDisabledButton: any }) => ({
-        type: profileConst.unFollow,
+        {type: ProfileConst.getUser, payload} as const),
+    getProfile: (userID: number) => ({type: ProfileConst.getProfile, userID} as const),
+    follow: (payload: { userId: number }) => ({type: ProfileConst.follow, payload} as const),
+    unFollow: (payload: { userId: number }) => ({
+        type: ProfileConst.unFollow,
         payload
     } as const),
 }
@@ -130,10 +148,10 @@ export const profileWorkers = {
             if (res.status === 200) {
                 yield put(actionsProfile.updateProfileStatus(res.data))
             } else {
-             yield  call(errorsInterceptor,res.statusText)
+                yield  call(errorsInterceptor, res.statusText)
             }
         } catch (e) {
-           yield call(errorsInterceptor,e)
+            yield call(errorsInterceptor, e)
         }
     },
     updateProfileStatus: function* (action: ReturnType<typeof profileActivators.updateProfileStatus>) {
@@ -142,57 +160,81 @@ export const profileWorkers = {
             if (res.data.resultCode === 0) {
                 yield put(actionsProfile.updateProfileStatus(action.newStatus))
             } else {
-                console.log(res.data.messages)
+                yield  call(errorsInterceptor, res.data.messages)
             }
         } catch (e) {
-            throw e
+            yield call(errorsInterceptor, e)
         }
     },
-
     getUsers: function* (action: ReturnType<typeof profileActivators.getUser>) {
-        const response: AxiosResponse<UsersDataType> = yield call(userApi.getUsersApi, action.payload)
-        yield put(actionsProfile.getUsers(response.data.items, action.payload?.page));
-        yield put(actionsApp.toggleIsFetching(false))
+        try {
+            yield put(actionsApp.toggleIsFetching(true))
+            const response: AxiosResponse<UsersDataType> = yield call(userApi.getUsersApi, action.payload)
+            if (response.status === 200) {
+                yield put(actionsProfile.getUsers(response.data.items, action.payload?.page));
+            } else {
+                yield  call(errorsInterceptor, response.data.error)
+            }
+        } catch (e) {
+            yield call(errorsInterceptor, e)
+        } finally {
+            yield put(actionsApp.toggleIsFetching(false))
+        }
+
     },
     getProfile: function* (action: ReturnType<typeof profileActivators.getProfile>) {
-        yield put(actionsApp.toggleIsFetching(true))
-        const response: AxiosResponse<ProfileType> = yield call(APIProfile.getProfile, action.userID)
-        yield put(actionsProfile.getProfile(response.data))
-        yield put(actionsApp.toggleIsFetching(false))
+        try {
+            yield put(actionsApp.toggleIsFetching(true))
+            const response: AxiosResponse<ProfileType> = yield call(APIProfile.getProfile, action.userID)
+            yield put(actionsProfile.getProfile(response.data))
+        } catch (e) {
+            yield call(errorsInterceptor, e)
+        } finally {
+            yield put(actionsApp.toggleIsFetching(false))
+        }
     },
     follow: function* (action: ReturnType<typeof profileActivators.follow>) {
-        action.payload.setDisabledButton(true)
-       try {
-           const response: AxiosResponse = yield call(followApi.followUser, action.payload.userId)
-           console.log(response)
-           if (response.data.resultCode === 0) {
-               yield put(actionsProfile.follow(action.payload.userId))
-           }
-       }catch (e) {
-            const err =e as AxiosError
-           console.log(err.response)
-           action.payload.setDisabledButton(false)
-       }
+        try {
+            yield put(actionsProfile.addIdInFetchingList(action.payload.userId))
+            const response: AxiosResponse<DataType<{}>> = yield call(followApi.followUser, action.payload.userId)
+            if (response.data.resultCode === 0) {
+                yield put(actionsProfile.follow(action.payload.userId))
+            } else {
+                yield call(errorsInterceptor, response.data.messages)
+            }
+        } catch (e) {
+            yield call(errorsInterceptor, e)
+        } finally {
+            yield put(actionsProfile.removeIdInFetchingList(action.payload.userId))
+        }
 
     },
     unFollow: function* (action: ReturnType<typeof profileActivators.unFollow>) {
-        action.payload.setDisabledButton(true)
-        const response: AxiosResponse = yield call(followApi.unfollowUser, action.payload.userId)
-        if (response.data.resultCode === 0) {
-            yield put(actionsProfile.unfollow(action.payload.userId))
-            action.payload.setDisabledButton(false)
+        try {
+            yield put(actionsProfile.addIdInFetchingList(action.payload.userId))
+            const response: AxiosResponse = yield call(followApi.unfollowUser, action.payload.userId)
+            if (response.data.resultCode === 0) {
+                yield put(actionsProfile.unfollow(action.payload.userId))
+            } else {
+                yield call(errorsInterceptor, response.data.messages)
+            }
+        } catch (e) {
+            yield call(errorsInterceptor, e)
+        } finally {
+            yield put(actionsProfile.removeIdInFetchingList(action.payload.userId))
         }
+
     },
 
 }
 
 export function* profileWatcher() {
-    yield takeEvery(profileConst.getProfileStatus, profileWorkers.getProfileStatus)
-    yield takeEvery(profileConst.updateProfileStatus, profileWorkers.updateProfileStatus)
-    yield takeEvery(profileConst.getUser, profileWorkers.getUsers)
-    yield takeEvery(profileConst.getProfile, profileWorkers.getProfile)
-    yield takeEvery(profileConst.follow, profileWorkers.follow)
-    yield takeEvery(profileConst.unFollow, profileWorkers.unFollow)
+    yield takeEvery(ProfileConst.getProfileStatus, profileWorkers.getProfileStatus)
+    yield takeEvery(ProfileConst.updateProfileStatus, profileWorkers.updateProfileStatus)
+    yield takeEvery(ProfileConst.getUser, profileWorkers.getUsers)
+    yield takeEvery(ProfileConst.getProfile, profileWorkers.getProfile)
+    yield takeEvery(ProfileConst.follow, profileWorkers.follow)
+    yield takeEvery(ProfileConst.unFollow, profileWorkers.unFollow)
 }
 
 

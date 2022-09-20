@@ -3,25 +3,30 @@ import React, {ChangeEvent, useEffect, useState} from "react";
 import s from "./FriendsPage.module.css";
 import {PaginatorWrapper} from "../Paginator/PaginatorWrapper";
 import {FriendList} from "./FriendList";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {compose} from "redux";
+import {Redirect} from "../../hoc/Redirect";
+import {AppStateType} from "../../Redux/Redux-store";
 
-type FriendsPagePropsType = { state: stateProfilePageType }
 
-export const FriendsPage: React.FC<FriendsPagePropsType> = ({state}) => {
+
+export const FriendsPage =compose(Redirect, React.memo)( () => {
 
     const [userName, setUserName] = useState<string>('')
     const [isFollow, setIsFollowers] = useState<string>('')
     const [count, setCount] = useState<number>(3)
     const [page, setPage] = useState<number>(1)
 
+    const users=useSelector((state:AppStateType) => state.profilePage.users)
+    const currentPage=useSelector((state:AppStateType) => state.profilePage.currentPage)
     const dispatch = useDispatch()
 
     const changeUserName = (e: ChangeEvent<HTMLInputElement>) => {
         setUserName(e.currentTarget.value)
     }
-    useEffect(() => {
-        dispatch(profileActivators.getUser({page, userName,  isFollow, count}))
-    }, [userName, isFollow, count, page])
+    // useEffect(() => {
+    //     dispatch(profileActivators.getUser({page, userName,  isFollow, count}))
+    // }, [userName, isFollow, count, page])
 
     return (
         <div className={s.friendsPage}>
@@ -30,7 +35,9 @@ export const FriendsPage: React.FC<FriendsPagePropsType> = ({state}) => {
                 <PaginatorWrapper clickPageCallBack={setPage}
                                   page={page}
                                   count={count}
-                                  state={state}
+                                  users={users}
+                                  currentPage={currentPage}
+
                 />
             </div>
 
@@ -60,9 +67,9 @@ export const FriendsPage: React.FC<FriendsPagePropsType> = ({state}) => {
 
             </div>
 
-            <div className={s.friendList}><FriendList state={state}/>
+            <div className={s.friendList}><FriendList users={users}/>
 
             </div>
         </div>
     )
-}
+})

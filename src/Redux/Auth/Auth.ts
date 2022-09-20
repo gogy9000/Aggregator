@@ -3,6 +3,7 @@ import {authApi, AuthDataType, DataType, loginDataType} from "../../Api/Api";
 import {actionsApp, appWorkers, appActivators} from "../AppReducer/AppReducer";
 import {call, put, take, takeEvery, takeLatest} from 'redux-saga/effects'
 import {AxiosResponse, AxiosError} from "axios";
+import {errorsInterceptor} from "../../utils/ErrorsInterceptor/ErrorsInterceptor";
 
 
 export type   authStateType = {
@@ -65,11 +66,10 @@ export const authWorkers = {
                 yield put(actionsApp.toggleIsFetching(false))
                 return response
             } else {
-                yield put(actionsAuth.setErrorLog({["error"]: response.data.messages[0]}))
+                yield call(errorsInterceptor,response.data.messages)
             }
         }catch (e) {
-            let err = e as AxiosError
-            yield put(actionsAuth.setErrorLog({["error"]: err.message}))
+            yield call(errorsInterceptor,e)
         }
 
     },
@@ -80,11 +80,10 @@ export const authWorkers = {
             if (res.data.resultCode === 0) {
                 yield put(appActivators.initializeApp())
             } else {
-                yield put(actionsAuth.setErrorLog({["error"]: res.data.messages[0]}))
+                yield call(errorsInterceptor,res.data.messages)
             }
         } catch (e) {
-            let err = e as AxiosError
-            yield put(actionsAuth.setErrorLog({["error"]: err.message}))
+            yield call(errorsInterceptor,e)
         }
     },
 
@@ -94,12 +93,10 @@ export const authWorkers = {
             if (res.data.resultCode === 0) {
                 yield put(actionsAuth.setAuthData(null, null, null, false))
             } else {
-                console.log(res.data.messages)
-                yield put(actionsAuth.setErrorLog({["error"]: res.data.messages[0]}))
+                yield call(errorsInterceptor,res.data.messages)
             }
         } catch (e) {
-            let err = e as AxiosError
-            yield put(actionsAuth.setErrorLog({["error"]: err.message}))
+            yield call(errorsInterceptor,e)
         }
     }
 
