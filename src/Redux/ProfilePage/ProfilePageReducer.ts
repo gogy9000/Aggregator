@@ -103,7 +103,14 @@ export enum EnumProfile {
     addIdInFetchingList = 'PROFILE/ADD-ID-IN-FETCHING-LIST/ACTION',
     removeIdInFetchingList = 'PROFILE/REMOVE-ID-IN-FETCHING-LIST/ACTION'
 }
-
+export enum ProfileConst {
+    getProfileStatus = "PROFILE/GET_PROFILE_STATUS/ACTIVATOR",
+    updateProfileStatus = "PROFILE/UPDATE_PROFILE_STATUS/ACTIVATOR",
+    getUser = "PROFILE/GET_USER/ACTIVATOR",
+    getProfile = "PROFILE/GET_PROFILE/ACTIVATOR",
+    follow = "PROFILE/FOLLOW/ACTIVATOR",
+    unFollow = "PROFILE/UNFOLLOW/ACTIVATOR"
+}
 
 export const actionsProfile = {
     getProfile: (profile: ProfileType) => ({type: EnumProfile.getProfile, profile} as const),
@@ -119,24 +126,17 @@ export const actionsProfile = {
     removeIdInFetchingList: (id: number) => ({type: EnumProfile.removeIdInFetchingList, id} as const)
 }
 
-export enum profileConst {
-    getProfileStatus = "PROFILE/GET_PROFILE_STATUS/ACTIVATOR",
-    updateProfileStatus = "PROFILE/UPDATE_PROFILE_STATUS/ACTIVATOR",
-    getUser = "PROFILE/GET_USER/ACTIVATOR",
-    getProfile = "PROFILE/GET_PROFILE/ACTIVATOR",
-    follow = "PROFILE/FOLLOW/ACTIVATOR",
-    unFollow = "PROFILE/UNFOLLOW/ACTIVATOR"
-}
+
 
 export const profileActivators = {
-    getProfileStatus: (userId: number) => ({type: profileConst.getProfileStatus, userId} as const),
-    updateProfileStatus: (newStatus: string) => ({type: profileConst.updateProfileStatus, newStatus} as const),
+    getProfileStatus: (userId: number) => ({type: ProfileConst.getProfileStatus, userId} as const),
+    updateProfileStatus: (newStatus: string) => ({type: ProfileConst.updateProfileStatus, newStatus} as const),
     getUser: (payload?: { page?: number, userName?: string, isFollow?: string, count?: number }) => (
-        {type: profileConst.getUser, payload} as const),
-    getProfile: (userID: number) => ({type: profileConst.getProfile, userID} as const),
-    follow: (payload: { userId: number }) => ({type: profileConst.follow, payload} as const),
+        {type: ProfileConst.getUser, payload} as const),
+    getProfile: (userID: number) => ({type: ProfileConst.getProfile, userID} as const),
+    follow: (payload: { userId: number }) => ({type: ProfileConst.follow, payload} as const),
     unFollow: (payload: { userId: number }) => ({
-        type: profileConst.unFollow,
+        type: ProfileConst.unFollow,
         payload
     } as const),
 }
@@ -229,12 +229,12 @@ export const profileWorkers = {
 }
 
 export function* profileWatcher() {
-    yield takeEvery(profileConst.getProfileStatus, profileWorkers.getProfileStatus)
-    yield takeEvery(profileConst.updateProfileStatus, profileWorkers.updateProfileStatus)
-    yield takeEvery(profileConst.getUser, profileWorkers.getUsers)
-    yield takeEvery(profileConst.getProfile, profileWorkers.getProfile)
-    yield takeEvery(profileConst.follow, profileWorkers.follow)
-    yield takeEvery(profileConst.unFollow, profileWorkers.unFollow)
+    yield takeEvery(ProfileConst.getProfileStatus, profileWorkers.getProfileStatus)
+    yield takeEvery(ProfileConst.updateProfileStatus, profileWorkers.updateProfileStatus)
+    yield takeEvery(ProfileConst.getUser, profileWorkers.getUsers)
+    yield takeEvery(ProfileConst.getProfile, profileWorkers.getProfile)
+    yield takeEvery(ProfileConst.follow, profileWorkers.follow)
+    yield takeEvery(ProfileConst.unFollow, profileWorkers.unFollow)
 }
 
 
