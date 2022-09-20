@@ -19,9 +19,9 @@ export const FriendsPage: React.FC<FriendsPagePropsType> = ({state}) => {
     const changeUserName = (e: ChangeEvent<HTMLInputElement>) => {
         setUserName(e.currentTarget.value)
     }
-    useEffect(() => {
-        dispatch(profileActivators.getUser({page, userName,  isFollow, count}))
-    }, [userName, isFollow, count, page])
+    // useEffect(() => {
+    //     dispatch(profileActivators.getUser({page, userName,  isFollow, count}))
+    // }, [userName, isFollow, count, page])
 
     return (
         <div className={s.friendsPage}>

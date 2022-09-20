@@ -165,10 +165,16 @@ export const profileWorkers = {
 
     },
     getProfile: function* (action: ReturnType<typeof profileActivators.getProfile>) {
-        yield put(actionsApp.toggleIsFetching(true))
-        const response: AxiosResponse<ProfileType> = yield call(APIProfile.getProfile, action.userID)
-        yield put(actionsProfile.getProfile(response.data))
-        yield put(actionsApp.toggleIsFetching(false))
+        try {
+            yield put(actionsApp.toggleIsFetching(true))
+            const response: AxiosResponse<ProfileType> = yield call(APIProfile.getProfile, action.userID)
+            yield put(actionsProfile.getProfile(response.data))
+        }catch (e) {
+            yield call(errorsInterceptor,e)
+        }
+        finally {
+            yield put(actionsApp.toggleIsFetching(false))
+        }
     },
     follow: function* (action: ReturnType<typeof profileActivators.follow>) {
         action.payload.setDisabledButton(true)

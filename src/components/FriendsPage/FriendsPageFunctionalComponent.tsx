@@ -13,9 +13,6 @@ export const FriendsPageFunctionalComponent = compose(Redirect, React.memo) (() 
         const initState = useSelector((state: AppStateType) => state.AppReducer)
 
 
-
-
-
         return (
             <>{initState.isFetching ?
                 <div>load!!!</div>

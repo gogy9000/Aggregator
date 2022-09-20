@@ -25,7 +25,7 @@ export type UserDataType={
 const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
-    headers: {"API-KEY": "c73c3d73-c86d-4ccb-b780-4d18cdc9edd5"}
+    headers: {"API-KEY": "1fb0efe7-1c1f-46ce-bb74-74ed02f7875f"}
 })
 
 export const userApi = {

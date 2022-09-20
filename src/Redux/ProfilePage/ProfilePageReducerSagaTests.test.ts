@@ -1,5 +1,5 @@
 import {actionsProfile, profileConst, profileWorkers} from "./ProfilePageReducer";
-import {APIProfile, DataType, userApi, UsersDataType} from "../../Api/Api";
+import {APIProfile, DataType, ProfileType, userApi, UsersDataType} from "../../Api/Api";
 import {call, put} from "redux-saga/effects";
 import {AxiosResponse} from "axios";
 import {errorsInterceptor} from "../../utils/ErrorsInterceptor/ErrorsInterceptor";
@@ -100,4 +100,31 @@ describe("getUsers",()=>{
         expect(gen.throw(error).value).toEqual(call(errorsInterceptor,error))
         expect(gen.next().value).toEqual(put(actionsApp.toggleIsFetching(false)))
     })
+})
+describe("getProfile",()=>{
+    let gen:Generator
+    let response:AxiosResponse<ProfileType>
+    let userID:number
+    beforeEach(()=>{
+        userID=0
+        gen=profileWorkers.getProfile({type: profileConst.getProfile, userID})
+        response={data:{userId:userID}} as unknown as AxiosResponse<ProfileType>
+    })
+    it("getProfile should work in the case of a good response",()=>{
+        expect(gen.next().value).toEqual(put(actionsApp.toggleIsFetching(true)))
+        expect(gen.next().value).toEqual(call(APIProfile.getProfile, userID))
+        expect(gen.next(response).value).toEqual(put(actionsProfile.getProfile(response.data)))
+        expect(gen.next().value).toEqual(put(actionsApp.toggleIsFetching(false)))
+    })
+    it("getProfile should work in the case of a catch error",()=>{
+        expect(gen.next().value).toEqual(put(actionsApp.toggleIsFetching(true)))
+        expect(gen.next().value).toEqual(call(APIProfile.getProfile, userID))
+        let error = new Error("some error");
+        expect(gen.throw(error).value).toEqual(call(errorsInterceptor,error))
+        expect(gen.next().value).toEqual(put(actionsApp.toggleIsFetching(false)))
+    })
+})
+describe("follow",()=>{
+    let gen:Generator
+    let response:AxiosResponse
 })
