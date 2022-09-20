@@ -33,9 +33,9 @@ export const userApi = {
         `users`,{params:payload}).then((res:AxiosResponse<UsersDataType>)=> res)}
 
 export const followApi = {
-    followUser:(userId: number ) => instance.post(`/follow/${userId}`),
-    unfollowUser: (userId: number) => instance.delete(`follow/${userId}`),
-    isFollowUser:(userId: number)=>instance.get(`follow/${userId}`)
+    followUser:(userId: number ) => instance.post<DataType<{}>>(`/follow/${userId}`),
+    unfollowUser: (userId: number) => instance.delete<DataType<{}>>(`follow/${userId}`),
+    isFollowUser:(userId: number)=>instance.get<boolean>(`follow/${userId}`)
 }
 
 export const APIProfile = {

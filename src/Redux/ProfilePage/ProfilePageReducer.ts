@@ -187,6 +187,8 @@ export const profileWorkers = {
        }catch (e) {
             const err =e as AxiosError
            console.log(err.response)
+
+       }finally {
            action.payload.setDisabledButton(false)
        }
 

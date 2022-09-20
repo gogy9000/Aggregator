@@ -1,36 +1,17 @@
-import React, {useState} from "react";
-import {FriendDescriptionBlock} from "./FriendDescriptionBlock";
-import {profileActivators, stateProfilePageType, UserObjectType,} from "../../Redux/ProfilePage/ProfilePageReducer";
-import {useDispatch} from "react-redux";
+import React, {memo, useMemo} from "react";
 import {UserDataType} from "../../Api/Api";
+import {MappedUsers} from "./MappedUsers";
 
 type FriendListType = {
-    state: stateProfilePageType
+    users: Array<UserDataType>
 }
 
-export const FriendList: React.FC<FriendListType> = ({state}) => {
+export const FriendList: React.FC<FriendListType> = memo( ({users}) => {
 
-    const mappedUsers = state.users.map((user: UserDataType) => <MappedUsers key={user.id} user={user}/>)
+    const mappedUsers = useMemo(()=>
+        users.map((user: UserDataType) => <MappedUsers key={user.id} user={user}/>),[users])
 
     return <div>{mappedUsers}</div>
-}
+})
 
 
-type MappedUsersPropsType = { user: UserDataType }
-
-export const MappedUsers: React.FC<MappedUsersPropsType> = ({user}) => {
-
-    const [isFetchingRequest, setIsFetchingRequest] = useState(false)
-    const dispatch=useDispatch()
-
-    const follow = () => dispatch(profileActivators.follow({userId:user.id, setDisabledButton:setIsFetchingRequest}))
-
-    const unFollow = () => dispatch(profileActivators.unFollow({userId:user.id, setDisabledButton:setIsFetchingRequest}))
-
-    return (
-        <FriendDescriptionBlock key={user.id}
-                                user={user}
-                                isFetchingRequest={isFetchingRequest}
-                                follow={follow}
-                                unfollow={unFollow}/>)
-}
