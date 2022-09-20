@@ -1,5 +1,5 @@
 import {actionsProfile, profileConst, profileWorkers} from "./ProfilePageReducer";
-import {APIProfile, DataType, ProfileType, userApi, UsersDataType} from "../../Api/Api";
+import {APIProfile, DataType, followApi, ProfileType, userApi, UsersDataType} from "../../Api/Api";
 import {call, put} from "redux-saga/effects";
 import {AxiosResponse} from "axios";
 import {errorsInterceptor} from "../../utils/ErrorsInterceptor/ErrorsInterceptor";
@@ -126,5 +126,66 @@ describe("getProfile",()=>{
 })
 describe("follow",()=>{
     let gen:Generator
-    let response:AxiosResponse
+    let response:AxiosResponse<DataType<{}>>
+    let userId:number
+    beforeEach(()=>{
+        userId=0
+        gen=profileWorkers.follow({type: profileConst.follow, payload: {userId}})
+        response={data:{resultCode:0}} as unknown as AxiosResponse<DataType<{}>>
+    })
+    it("follow should work in the case of a good response",()=>{
+        expect(gen.next().value).toEqual(put(actionsProfile.addIdInFetchingList(userId)))
+        expect(gen.next().value).toEqual(call(followApi.followUser, userId))
+        expect(gen.next(response).value).toEqual(put(actionsProfile.follow(userId)))
+        expect(gen.next().value).toEqual(put(actionsProfile.removeIdInFetchingList(userId)))
+    })
+    it("follow should work in the case of a no good response",()=>{
+        expect(gen.next().value).toEqual(put(actionsProfile.addIdInFetchingList(userId)))
+        expect(gen.next().value).toEqual(call(followApi.followUser, userId))
+        response.data.resultCode=1
+        response.data.messages=["no good"]
+        expect(gen.next(response).value).toEqual(call(errorsInterceptor, response.data.messages))
+        expect(gen.next().value).toEqual(put(actionsProfile.removeIdInFetchingList(userId)))
+    })
+
+    it("follow should work in the case of a catch error",()=>{
+        expect(gen.next().value).toEqual(put(actionsProfile.addIdInFetchingList(userId)))
+        expect(gen.next().value).toEqual(call(followApi.followUser, userId))
+        let error = new Error("some error");
+        expect(gen.throw(error).value).toEqual(call(errorsInterceptor, error))
+        expect(gen.next().value).toEqual(put(actionsProfile.removeIdInFetchingList(userId)))
+    })
+})
+
+describe("unfollow",()=>{
+    let gen:Generator
+    let response:AxiosResponse<DataType<{}>>
+    let userId:number
+    beforeEach(()=>{
+        userId=0
+        gen=profileWorkers.unFollow({type: profileConst.unFollow, payload: {userId}})
+        response={data:{resultCode:0}} as unknown as AxiosResponse<DataType<{}>>
+    })
+    it("unfollow should work in the case of a good response",()=>{
+        expect(gen.next().value).toEqual(put(actionsProfile.addIdInFetchingList(userId)))
+        expect(gen.next().value).toEqual(call(followApi.unfollowUser, userId))
+        expect(gen.next(response).value).toEqual(put(actionsProfile.unfollow(userId)))
+        expect(gen.next().value).toEqual(put(actionsProfile.removeIdInFetchingList(userId)))
+    })
+    it("follow should work in the case of a no good response",()=>{
+        expect(gen.next().value).toEqual(put(actionsProfile.addIdInFetchingList(userId)))
+        expect(gen.next().value).toEqual(call(followApi.unfollowUser, userId))
+        response.data.resultCode=2
+        response.data.messages=["no good"]
+        expect(gen.next(response).value).toEqual(call(errorsInterceptor, response.data.messages))
+        expect(gen.next().value).toEqual(put(actionsProfile.removeIdInFetchingList(userId)))
+    })
+
+    it("follow should work in the case of a catch error",()=>{
+        expect(gen.next().value).toEqual(put(actionsProfile.addIdInFetchingList(userId)))
+        expect(gen.next().value).toEqual(call(followApi.unfollowUser, userId))
+        let error = new Error("some error");
+        expect(gen.throw(error).value).toEqual(call(errorsInterceptor, error))
+        expect(gen.next().value).toEqual(put(actionsProfile.removeIdInFetchingList(userId)))
+    })
 })

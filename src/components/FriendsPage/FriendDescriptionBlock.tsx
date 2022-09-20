@@ -1,34 +1,41 @@
 import s from "./FriendList.module.css";
 import {defaultPhoto} from "../../photo/photo";
-import React from "react";
+import React, {FC, memo} from "react";
 import {NavLink} from "react-router-dom";
+import {UserDataType} from "../../Api/Api";
 
-export const FriendDescriptionBlock = (props: any) => {
+type FriendDescriptionBlockPropsType = {
+    user: UserDataType
+    isFetchingRequest?: boolean
+    follow: () => void
+    unfollow: () => void
+}
+export const FriendDescriptionBlock: FC<FriendDescriptionBlockPropsType> = memo((props) => {
+    const {user, follow, unfollow, isFetchingRequest} = props
 
     return (
         <div className={s.FriendDescriptionBlock}>
             <div className={s.FriendPhoto}>
                 <img className={s.FriendPhotoImg}
-                     src={props.user.photos.small === null ? defaultPhoto : props.user.photos.small}
+                     src={user.photos.small === null ? defaultPhoto : user.photos.small}
                      alt={'logo'}/>
             </div>
             <div>
                 <div className={s.FriendName}>
-                    <NavLink to={`/profile/${props.user.id}`}>{props.user.name}</NavLink>
+                    <NavLink to={`/profile/${user.id}`}>{user.name}</NavLink>
 
                 </div>
                 <div className={s.ButtonFollowUnFollow}>
-                    {props.user.followed
-                        ? <button onClick={props.unfollow} disabled={props.isFetchingRequest}>
+                    {user.followed
+                        ? <button onClick={unfollow} disabled={isFetchingRequest}>
                             unfollow
                         </button>
-                        : <button onClick={props.follow} disabled={props.isFetchingRequest}>
+                        : <button onClick={follow} disabled={isFetchingRequest}>
                             follow
                         </button>
                     }
                 </div>
             </div>
         </div>
-
     )
-}
+})

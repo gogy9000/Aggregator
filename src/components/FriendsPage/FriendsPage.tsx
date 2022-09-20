@@ -19,7 +19,6 @@ export const FriendsPage =compose(Redirect, React.memo)( () => {
 
     const users=useSelector((state:AppStateType) => state.profilePage.users)
     const currentPage=useSelector((state:AppStateType) => state.profilePage.currentPage)
-
     const dispatch = useDispatch()
 
     const changeUserName = (e: ChangeEvent<HTMLInputElement>) => {
