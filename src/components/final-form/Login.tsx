@@ -5,7 +5,7 @@ import {useDispatchApp} from "../../customHooks/CustomHooks";
 import {authWorkers, sagasAuthActions} from "../../Redux/Auth/Auth";
 import {composeValidators, minValue, mustBeNumber, required} from "../../utils/validators/Validators";
 import {useSelector} from "react-redux";
-import {AppStateType} from "../../Redux/Redux-store";
+import {AppRootStateType} from "../../Redux/Redux-store";
 import {Navigate} from 'react-router-dom';
 import {FORM_ERROR} from "final-form";
 
@@ -13,8 +13,8 @@ import {FORM_ERROR} from "final-form";
 
 
 export const Login = () => {
-    const isAuth = useSelector((state: AppStateType) => state.auth.isAuth)
-    const errorLog = useSelector((state: AppStateType) => state.auth.errorLog)
+    const isAuth = useSelector((state: AppRootStateType) => state.auth.isAuth)
+    const errorLog = useSelector((state: AppRootStateType) => state.auth.errorLog)
 
     const dispatch = useDispatchApp()
 

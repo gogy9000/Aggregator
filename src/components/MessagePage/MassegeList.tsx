@@ -1,11 +1,12 @@
 import React, {FC} from "react";
 import {useSelector} from "react-redux";
-import {AppStateType} from "../../Redux/Redux-store";
+import {AppRootStateType} from "../../Redux/Redux-store";
 import {MessageBlock} from "./MessageBlock";
-import {MessagesData} from "./messagePage";
+import {MessageEntity} from "../../Api/WebSocketAPI";
+
 
 type MassageListPropsType={
-    messagesData:MessagesData[]
+    messagesData:MessageEntity[]
 }
 export const MassageList:FC<MassageListPropsType> = ({messagesData}) => {
 

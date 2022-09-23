@@ -1,4 +1,4 @@
-import {AppDispatchType, AppStateType, AppThunk, InferActionsTypes, UnionActionsType} from "../Redux-store";
+import {AppDispatchType, AppRootStateType, AppThunk, InferActionsTypes, UnionActionsType} from "../Redux-store";
 import {actionsApp} from "../AppReducer/AppReducer";
 import {followApi, APIProfile, userApi, ProfileType, UsersDataType, UserDataType, DataType} from "../../Api/Api";
 import {call, put, takeEvery} from "redux-saga/effects";

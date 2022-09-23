@@ -2,15 +2,15 @@ import {ProfilePage} from "./ProfilePage";
 import React, {useEffect} from "react";
 import {Navigate, useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
-import {AppStateType} from "../../Redux/Redux-store";
+import {AppRootStateType} from "../../Redux/Redux-store";
 import {profileActivators} from "../../Redux/ProfilePage/ProfilePageReducer";
 import {useDispatchApp} from "../../customHooks/CustomHooks";
 
 
 export const ProfilePageContainerFC =  React.memo( () => {
 
-    let id = useSelector((state: AppStateType) => state.auth.id)
-    let isFetching = useSelector((state: AppStateType) => state.AppReducer.isFetching)
+    let id = useSelector((state: AppRootStateType) => state.auth.id)
+    let isFetching = useSelector((state: AppRootStateType) => state.AppReducer.isFetching)
 
     const dispatch = useDispatchApp()
 

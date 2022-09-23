@@ -1,11 +1,11 @@
 import React, {ChangeEvent} from "react";
 import {compose, Dispatch} from "redux";
 import {connect, DispatchProp} from "react-redux";
-import {AppDispatchType, AppStateType} from "../../Redux/Redux-store";
+import {AppDispatchType, AppRootStateType} from "../../Redux/Redux-store";
 import { profileActivators} from "../../Redux/ProfilePage/ProfilePageReducer";
 
 type ProfileStatusType = {
-    state: AppStateType
+    state: AppRootStateType
     dispatch:AppDispatchType
 }
 type ProfileStatusStateType = {
@@ -78,7 +78,7 @@ export class ProfileStatusClass extends React.Component<ProfileStatusType, Profi
     }
 }
 
-const mapStateToProps = (state: AppStateType) => ({
+const mapStateToProps = (state: AppRootStateType) => ({
     state: state
 })
 
