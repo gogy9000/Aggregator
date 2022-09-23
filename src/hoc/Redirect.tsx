@@ -1,12 +1,12 @@
 import {useSelector} from "react-redux";
-import {AppStateType} from "../Redux/Redux-store";
+import {AppRootStateType} from "../Redux/Redux-store";
 import {Navigate} from "react-router-dom";
 import React from "react";
 
 export const Redirect = (WrappedComponent: any) => {
 
     const Foo = (props: any) => {
-        let isAuth = useSelector((state: AppStateType) => state.auth.isAuth)
+        let isAuth = useSelector((state: AppRootStateType) => state.auth.isAuth)
 
         return (
             <>

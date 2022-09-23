@@ -2,7 +2,7 @@ import React from "react";
 import {ProfilePage} from "./ProfilePage";
 
 import {connect} from "react-redux";
-import {AppStateType} from "../../Redux/Redux-store";
+import {AppRootStateType} from "../../Redux/Redux-store";
 import {withRouter} from "../../hoc/WithRouter";
 import {compose} from "redux";
 
@@ -23,7 +23,7 @@ export class ProfilePageApiContainer extends React.Component<any, any> {
 
 }
 
-const mapStateToProps = (state: AppStateType) => (
+const mapStateToProps = (state: AppRootStateType) => (
 
     {state: state.profilePage})
 

@@ -1,11 +1,11 @@
-import {AppStateType} from "./Redux-store";
+import {AppRootStateType} from "./Redux-store";
 
-export const getIsFetching = (state:AppStateType) => {
+export const getIsFetching = (state:AppRootStateType) => {
   return state.AppReducer.isFetching
 }
-export const getProfile = (state:AppStateType) => {
+export const getProfile = (state:AppRootStateType) => {
   return state.profilePage.profile
 }
-export const getUsers = (state:AppStateType) => {
+export const getUsers = (state:AppRootStateType) => {
   return state.profilePage.users
 }

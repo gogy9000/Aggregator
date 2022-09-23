@@ -6,7 +6,7 @@ import {FriendList} from "./FriendList";
 import {useDispatch, useSelector} from "react-redux";
 import {compose} from "redux";
 import {Redirect} from "../../hoc/Redirect";
-import {AppStateType} from "../../Redux/Redux-store";
+import {AppRootStateType} from "../../Redux/Redux-store";
 
 
 
@@ -17,8 +17,8 @@ export const FriendsPage =compose(Redirect, React.memo)( () => {
     const [count, setCount] = useState<number>(3)
     const [page, setPage] = useState<number>(1)
 
-    const users=useSelector((state:AppStateType) => state.profilePage.users)
-    const currentPage=useSelector((state:AppStateType) => state.profilePage.currentPage)
+    const users=useSelector((state:AppRootStateType) => state.profilePage.users)
+    const currentPage=useSelector((state:AppRootStateType) => state.profilePage.currentPage)
     const dispatch = useDispatch()
 
     const changeUserName = (e: ChangeEvent<HTMLInputElement>) => {

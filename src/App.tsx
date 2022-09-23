@@ -14,12 +14,12 @@ import {useDispatchApp} from "./customHooks/CustomHooks";
 import {appActivators} from "./Redux/AppReducer/AppReducer";
 import {Login} from "./components/final-form/Login";
 import {useSelector} from "react-redux";
-import {AppStateType} from "./Redux/Redux-store";
+import {AppRootStateType} from "./Redux/Redux-store";
 import {FriendsPage} from "./components/FriendsPage/FriendsPage";
 
 
 const App = () => {
-    const isInitializedApp = useSelector((state: AppStateType) => state.AppReducer.isInitializedApp)
+    const isInitializedApp = useSelector((state: AppRootStateType) => state.AppReducer.isInitializedApp)
     const dispatch = useDispatchApp()
 
     useEffect(() => {

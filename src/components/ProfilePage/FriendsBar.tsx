@@ -3,7 +3,7 @@ import {NavItem} from "../NavBar/NavItem/NavItem";
 import {NavLink} from "react-router-dom";
 import {avaPhoto} from "../../photo/photo";
 import {connect} from "react-redux";
-import {AppStateType} from "../../Redux/Redux-store";
+import {AppRootStateType} from "../../Redux/Redux-store";
 import {Component} from "react";
 
 import {UserDataType} from "../../Api/Api";
@@ -35,7 +35,7 @@ export class FriendsBarClass extends Component<FriendsBarClassPropsType> {
     }
 }
 
-const mapStateToProps = (state: AppStateType) => ({
+const mapStateToProps = (state: AppRootStateType) => ({
     users: getUsers(state)
 })
 

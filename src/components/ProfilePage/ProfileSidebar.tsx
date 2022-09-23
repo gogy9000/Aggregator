@@ -4,7 +4,7 @@ import {PhotoBar} from "./PhotoBar";
 import {connect} from "react-redux";
 import {AvatarBlock} from "./AvatarBlock";
 import React from "react";
-import {AppStateType} from "../../Redux/Redux-store";
+import {AppRootStateType} from "../../Redux/Redux-store";
 import {compose} from "redux";
 import {ProfileStatus} from "./ProfileStatus";
 import {getIsFetching, getProfile} from "../../Redux/Selectors";
@@ -44,7 +44,7 @@ type ProfileSidebarType = {
     }
 }
 
-const mapStateToProps = (state: AppStateType) => {
+const mapStateToProps = (state: AppRootStateType) => {
 
     return {
         isFetching: getIsFetching(state),

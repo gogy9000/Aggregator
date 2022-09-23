@@ -2,7 +2,7 @@ import s from "./ProfilePage.module.css";
 import {defaultPhoto} from "../../photo/photo";
 import React from "react";
 import {connect} from "react-redux";
-import {AppStateType} from "../../Redux/Redux-store";
+import {AppRootStateType} from "../../Redux/Redux-store";
 
 import {getProfile} from "../../Redux/Selectors";
 import {ProfileType} from "../../Api/Api";
@@ -24,7 +24,7 @@ class AvatarBlockClass extends React.Component<AvatarBlockPropsType,any> {
         )
     }
 }
-export const mapStateToProps = (state:AppStateType) => ({
+export const mapStateToProps = (state:AppRootStateType) => ({
   profile:getProfile(state)
 })
 
